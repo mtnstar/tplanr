@@ -13,13 +13,15 @@ Tourenmanager können sich einloggen um Touren und Materiallisten zu verwalten (
 
 Rollen: Admin, Tourmanager, Tourenteilnehmer (Anonym)
 
-Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an die Teilnehmer verschickt werden. Teilnehmer haben vorerst read-only access.
+Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an die Teilnehmer verschickt werden. Teilnehmer haben vorerst read-only access. Admins können Benutzer und deren Logins verwalten (CRUD)
 
 ### Tourenverwaltung und Etappen
 
 * Tourenmanager und Admins können Touren verwalten (CRUD)
-* Tour wird einer Sportart zugewiesen. Sportarten sind fix im System hinterlegt: Hochtouren Sommer, Skitouren, Mountainbike, Wandern
-* 
+* Tour wird einer Sportart zugewiesen. Sportarten sind fix im System hinterlegt: Hochtouren Sommer, Skitouren, Mountainbike, Wandern, Klettern
+* Tourenmanager können Sections einer Tour verwalten (CRUD)
+* Etappentypen: Transfer, Übernachtung, Etappe
+* Optional: Einer Etappe kann eine GPX Datei angehängt werden und eine Karte wird der Route wird via Swisstopo gerendert (nur CH)
 
 ### Materialliste
 
@@ -28,9 +30,9 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 * Materiallisten können als Vorlage abgespeichert werden
 * Teilnehmer können abhaken welche Gegenstände sie bereits eingepackt haben. Die Persistierung von welcher Tour welches Material bereits gepackt wurde erfolgt vorerst auf dem Endgerät im local storage
 * Admins können die global verfügbaren Items verwalten, Tourenmanager können eigene Items erstellen, es gibt auch tourenspezifische Items
-* Beim Zusammenstellen/Bearbeiten einer Materialliste werden beim Hinzufügen von Items dem Tpurenmanager Vorschläge gemacht (typeahead)
+* Beim Zusammenstellen/Bearbeiten einer Materialliste werden beim Hinzufügen von Items dem Tourenmanager Vorschläge gemacht (typeahead)
 * Es gibt auch global verfügbare Vorlagen für Materiallisten
-* Optional: Admins können benutzerspezifische Items und Vorlagen in global verfügbare umwandeln
+* Optional: Admins können benutzerspezifische Items und Vorlagen in global verfügbare umwandeln sowie Duplikate zusammenführen
 
 ### PDF Generierung
 
