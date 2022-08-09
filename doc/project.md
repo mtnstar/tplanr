@@ -27,6 +27,10 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 * Materiallisten haben vordefinierte Kategorien und gehören einer Sportart an
 * Materiallisten können als Vorlage abgespeichert werden
 * Teilnehmer können abhaken welche Gegenstände sie bereits eingepackt haben. Die Persistierung von welcher Tour welches Material bereits gepackt wurde erfolgt vorerst auf dem Endgerät im local storage
+* Admins können die global verfügbaren Items verwalten, Tourenmanager können eigene Items erstellen, es gibt auch tourenspezifische Items
+* Beim Zusammenstellen/Bearbeiten einer Materialliste werden beim Hinzufügen von Items dem Tpurenmanager Vorschläge gemacht (typeahead)
+* Es gibt auch global verfügbare Vorlagen für Materiallisten
+* Optional: Admins können benutzerspezifische Items und Vorlagen in global verfügbare umwandeln
 
 ### PDF Generierung
 
