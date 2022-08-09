@@ -15,8 +15,28 @@ Rollen: Admin, Tourmanager, Tourenteilnehmer (Anonym)
 
 Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an die Teilnehmer verschickt werden. Teilnehmer haben vorerst read-only access.
 
-### Touren
+### Tourenverwaltung und Etappen
+
+* Tourenmanager und Admins können Touren verwalten (CRUD)
+* Tour wird einer Sportart zugewiesen. Sportarten sind fix im System hinterlegt: Hochtouren Sommer, Skitouren, Mountainbike, Wandern
+* 
 
 ### Materialliste
 
-### Etappen
+* Tourenmanager können Materiallisten die an Touren hängen verwalten (CRUD)
+* Materiallisten haben vordefinierte Kategorien und gehören einer Sportart an
+* Materiallisten können als Vorlage abgespeichert werden
+* Teilnehmer können abhaken welche Gegenstände sie bereits eingepackt haben. Die Persistierung von welcher Tour welches Material bereits gepackt wurde erfolgt vorerst auf dem Endgerät im local storage
+
+### PDF Generierung
+
+* Clientseitiges Generieren der Materialliste als PDF
+* PDF enthält einen QR Code mit dem Link auf die Tour/Materialliste
+* Optional: Clientseitiges Generieren des Tourenbeschriebs und Etappen
+
+## Technisches
+
+### Backend
+
+* Ruby on Rails
+* 
