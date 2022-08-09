@@ -15,13 +15,19 @@ Rollen: Admin, Tourmanager, Tourenteilnehmer (Anonym)
 
 Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an die Teilnehmer verschickt werden. Teilnehmer haben vorerst read-only access. Admins können Benutzer und deren Logins verwalten (CRUD)
 
-### Tourenverwaltung und Etappen
+### Tourenverwaltung inkl. Etappen
 
 * Tourenmanager und Admins können Touren verwalten (CRUD)
 * Tour wird einer Sportart zugewiesen. Sportarten sind fix im System hinterlegt: Hochtouren Sommer, Skitouren, Mountainbike, Wandern, Klettern
 * Tourenmanager können Sections einer Tour verwalten (CRUD)
 * Etappentypen: Transfer, Übernachtung, Etappe
 * Optional: Einer Etappe kann eine GPX Datei angehängt werden und eine Karte wird der Route wird via Swisstopo gerendert (nur CH)
+
+![Touren Etappen](https://github.com/mtnstar/tplanr/raw/main/doc/prep/tplanr_wf1_touretappen.png)
+
+![Touren Teilnehmer](https://github.com/mtnstar/tplanr/raw/main/doc/prep/tplanr_wf2_teilnehmer.png)
+
+![Touren Overview](https://github.com/mtnstar/tplanr/raw/main/doc/prep/tplanr_wf4_touren.png)
 
 ### Materialliste
 
@@ -33,6 +39,8 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 * Beim Zusammenstellen/Bearbeiten einer Materialliste werden beim Hinzufügen von Items dem Tourenmanager Vorschläge gemacht (typeahead)
 * Es gibt auch global verfügbare Vorlagen für Materiallisten
 * Optional: Admins können benutzerspezifische Items und Vorlagen in global verfügbare umwandeln sowie Duplikate zusammenführen
+
+![Materialliste Teilnehmer](https://github.com/mtnstar/tplanr/raw/main/doc/prep/tplanr_wf3_matlistecheck.png)
 
 ### PDF Generierung
 
