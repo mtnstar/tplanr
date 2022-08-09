@@ -52,7 +52,7 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 
 ### Frontend
 
-* React/Redux
+* React/Redux mit Typescript
 * PDF lib wie z.B. react-pdf
 
 ### Backend
