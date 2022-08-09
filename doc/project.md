@@ -50,9 +50,16 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 
 ## Technisches
 
+### Frontend
+
+* React/Redux
+* PDF lib wie z.B. react-pdf
+
 ### Backend
 
 * Ruby on Rails
+* Anbindung Frontend via Websockets
+* evtl. teilweise Verwendung von REST wo viel sinnvoller (Typeahead, ...)
 
 
 #### ERD
