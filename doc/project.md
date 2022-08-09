@@ -13,7 +13,7 @@ Tourenmanager können sich einloggen um Touren und Materiallisten zu verwalten (
 
 Rollen: Admin, Tourmanager, Tourenteilnehmer (Anonym)
 
-Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an die Teilnehmer verschickt werden. Teilnehmer haben vorerst read-only access. Admins können Benutzer und deren Logins verwalten (CRUD)
+Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an die Teilnehmer verschickt werden. Teilnehmer haben vorerst read-only access. Admins können Tourenmanager und deren Logins verwalten (CRUD)
 
 ### Tourenverwaltung inkl. Etappen
 
