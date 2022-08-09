@@ -53,4 +53,9 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 ### Backend
 
 * Ruby on Rails
-* 
+
+
+#### ERD
+
+
+![ERD](https://github.com/mtnstar/tplanr/raw/main/doc/prep/tplanr_erd.png)
