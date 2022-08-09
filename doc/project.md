@@ -20,7 +20,7 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 * Tourenmanager und Admins können Touren verwalten (CRUD)
 * Tour wird einer Sportart zugewiesen. Sportarten sind fix im System hinterlegt: Hochtouren Sommer, Skitouren, Mountainbike, Wandern, Klettern
 * Tourenmanager können Sections einer Tour verwalten (CRUD)
-* Etappentypen: Transfer, Übernachtung, Etappe
+* Sectiontypes: Transfer, Übernachtung, Etappe
 * Optional: Einer Etappe kann eine GPX Datei angehängt werden und eine Karte wird der Route wird via Swisstopo gerendert (nur CH)
 
 ![Touren Etappen](https://github.com/mtnstar/tplanr/raw/main/doc/prep/tplanr_wf1_touretappen.png)
