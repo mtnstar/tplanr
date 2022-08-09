@@ -54,6 +54,7 @@ Für jede Tour wird eine URL mit einem unique Key erstellt. Dieser Link kann an 
 
 * React/Redux mit Typescript
 * PDF lib wie z.B. react-pdf
+* Vorbereitet für Mehrsprachigkeit (i18n lib), UI vorerst aber nur in Deutsch
 
 ### Backend
 
