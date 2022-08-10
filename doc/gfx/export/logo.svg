@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="192.01447mm"
+   height="100.00008mm"
+   viewBox="0 0 192.01447 100.00008"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.47206458"
+     inkscape:cx="345.29174"
+     inkscape:cy="224.54555"
+     inkscape:window-width="2160"
+     inkscape:window-height="1303"
+     inkscape:window-x="0"
+     inkscape:window-y="22"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect2697"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 | F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="20"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect2530"
+       is_visible="true"
+       lpeversion="1"
+       satellites_param="F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 | F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1 @ F,0,0,1,0,5.2916667,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="20"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-9.3036092,-17.930603)">
+    <path
+       id="rect2586"
+       style="fill:#2c5aa0;fill-opacity:1;stroke:none;stroke-width:0.387911;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 9.3036092,23.22227 v 89.41675 a 5.2916667,5.2916667 45 0 0 5.2916668,5.29167 h 89.416764 a 5.2916667,5.2916667 135 0 0 5.29167,-5.29167 V 23.22227 a 5.2916667,5.2916667 45 0 0 -5.29167,-5.291667 H 14.595276 A 5.2916667,5.2916667 135 0 0 9.3036092,23.22227 Z M 53.6163,31.970846 78.038282,90.34295 a 2.5578338,2.5578338 3.0940607 0 0 4.599105,0.2486 l 7.695121,-13.944404 a 3.8776982,3.8776982 172.65808 0 1 6.204312,-0.799405 l 1.024174,1.076404 a 7.2211139,7.2211139 82.65851 0 1 1.090831,8.466623 L 88.305336,104.13909 a 8.9642533,8.9642533 149.44632 0 1 -7.848442,4.63299 H 78.291648 A 7.9501304,7.9501304 33.648035 0 1 70.95756,103.89046 L 53.616322,62.442877 a 2.2139522,2.2139522 179.99976 0 0 -4.084801,1.7e-5 l -17.34081,41.447546 a 7.9500574,7.9500574 146.35172 0 1 -7.334047,4.88164 h -2.165759 a 3.5221972,3.5221972 56.351785 0 1 -3.249277,-4.88164 L 49.531511,31.97085 a 2.2139453,2.2139453 179.99995 0 1 4.084789,-4e-6 z"
+       inkscape:path-effect="#path-effect2697"
+       inkscape:original-d="M 9.3036092,17.930603 V 117.93069 H 109.30371 V 17.930603 Z m 42.2702918,9.15861 28.50678,68.13537 12.808533,-23.21047 8.319386,8.74366 -15.460039,28.014307 H 72.999981 L 51.573901,57.561253 30.148331,108.77208 H 17.399238 Z" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:19.7556px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="123.60117"
+       y="64.462738"
+       id="text4569"><tspan
+         sodipodi:role="line"
+         id="tspan4567"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:19.7556px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Bold';stroke-width:0.264583"
+         x="123.60117"
+         y="64.462738">tplanr</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="124.48354"
+       y="82.51712"
+       id="text4569-0"><tspan
+         sodipodi:role="line"
+         id="tspan4567-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Ubuntu;-inkscape-font-specification:Ubuntu;stroke-width:0.264583"
+         x="124.48354"
+         y="82.51712">plan | tour | njoy</tspan></text>
+  </g>
+</svg>
