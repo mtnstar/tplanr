@@ -1,3 +1,5 @@
+<img src="https://github.com/mtnstar/tplanr/raw/main/doc/gfx/export/logo.svg" width="300" />
+
 # tplanr - tourenplanungs web app - Grobkonzept
 
 Für Skitouren, Hochtouren, Biketouren, usw. wird für die Information an die Teilnehmer oft ein Worddokument erstellt. Dies beinhaltet Informationen wie eine Materialliste, Tourenbeschrieb, Übernachtungsinfos, Treffpunkt, Kosten usw. und wird in der Regel als PDF per E-Mail an die Teilnehmer verschickt.
