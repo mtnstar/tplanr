@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  rails:
+    image: ruby:3.0
+    user: "${UID:-1000}"
+    tty: true
+    stdin_open: true
+    working_dir: /myapp
+    command: rails s -b 0.0.0.0
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/myapp
+      - bundler_cache:/usr/local/bundle
+volumes:
+  bundler_cache:
