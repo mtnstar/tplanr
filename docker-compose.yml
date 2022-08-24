@@ -18,11 +18,11 @@ services:
     tty: true
     stdin_open: true
     working_dir: /myapp
-    network_mode: host
     environment:
       - PORT=4200
     ports:
       - 4200:4200
+    command: npm start
     volumes:
       - ./frontend:/myapp
       - npm_cache:/myapp/node_modules
