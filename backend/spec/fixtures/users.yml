@@ -5,7 +5,7 @@ admin:
   encrypted_password: <%= Devise::Encryptor.digest(User, 'p') %>
   admin: true
 
-leiter:
+guide:
   first_name: Gabe
   last_name: Walker
   email: leiter@example.com
