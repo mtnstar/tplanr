@@ -18,4 +18,4 @@ def load_fixtures
   ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, fixture_files)
 end
 
-load_fixtures
+load_fixtures if Rails.env.development?
