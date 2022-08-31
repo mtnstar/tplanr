@@ -1,0 +1,12 @@
+dom:
+  label: Dom 4545m 
+  sport_kind: alpine_summer
+  user: guide
+  description: Besteigung des höchsten Schweizers
+  link: https://touren.example.com/42
+
+argentinian:
+  label: The Argentinian
+  sport_kind: mountain_bike
+  user: guide
+  description: Ein epic trail über den Col des Becs de Bosson
