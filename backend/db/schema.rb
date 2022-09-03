@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_070555) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_03_190123) do
+  create_table "item_categories", force: :cascade do |t|
+    t.string "label_de"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_de"], name: "index_item_categories_on_label_de"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "label_de", null: false
+    t.text "description_de"
+    t.integer "user_id"
+    t.integer "tour_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_de"], name: "index_items_on_label_de"
+    t.index ["tour_id"], name: "index_items_on_tour_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
   create_table "tours", force: :cascade do |t|
     t.text "description"
     t.string "link"
