@@ -1,4 +1,6 @@
-class ApplicationController < JSONAPI::ResourceController
+class ApplicationController < ActionController::Base
+
+  include JSONAPI::ActsAsResourceController
 
   # before_action :authenticate_user!
 
