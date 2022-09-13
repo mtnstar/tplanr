@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   rails:
-    image: ruby:3.0
+    image: timbru31/ruby-node:3.0-16
     user: "${UID:-1000}"
     tty: true
     stdin_open: true
@@ -12,6 +12,9 @@ services:
     volumes:
       - ./backend:/myapp
       - bundler_cache:/usr/local/bundle
+      - ./docker/rails/home:/home/developer
+    environment:
+      - HOME=/home/developer
   frontend:
     image: node:18
     user: "${UID:-1000}"
