@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Tours() {
+function ToursList() {
   return <p>tours</p>;
 }
 
-export default Tours;
+export default ToursList;
