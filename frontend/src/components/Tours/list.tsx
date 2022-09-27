@@ -1,7 +1,31 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 
-function ToursList() {
-  return <p>tours</p>;
+const queryClient = new QueryClient()
+
+export default function ToursList() {
+     return (
+       <QueryClientProvider client={queryClient}>
+        <Entries />
+       </QueryClientProvider>
+   )
 }
 
-export default ToursList;
+function Entries() {
+
+  const { isLoading, error, data } = useQuery('repoData', () =>
+     fetch('/api/tours').then(res =>
+       res.json()
+     )
+   )
+
+   if (isLoading) return null;
+
+   if (error) return null; 
+
+  const items: string[] = data.data.map((entry: any) => entry.attributes.label);
+
+   return (
+     <div>{items}</div>
+   )
+}
