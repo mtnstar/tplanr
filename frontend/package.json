@@ -44,5 +44,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://rails:3000"
+  "proxy": "http://rails:3000",
+  "devDependencies": {
+    "sass": "^1.55.0"
+  }
 }

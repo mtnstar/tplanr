@@ -6,11 +6,13 @@ import Container from 'react-bootstrap/Container';
 function Layout() {
   return (
     <>
-      <Navbar bg="light" className="mb-3">
+      <Navbar bg="dark" className="mb-3">
         <Container fluid>
           <Navbar.Brand href="#">Tplanr</Navbar.Brand>
         </Container>
       </Navbar>
+
+      <button className="btn btn-primary">Test</button>
 
       <Outlet />
     </>
