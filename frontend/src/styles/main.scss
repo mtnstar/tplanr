@@ -7,8 +7,7 @@ $dark: #002e75;
 
 // custom theme colours
 $custom-theme-colors: (
-  "altlight": #f2ebfa,
-  "altdark": #522192
+  "dark": #0038a8,
 );
 
 // merge the maps to add new theme colors
@@ -16,3 +15,5 @@ $theme-colors: map-merge($custom-theme-colors, $theme-colors);
 
 // import bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
