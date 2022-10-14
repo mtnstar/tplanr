@@ -1,7 +1,8 @@
 import React from 'react';
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
+import SportKindSelector from './Nav/sport_kind_selector';
 
 function Layout() {
   return (
@@ -18,8 +19,15 @@ function Layout() {
             />{' '}
             tplanr
           </Navbar.Brand>
+          <SportKindSelector />
         </Container>
       </Navbar>
+
+      <Container fluid="md">
+        <Navbar bg="light" >
+          Secondary
+        </Navbar>
+      </Container>
 
       <Container fluid="md">
         <Outlet />
