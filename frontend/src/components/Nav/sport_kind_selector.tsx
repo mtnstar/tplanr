@@ -1,9 +1,19 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
+import { SportKind } from '../../model/sport_kind';
+
+function Items() {
+  const { t, i18n } = useTranslation();
+  const items = SportKind.all.map((kind) =>
+    <Dropdown.Item href="#/action-1">
+      {t(kind.toString(), { keyPrefix: 'sport_kinds'})}
+    </Dropdown.Item>
+  );
+  return items;
+}
 
 function SportKindSelector() {
-  const { t, i18n } = useTranslation();
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -11,9 +21,7 @@ function SportKindSelector() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">{t('alpine_summer', { keyPrefix: 'sport_kinds'})}</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        {Items()}
       </Dropdown.Menu>
     </Dropdown>
   );
