@@ -1,15 +1,15 @@
 import React from 'react';
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import SportKindSelector from './Nav/sport_kind_selector';
+import SportKindSelector from './Nav/sport-kind-selector';
 
 function Layout() {
   return (
     <>
       <Navbar expand="md" bg="dark" className="mb-3" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Link to="/tours" className="navbar-brand">
             <img
               alt=""
               src="/images/logo.svg"
@@ -18,7 +18,7 @@ function Layout() {
               className="d-inline-block align-top"
             />{' '}
             tplanr
-          </Navbar.Brand>
+          </Link>
           <SportKindSelector />
         </Container>
       </Navbar>

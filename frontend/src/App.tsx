@@ -1,18 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ToursList from './components/Tours/list'
-import Layout from './components/layout'
+import { RouterProvider } from "react-router-dom";
 import './i18n';
+import router from './router';
 
 function App() {
   return (
-   <BrowserRouter>
-     <Routes>
-       <Route path="/" element={<Layout />}>
-         <Route index element={<ToursList />} />
-       </Route>
-     </Routes>
-   </BrowserRouter>
+    <RouterProvider router={router} />
   );
 }
 

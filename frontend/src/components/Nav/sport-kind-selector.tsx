@@ -6,7 +6,7 @@ import { SportKind } from '../../model/sport_kind';
 function Items() {
   const { t, i18n } = useTranslation();
   const items = SportKind.all.map((kind) =>
-    <Dropdown.Item href="#/action-1">
+    <Dropdown.Item href="#/action-1" key={kind.toString()}>
       {t(kind.toString(), { keyPrefix: 'sport_kinds'})}
     </Dropdown.Item>
   );
