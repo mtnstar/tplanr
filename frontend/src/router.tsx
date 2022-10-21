@@ -1,5 +1,5 @@
 import ToursList from './components/Tours/list'
-import Layout from './components/layout'
+import Main from './components/main'
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
@@ -10,7 +10,7 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Main />,
     children: [
       {
         path: "tours",

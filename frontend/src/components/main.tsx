@@ -3,8 +3,11 @@ import { Outlet, Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import SportKindSelector from './Nav/sport-kind-selector';
+import { SportKinds, SportKind } from '../model/sport-kind';
 
-function Layout() {
+function Main() {
+  const [sportKind, setSportKind] = React.useState<SportKind>(SportKinds[0]);
+
   return (
     <>
       <Navbar expand="md" bg="dark" className="mb-3" variant="dark">
@@ -19,7 +22,7 @@ function Layout() {
             />{' '}
             tplanr
           </Link>
-          <SportKindSelector />
+          <SportKindSelector sportKind={sportKind} onSwitchSportKind={setSportKind}  />
         </Container>
       </Navbar>
 
@@ -30,10 +33,11 @@ function Layout() {
       </Container>
 
       <Container fluid="md">
+        {sportKind}
         <Outlet />
       </Container>
     </>
   )
 }
 
-export default Layout;
+export default Main;
