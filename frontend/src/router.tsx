@@ -1,5 +1,5 @@
 import ToursList from './components/Tours/list'
-import Main from './components/main'
+import Main from './components/Main'
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {

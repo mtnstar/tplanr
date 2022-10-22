@@ -2,14 +2,16 @@ import React from 'react';
 import { Outlet, Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import SportKindSelector from './Nav/sport-kind-selector';
-import { SportKinds, SportKind } from '../model/sport-kind';
+import SportKindSelector from './Nav/SportKindSelector';
+import useSportKind from '../utils/hooks/useSportKind';
+import SportKindContext from '../utils/providers/SportKindContext';
 
 function Main() {
-  const [sportKind, setSportKind] = React.useState<SportKind>(SportKinds[0]);
+
+  const [sportKind, setSportKind] = useSportKind();
 
   return (
-    <>
+    <SportKindContext.Provider value={sportKind}>
       <Navbar expand="md" bg="dark" className="mb-3" variant="dark">
         <Container>
           <Link to="/tours" className="navbar-brand">
@@ -22,7 +24,7 @@ function Main() {
             />{' '}
             tplanr
           </Link>
-          <SportKindSelector sportKind={sportKind} onSwitchSportKind={setSportKind}  />
+          <SportKindSelector onSwitchSportKind={setSportKind}  />
         </Container>
       </Navbar>
 
@@ -33,10 +35,9 @@ function Main() {
       </Container>
 
       <Container fluid="md">
-        {sportKind}
         <Outlet />
       </Container>
-    </>
+    </SportKindContext.Provider>
   )
 }
 

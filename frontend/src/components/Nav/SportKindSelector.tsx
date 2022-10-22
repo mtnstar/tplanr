@@ -1,24 +1,15 @@
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
-import { SportKinds, SportKind } from '../../model/sport-kind';
-
-// function Items() {
-  // const { t, i18n } = useTranslation();
-  // const items = SportKinds.map((kind) =>
-    // <Dropdown.Item onClick={onSwitchSportKind(kind)} key={kind.toString()}>
-      // {t(kind.toString(), { keyPrefix: 'sport_kinds'})}
-    // </Dropdown.Item>
-  // );
-  // return items;
-// }
+import { SportKinds, SportKind } from '../../model/SportKind';
+import SportKindContext from '../../utils/providers/SportKindContext';
 
 interface SportKindSelectorProps {
-  sportKind: SportKind;
   onSwitchSportKind: any;
 }
 
-function SportKindSelector({sportKind, onSwitchSportKind}: SportKindSelectorProps) {
+function SportKindSelector({onSwitchSportKind}: SportKindSelectorProps) {
+  const sportKind = React.useContext(SportKindContext);
   const { t, i18n } = useTranslation();
   const items = SportKinds.map((kind) =>
     <Dropdown.Item onClick={() => onSwitchSportKind(kind)} key={kind.toString()}>
