@@ -1,11 +1,12 @@
 import React from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { SportKinds, SportKind } from '../../model/SportKind';
 import SportKindContext from '../../utils/providers/SportKindContext';
 
 interface SportKindSelectorProps {
-  onSwitchSportKind: any;
+  onSwitchSportKind: Dispatch<SetStateAction<SportKind>>;
 }
 
 function SportKindSelector({onSwitchSportKind}: SportKindSelectorProps) {
