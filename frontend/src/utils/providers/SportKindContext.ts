@@ -1,6 +1,7 @@
 import React from 'react';
-import { SportKind } from '../../model/SportKind';
+import { SportKind, SportKinds } from '../../model/SportKind';
 
-const SportKindContext = React.createContext('');
+
+const SportKindContext = React.createContext({} as SportKind);
 
 export default SportKindContext;

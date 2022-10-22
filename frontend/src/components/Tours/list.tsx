@@ -1,6 +1,8 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import SportKindContext from '../../utils/providers/SportKindContext';
+import { useToursQuery } from '../../utils/queries/useToursQuery';
+import Tour from '../../model/Tour';
 
 const queryClient = new QueryClient()
 
@@ -16,23 +18,29 @@ export default function ToursList() {
 function Entries() {
 
   const sportKind = React.useContext(SportKindContext);
+  const { data } = useToursQuery(sportKind);
 
-  const { isLoading, error, data } = useQuery('repoData', () =>
-    fetch('/api/tours').then(res =>
-      res.json()
-    )
-  )
+  // const { isLoading, error, data } = useQuery('repoData', () =>
+    // fetch('/api/tours').then(res =>
+      // res.json()
+    // )
+  // )
 
-  if (isLoading) return null;
+  if (!data) return null;
 
-  if (error) return null; 
+  // if (error) return null;
 
-  const items: string[] = data.data.map((entry: any) => entry.attributes.label);
+  // const items: string[] = entries.map((entry: SportKind) => entry.label);
+  //
+  const entries = data.map((tour: Tour) => TourEntry(tour));
 
   return (
     <>
-    <div>{sportKind}</div>
-    <div>{items}</div>
+    <div>{entries}</div>
     </>
   )
+}
+
+function TourEntry(tour: Tour) {
+  return (<div key={tour.id}>{tour.label}</div>);
 }
