@@ -38,6 +38,15 @@ RSpec.describe "/tours", type: :request do
       get tours_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
+
+    it "filters tours by sport kind" do
+      tours_url = tours_url(filter: {sport_kind: 'alpine_summer'})
+      get tours_url
+      expect(response).to be_successful
+      expect(json_data.size).to eq(1)
+      tour_label = json_data.first['attributes']['label']
+      expect(tour_label).to eq('Dom 4545m')
+    end
   end
 
   describe "GET /show" do
