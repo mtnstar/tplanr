@@ -4,5 +4,12 @@
     "climbing": "Klettern",
     "ski_tour": "Skitouren",
     "mountain_bike": "Mountainbike"
+  },
+
+  "views": 
+  {
+    "home": {
+      "select_sportkind": "Wähle deine Sportart"
+    }
   }
 }
