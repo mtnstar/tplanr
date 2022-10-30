@@ -4,9 +4,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {
   createBrowserRouter,
-  RouterProvider,
 } from "react-router-dom";
 import Home from './components/Home';
+import TourShow from './components/Tours/Show';
 
 const router = createBrowserRouter([
   {
@@ -19,8 +19,11 @@ const router = createBrowserRouter([
       },
       {
         path: "tours",
-        element: <ToursList />,
-      },
+        element: <ToursList /> },
+      {
+        path: "/tours/:id",
+        element: <TourShow />,
+      }
     ],
   },
 ]);
