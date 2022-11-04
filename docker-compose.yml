@@ -6,7 +6,7 @@ services:
     tty: true
     stdin_open: true
     working_dir: /myapp
-    command: rails s -b 0.0.0.0
+    command: bash -c 'bundle install && rails s -b 0.0.0.0'
     ports:
       - 3000:3000
     volumes:
