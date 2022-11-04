@@ -4,6 +4,7 @@ import { SportKind, SportKinds } from '../model/SportKind';
 import {
   Link,
 } from "react-router-dom";
+import SportKindContext from '../utils/providers/SportKindContext';
 
 export default function Home() {
   const { t, i18n } = useTranslation();
@@ -19,12 +20,14 @@ export default function Home() {
   )
 }
 
-function SportKindCube(sportKind: SportKind) {
+function SportKindCube(kind: SportKind) {
   const { t, i18n } = useTranslation();
+  const { sportKind, setSportKind } = React.useContext(SportKindContext);
   return (
-    <Link to='tours'>
+    <Link to='tours'
+      onClick={() => setSportKind(kind)} key={kind.toString()} >
       <div>
-        {t(sportKind.toString(), { keyPrefix: 'sport_kinds'})}
+        {t(kind.toString(), { keyPrefix: 'sport_kinds'})}
       </div>
     </Link>
   )

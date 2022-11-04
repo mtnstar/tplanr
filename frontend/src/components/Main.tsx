@@ -9,12 +9,13 @@ import SportKindContext from '../utils/providers/SportKindContext';
 function Main() {
 
   const [sportKind, setSportKind] = useSportKind();
+  const sportKindValue = { sportKind, setSportKind };
 
   return (
-    <SportKindContext.Provider value={sportKind}>
+    <SportKindContext.Provider value={sportKindValue}>
       <Navbar expand="md" bg="dark" className="mb-3" variant="dark">
         <Container>
-          <Link to="/tours" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             <img
               alt=""
               src="/images/logo.svg"
@@ -24,7 +25,7 @@ function Main() {
             />{' '}
             tplanr
           </Link>
-          <SportKindSelector onSwitchSportKind={setSportKind}  />
+          <SportKindSelector />
         </Container>
       </Navbar>
 

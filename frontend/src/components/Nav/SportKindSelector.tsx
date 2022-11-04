@@ -5,15 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { SportKinds, SportKind } from '../../model/SportKind';
 import SportKindContext from '../../utils/providers/SportKindContext';
 
-interface SportKindSelectorProps {
-  onSwitchSportKind: Dispatch<SetStateAction<SportKind>>;
-}
-
-function SportKindSelector({onSwitchSportKind}: SportKindSelectorProps) {
-  const sportKind = React.useContext(SportKindContext);
+function SportKindSelector() {
+  const { sportKind, setSportKind } = React.useContext(SportKindContext);
   const { t, i18n } = useTranslation();
   const items = SportKinds.map((kind) =>
-    <Dropdown.Item onClick={() => onSwitchSportKind(kind)} key={kind.toString()}>
+    <Dropdown.Item
+      onClick={() => setSportKind(kind)} key={kind.toString()}
+      active={sportKind === kind}
+    >
       {t(kind.toString(), { keyPrefix: 'sport_kinds'})}
     </Dropdown.Item>
   );

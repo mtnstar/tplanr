@@ -17,7 +17,7 @@ export default function ToursList() {
 
 function Entries() {
 
-  const sportKind = React.useContext(SportKindContext);
+  const { sportKind } = React.useContext(SportKindContext);
   const { data } = useToursQuery(sportKind);
 
   // const { isLoading, error, data } = useQuery('repoData', () =>
