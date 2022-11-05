@@ -7,7 +7,7 @@ import SportKindContext from '../../utils/providers/SportKindContext';
 
 function SportKindSelector() {
   const { sportKind, setSportKind } = React.useContext(SportKindContext);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const items = SportKinds.map((kind) =>
     <Dropdown.Item
       onClick={() => setSportKind(kind)} key={kind.toString()}

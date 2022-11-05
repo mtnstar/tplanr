@@ -1,9 +1,17 @@
-{ "sport_kinds": 
-  {
+{
+  "sport_kinds": {
     "alpine_summer": "Bergsport Sommer",
     "climbing": "Klettern",
     "ski_tour": "Skitouren",
     "mountain_bike": "Mountainbike"
+  },
+
+  "tour": {
+    "attrs": {
+      "label": "Tour",
+      "description": "Beschreibung",
+      "time_period": "Zeitraum"
+    }
   },
 
   "views": 

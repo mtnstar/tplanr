@@ -1,24 +1,42 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import SportKindContext from '../../utils/providers/SportKindContext';
 import { useToursQuery } from '../../utils/queries/useToursQuery';
+import Table from 'react-bootstrap/Table';
 import Tour from '../../model/Tour';
 
 const queryClient = new QueryClient()
 
 export default function ToursList() {
-  const [entries, setEntries] = React.useState([]);
   return (
     <QueryClientProvider client={queryClient}>
-      <Entries />
+      <ToursTable />
     </QueryClientProvider>
   )
 }
 
-function Entries() {
+function ToursTable() {
 
   const { sportKind } = React.useContext(SportKindContext);
   const { data } = useToursQuery(sportKind);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  function TourRow(tour: Tour) {
+
+    const showTour = (tour: Tour) => {
+      navigate(`/tours/${tour.id}`);
+    }
+
+    return (<tr onClick={() => showTour(tour)} key={tour.id}>
+      <td>{tour.label}</td>
+      <td>{tour.description}</td>
+      <td>22.11 - 24.11.2022</td>
+    </tr>
+    );
+  }
 
   // const { isLoading, error, data } = useQuery('repoData', () =>
     // fetch('/api/tours').then(res =>
@@ -32,15 +50,18 @@ function Entries() {
 
   // const items: string[] = entries.map((entry: SportKind) => entry.label);
   //
-  const entries = data.map((tour: Tour) => TourEntry(tour));
+  const rows = data.map((tour: Tour) => TourRow(tour));
 
   return (
-    <>
-    <div>{entries}</div>
-    </>
+    <Table striped>
+      <thead>
+        <tr>
+          <th>{t('label', { keyPrefix: 'tour.attrs'})}</th>
+          <th>{t('description', { keyPrefix: 'tour.attrs'})}</th>
+          <th>{t('time_period', { keyPrefix: 'tour.attrs'})}</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </Table>
   )
-}
-
-function TourEntry(tour: Tour) {
-  return (<div key={tour.id}>{tour.label}</div>);
 }
