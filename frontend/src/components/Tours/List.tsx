@@ -26,7 +26,7 @@ function ToursTable() {
 
   function TourRow(tour: Tour) {
 
-    const showTour = (tour: Tour) => {
+    function showTour(tour: Tour) {
       navigate(`/tours/${tour.id}`);
     }
 
@@ -44,7 +44,9 @@ function ToursTable() {
     // )
   // )
 
-  if (!data) return null;
+  if (!data || data.length === 0) {
+    return <p>{t('global.no_entries')}</p>;
+  }
 
   // if (error) return null;
 
