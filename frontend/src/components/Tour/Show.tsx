@@ -2,17 +2,13 @@ import React from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
-import {
-  useParams
-} from "react-router-dom";
-
-const queryClient = new QueryClient()
+import { useParams } from "react-router-dom";
 
 export default function TourShow() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <TourEntry />
-    </QueryClientProvider>
+    </>
   )
 }
 
@@ -37,7 +33,7 @@ function TourEntry() {
 
   return (
     <>
-    <div>{data.label}</div>
+      <div>{data.label}</div>
     </>
   )
 }
