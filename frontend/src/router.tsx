@@ -1,17 +1,17 @@
-import ToursList from './components/Tours/List'
-import Main from './components/Main'
+import ToursList from './components/ToursList'
+import Layout from './components/Layout'
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import {
   createBrowserRouter,
 } from "react-router-dom";
 import Home from './components/Home';
-import TourShow from './components/Tours/Show';
+import TourShow from './components/Tour/Show';
+import TourLayout from './components/Tour/Layout';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: <Layout />,
     children: [
       {
         path: "/",
@@ -19,11 +19,16 @@ const router = createBrowserRouter([
       },
       {
         path: "tours",
-        element: <ToursList /> },
+        element: <ToursList /> 
+      },
       {
         path: "/tours/:id",
-        element: <TourShow />,
-      }
+        element: <TourLayout />,
+        children: [
+          {
+            path: "/tours/:id",
+            element: <TourShow />,
+          }]},
     ],
   },
 ]);

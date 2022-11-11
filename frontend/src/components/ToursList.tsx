@@ -2,10 +2,10 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import SportKindContext from '../../utils/providers/SportKindContext';
-import { useToursQuery } from '../../utils/queries/useToursQuery';
+import SportKindContext from '../utils/providers/SportKindContext';
+import { useToursQuery } from '../utils/queries/useToursQuery';
 import Table from 'react-bootstrap/Table';
-import Tour from '../../model/Tour';
+import Tour from '../model/Tour';
 
 const queryClient = new QueryClient()
 

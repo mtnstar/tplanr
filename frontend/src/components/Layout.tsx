@@ -6,7 +6,7 @@ import SportKindSelector from './Nav/SportKindSelector';
 import useSportKind from '../utils/hooks/useSportKind';
 import SportKindContext from '../utils/providers/SportKindContext';
 
-function Main() {
+function Layout() {
 
   const [sportKind, setSportKind] = useSportKind();
   const sportKindValue = { sportKind, setSportKind };
@@ -30,16 +30,10 @@ function Main() {
       </Navbar>
 
       <Container fluid="md">
-        <Navbar bg="light" >
-          Secondary
-        </Navbar>
-      </Container>
-
-      <Container fluid="md">
         <Outlet />
       </Container>
     </SportKindContext.Provider>
   )
 }
 
-export default Main;
+export default Layout;

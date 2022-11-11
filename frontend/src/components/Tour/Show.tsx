@@ -11,7 +11,6 @@ const queryClient = new QueryClient()
 export default function TourShow() {
   return (
     <QueryClientProvider client={queryClient}>
-      yoyoyo
       <TourEntry />
     </QueryClientProvider>
   )
