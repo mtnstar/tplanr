@@ -26,7 +26,15 @@ mkdir -p ~/git/ && cd ~/git/
 git clone https://github.com/mtnstar/tplanr.git && cd ~/git/tplanr
 ```
 
-### Init development db
+### Init
+
+Install dependencies
+
+```bash
+docker-compose run rails bundle install
+docker-compose run -u root frontend chown 1000 /myapp/node_modules
+docker-compose run frontend npm install
+```
 
 Create and seed development db:
 
