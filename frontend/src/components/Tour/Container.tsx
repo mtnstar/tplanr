@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient, useQuery } from 'react-query'
 
 const queryClient = new QueryClient()
 
-function TourLayout() {
+function TourContainer() {
   return (
     <QueryClientProvider client={queryClient}>
       <TourNav />
@@ -13,4 +13,4 @@ function TourLayout() {
   );
 }
 
-export default TourLayout;
+export default TourContainer;

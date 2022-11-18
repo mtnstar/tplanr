@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './components/Home';
 import TourShow from './components/Tour/Show';
-import TourLayout from './components/Tour/Layout';
+import TourContainer from './components/Tour/Container';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/tours/:id",
-        element: <TourLayout />,
+        element: <TourContainer />,
         children: [
           {
             path: "/tours/:id",
