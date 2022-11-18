@@ -1,5 +1,4 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import { useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
 import { useParams } from "react-router-dom";
@@ -7,27 +6,15 @@ import { Formik, Form, Field } from 'formik';
 
 function TourEdit() {
   return (
-    <div>
-      <Formik
-        initialValues={{
-          label: '',
-        }}
-        onSubmit={async (values) => {
-          console.log(values);
-        }}
-      >
-        <Form>
-          <label htmlFor="label">First Name</label>
-          <Field id="label" name="label" />
-
-          <button type="submit">Submit</button>
-        </Form>
-      </Formik>
+    <div className="container">
+      <div className='form-wrapper'>
+        <TourForm />
+      </div>
     </div>
   )
 }
 
-function TourEntry() {
+function TourForm() {
 
   const { id } = useParams();
 
@@ -47,9 +34,20 @@ function TourEntry() {
   //
 
   return (
-    <>
-      <div>{data.label}</div>
-    </>
+    <Formik
+      initialValues={{
+        label: data.label,
+      }}
+      onSubmit={async (values) => {
+        console.log(values);
+      }} >
+      <Form>
+        <label htmlFor="label">First Name</label>
+        <Field id="label" name="label" className='form-control' />
+
+        <button type="submit">Submit</button>
+      </Form>
+    </Formik>
   )
 }
 
