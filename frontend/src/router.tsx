@@ -7,6 +7,7 @@ import {
 import Home from './components/Home';
 import TourShow from './components/Tour/Show';
 import TourContainer from './components/Tour/Container';
+import TourEdit from './components/Tour/Edit';
 
 const router = createBrowserRouter([
   {
@@ -25,10 +26,11 @@ const router = createBrowserRouter([
         path: "/tours/:id",
         element: <TourContainer />,
         children: [
-          {
-            path: "/tours/:id",
-            element: <TourShow />,
-          }]},
+          { path: "/tours/:id",
+            element: <TourShow />, },
+          { path: "/tours/:id/edit",
+            element: <TourEdit />, },
+        ]},
     ],
   },
 ]);
