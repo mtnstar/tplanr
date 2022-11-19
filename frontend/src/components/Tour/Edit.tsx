@@ -1,29 +1,31 @@
-import React from 'react';
-import { useTourQuery } from '../../utils/queries/useTourQuery';
+import { Field, Form, Formik } from 'formik';
+import { useParams } from 'react-router-dom';
+import { updateTour, useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
-import { useParams } from "react-router-dom";
-import { Formik, Form, Field } from 'formik';
 
 function TourEdit() {
   return (
-    <div className="container">
+    <div className='container'>
       <div className='form-wrapper'>
         <TourForm />
       </div>
     </div>
-  )
+  );
+}
+
+function mutate(id: number, tour: Tour) {
+  updateTour(id, tour);
 }
 
 function TourForm() {
-
   const { id } = useParams();
 
   const { data } = useTourQuery(+id!);
 
   // const { isLoading, error, data } = useQuery('repoData', () =>
-    // fetch('/api/tours').then(res =>
-      // res.json()
-    // )
+  // fetch('/api/tours').then(res =>
+  // res.json()
+  // )
   // )
 
   if (!data) return null;
@@ -36,19 +38,23 @@ function TourForm() {
   return (
     <Formik
       initialValues={{
-        label: data.label,
+        ...data,
       }}
       onSubmit={async (values) => {
-        console.log(values);
-      }} >
+        const tour = {
+          ...values,
+        };
+        mutate(Number(id), tour);
+      }}
+    >
       <Form>
-        <label htmlFor="label">First Name</label>
-        <Field id="label" name="label" className='form-control' />
+        <label htmlFor='label'>First Name</label>
+        <Field id='label' name='label' className='form-control' />
 
-        <button type="submit">Submit</button>
+        <button type='submit'>Submit</button>
       </Form>
     </Formik>
-  )
+  );
 }
 
 export default TourEdit;
