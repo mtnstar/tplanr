@@ -8,14 +8,17 @@
 
   "tour": {
     "attrs": {
-      "label": "Tour",
+      "label": "Bezeichnung",
       "description": "Beschreibung",
       "time_period": "Zeitraum"
     }
   },
 
   "global": {
-    "no_entries": "Noch keine Einträge vorhanden"
+    "no_entries": "Noch keine Einträge vorhanden",
+    "actions": {
+      "save": "Speichern"
+    }
   },
 
   "views": 

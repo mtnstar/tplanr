@@ -1,6 +1,5 @@
-import React from 'react';
-import { Dispatch } from 'react';
-import { SportKind, SportKinds } from '../../model/SportKind';
+import React, { Dispatch } from 'react';
+import { SportKind } from '../../model/SportKind';
 
 const SportKindContext = React.createContext({
   sportKind: {} as SportKind,

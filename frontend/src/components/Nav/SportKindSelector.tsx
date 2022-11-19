@@ -1,9 +1,8 @@
 import React from 'react';
-import { Dispatch, SetStateAction } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { SportKinds, SportKind } from '../../model/SportKind';
+import { useNavigate } from 'react-router-dom';
+import { SportKind, SportKinds } from '../../model/SportKind';
 import SportKindContext from '../../utils/providers/SportKindContext';
 
 function SportKindSelector() {

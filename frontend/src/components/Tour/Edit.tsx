@@ -1,7 +1,8 @@
 import { Field, Form, Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { updateTour, useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
+import { updateTour, useTourQuery } from '../../utils/queries/useTourQuery';
 
 function TourEdit() {
   return (
@@ -19,7 +20,7 @@ function mutate(id: number, tour: Tour) {
 
 function TourForm() {
   const { id } = useParams();
-
+  const { t } = useTranslation();
   const { data } = useTourQuery(+id!);
 
   // const { isLoading, error, data } = useQuery('repoData', () =>
@@ -48,10 +49,29 @@ function TourForm() {
       }}
     >
       <Form>
-        <label htmlFor='label'>First Name</label>
-        <Field id='label' name='label' className='form-control' />
+        <div className='mb-3'>
+          <label htmlFor='label' className='form-label'>
+            {t('label', { keyPrefix: 'tour.attrs' })}
+          </label>
+          <Field id='label' name='label' className='form-control w-50' />
+        </div>
 
-        <button type='submit'>Submit</button>
+        <div className='mb-3'>
+          <label htmlFor='description' className='form-label'>
+            {t('description', { keyPrefix: 'tour.attrs' })}
+          </label>
+          <Field
+            component='textarea'
+            rows='4'
+            id='description'
+            name='description'
+            className='form-control w-50'
+          />
+        </div>
+
+        <button className='btn btn-primary' type='submit'>
+          {t('save', { keyPrefix: 'global.actions' })}
+        </button>
       </Form>
     </Formik>
   );
