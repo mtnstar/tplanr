@@ -30,6 +30,9 @@ function ToursTable() {
 
     return (
       <tr onClick={() => showTour(tour)} key={tour.id}>
+        <td>
+          <img src={tour.avatar.thumb.url} alt='Tour Avatar' />
+        </td>
         <td>{tour.label}</td>
         <td>{tour.description}</td>
         <td>22.11 - 24.11.2022</td>
@@ -57,6 +60,7 @@ function ToursTable() {
     <Table striped>
       <thead>
         <tr>
+          <th></th>
           <th>{t('label', { keyPrefix: 'tour.attrs' })}</th>
           <th>{t('description', { keyPrefix: 'tour.attrs' })}</th>
           <th>{t('time_period', { keyPrefix: 'tour.attrs' })}</th>
