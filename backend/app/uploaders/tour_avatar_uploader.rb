@@ -12,7 +12,7 @@ class TourAvatarUploader < CarrierWave::Uploader::Base
   end
 
   def store_dir
-    "/uploads/#{model.class.name.underscore.pluralize}/#{model.id}/"
+    "./uploads/#{model.class.name.underscore.pluralize}/#{model.id}/"
   end
 
   process resize_to_fill: [800, 800]
