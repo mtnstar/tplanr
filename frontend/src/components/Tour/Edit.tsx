@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Tour from '../../model/Tour';
@@ -23,18 +23,15 @@ function TourForm() {
   const { t } = useTranslation();
   const { data } = useTourQuery(+id!);
 
-  // const { isLoading, error, data } = useQuery('repoData', () =>
-  // fetch('/api/tours').then(res =>
-  // res.json()
-  // )
-  // )
-
   if (!data) return null;
 
-  // if (error) return null;
-
-  // const items: string[] = entries.map((entry: SportKind) => entry.label);
-  //
+  const toBase64 = (file: Blob) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   return (
     <Formik
@@ -48,31 +45,57 @@ function TourForm() {
         mutate(Number(id), tour);
       }}
     >
-      <Form>
-        <div className='mb-3'>
-          <label htmlFor='label' className='form-label'>
-            {t('label', { keyPrefix: 'tour.attrs' })}
-          </label>
-          <Field id='label' name='label' className='form-control w-50' />
-        </div>
+      {(formik) => (
+        <form onSubmit={formik.handleSubmit}>
+          <div className='mb-3'>
+            <label htmlFor='label' className='form-label'>
+              {t('label', { keyPrefix: 'tour.attrs' })}
+            </label>
+            <Field id='label' name='label' className='form-control w-50' />
+          </div>
 
-        <div className='mb-3'>
-          <label htmlFor='description' className='form-label'>
-            {t('description', { keyPrefix: 'tour.attrs' })}
-          </label>
-          <Field
-            component='textarea'
-            rows='4'
-            id='description'
-            name='description'
-            className='form-control w-50'
-          />
-        </div>
+          <div className='mb-3'>
+            <label htmlFor='description' className='form-label'>
+              {t('description', { keyPrefix: 'tour.attrs' })}
+            </label>
+            <Field
+              component='textarea'
+              rows='4'
+              id='description'
+              name='description'
+              className='form-control w-50'
+            />
+          </div>
 
-        <button className='btn btn-primary' type='submit'>
-          {t('save', { keyPrefix: 'global.actions' })}
-        </button>
-      </Form>
+          <div className='form-group'>
+            <label htmlFor='avatar'>File upload</label>
+            <input
+              id='avatar'
+              name='avatar'
+              type='file'
+              onChange={(event) => {
+                const file =
+                  event.currentTarget.files && event.currentTarget.files[0];
+                if (!file) return;
+                //reader.onloadend = () => {
+                //setFile(file);
+                //setSize(file.size);
+                //setName(file.name);
+                //setImagePreview(reader.result);
+                //};
+                toBase64(file).then((value) => {
+                  formik.setFieldValue('avatar', value);
+                });
+              }}
+              className='form-control'
+            />
+          </div>
+
+          <button className='btn btn-primary' type='submit'>
+            {t('save', { keyPrefix: 'global.actions' })}
+          </button>
+        </form>
+      )}
     </Formik>
   );
 }

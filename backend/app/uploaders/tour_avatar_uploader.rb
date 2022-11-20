@@ -1,4 +1,6 @@
 class TourAvatarUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+
   storage :file
 
   def extension_allowlist
@@ -9,7 +11,11 @@ class TourAvatarUploader < CarrierWave::Uploader::Base
     /image\//
   end
 
-  process resize_to_fit: [800, 800]
+  def store_dir
+    "/uploads/#{model.class.name.underscore.pluralize}/#{model.id}/"
+  end
+
+  process resize_to_fill: [800, 800]
 
   version :thumb do
     process resize_to_fill: [200,200]

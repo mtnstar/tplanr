@@ -1,5 +1,9 @@
 import { SportKind } from './SportKind';
 
+type TourAvatar = {
+  url: string;
+};
+
 type Tour = {
   id: number;
   sport_kind: SportKind;
@@ -7,6 +11,7 @@ type Tour = {
   label: string;
   created_at: Date;
   updated_at: Date;
+  avatar: string;
 };
 
 export default Tour;

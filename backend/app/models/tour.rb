@@ -4,6 +4,6 @@ class Tour < ApplicationRecord
 
   enum :sport_kind, { alpine_summer: 0, climbing: 1, ski_tour: 2, mountain_bike: 3 }
 
-  mount_uploader :avatar, TourAvatarUploader
+  mount_base64_uploader :avatar, TourAvatarUploader
 
 end

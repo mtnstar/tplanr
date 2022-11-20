@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 gem 'carrierwave', '~> 2.0'
+gem 'carrierwave-base64', '~> 2.10'
 
 gem 'devise'
 
