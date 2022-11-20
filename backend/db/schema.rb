@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_03_190123) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_20_022703) do
   create_table "item_categories", force: :cascade do |t|
     t.string "label_de"
     t.datetime "created_at", null: false
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_03_190123) do
     t.integer "sport_kind", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
     t.index ["user_id"], name: "index_tours_on_user_id"
   end
 
