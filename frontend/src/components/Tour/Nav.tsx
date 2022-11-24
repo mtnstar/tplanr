@@ -1,39 +1,40 @@
 import Nav from 'react-bootstrap/Nav';
-import { useTourQuery } from '../../utils/queries/useTourQuery';
-import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useParams } from 'react-router-dom';
 import Tour from '../../model/Tour';
+import { useTourQuery } from '../../utils/queries/useTourQuery';
 
 function TourNav() {
   const { id } = useParams();
 
   const { data } = useTourQuery(+id!);
+  const { t } = useTranslation();
 
   const tour = data as Tour;
 
   if (tour) {
-    const navTabs = NavTabs(tour);
-    return <>{navTabs}</>;
+    return (
+      <Nav variant='tabs'>
+        <Nav.Item>
+          <Link className='nav-link active' to={`/tours/${tour.id}`}>
+            {tour.label}
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link className='nav-link' to={`/tours/${tour.id}/sections`}>
+            {t('many', { keyPrefix: 'section' })}
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link className='nav-link' to={`/tours/${tour.id}/items`}>
+            {t('many', { keyPrefix: 'item' })}
+          </Link>
+        </Nav.Item>
+      </Nav>
+    );
   }
 
   return <></>;
-}
-
-function NavTabs(tour: Tour) {
-  return (
-    <Nav variant='tabs'>
-      <Nav.Item>
-        <Nav.Link href='/home'>{tour.label}</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey='link-1'>Option 2</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey='disabled' disabled>
-          Disabled
-        </Nav.Link>
-      </Nav.Item>
-    </Nav>
-  );
 }
 
 export default TourNav;

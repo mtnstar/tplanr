@@ -91,9 +91,11 @@ function TourForm() {
             />
           </div>
 
-          <button className='btn btn-primary' type='submit'>
-            {t('save', { keyPrefix: 'global.actions' })}
-          </button>
+          <div className='form-group'>
+            <button className='btn btn-primary' type='submit'>
+              {t('save', { keyPrefix: 'global.actions' })}
+            </button>
+          </div>
         </form>
       )}
     </Formik>

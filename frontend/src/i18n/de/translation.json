@@ -14,10 +14,21 @@
     }
   },
 
+  "item": {
+    "many": "Material",
+    "attrs": { }
+  },
+
+  "section": {
+    "many": "Etappen",
+    "attrs": { }
+  },
+
   "global": {
     "no_entries": "Noch keine Einträge vorhanden",
     "actions": {
-      "save": "Speichern"
+      "save": "Speichern",
+      "edit": "Bearbeiten"
     }
   },
 

@@ -1,8 +1,6 @@
-import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-import { useTourQuery } from '../../utils/queries/useTourQuery';
-import Tour from '../../model/Tour';
 import { Link, useParams } from 'react-router-dom';
+import { useTourQuery } from '../../utils/queries/useTourQuery';
+import { useTranslation } from 'react-i18next';
 
 export default function TourShow() {
   return (
@@ -14,6 +12,7 @@ export default function TourShow() {
 
 function TourEntry() {
   const { id } = useParams();
+  const { t } = useTranslation();
 
   const { data } = useTourQuery(+id!);
 
@@ -32,10 +31,14 @@ function TourEntry() {
 
   return (
     <>
-      <Link to={`/tours/${data.id}/edit`}>
-        <button type='button'>Edit</button>
-      </Link>
+      <img src={data.avatar.thumb.url} alt='Tour Avatar' />
       <div>{data.label}</div>
+      <div>{data.description}</div>
+      <Link to={`/tours/${data.id}/edit`}>
+        <button className='btn btn-primary' type='button'>
+          {t('edit', { keyPrefix: 'global.actions' })}
+        </button>
+      </Link>
     </>
   );
 }
