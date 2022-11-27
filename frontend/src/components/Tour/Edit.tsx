@@ -1,8 +1,9 @@
 import { Field, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Tour from '../../model/Tour';
 import { updateTour, useTourQuery } from '../../utils/queries/useTourQuery';
+import { useMutation } from 'react-query';
 
 function TourEdit() {
   return (
@@ -14,14 +15,22 @@ function TourEdit() {
   );
 }
 
-function mutate(id: number, tour: Tour) {
-  updateTour(id, tour);
-}
-
 function TourForm() {
   const { id } = useParams();
   const { t } = useTranslation();
   const { data } = useTourQuery(+id!);
+  const navigate = useNavigate();
+
+  const mutation = useMutation(updateTour, {
+    onSuccess: () => {
+      navigate(`/tours/${id}`);
+    },
+  });
+
+  function onFormSubmit(id: string, tour: Tour) {
+    tour.id = Number(id);
+    mutation.mutate(tour);
+  }
 
   if (!data) return null;
 
@@ -42,7 +51,7 @@ function TourForm() {
         const tour = {
           ...values,
         };
-        mutate(Number(id), tour);
+        onFormSubmit(id!, tour);
       }}
     >
       {(formik) => (
@@ -67,7 +76,7 @@ function TourForm() {
             />
           </div>
 
-          <div className='form-group'>
+          <div className='mb-3'>
             <label htmlFor='avatar'>File upload</label>
             <input
               id='avatar'
@@ -87,15 +96,16 @@ function TourForm() {
                   formik.setFieldValue('avatar', value);
                 });
               }}
-              className='form-control'
+              className='form-control w-50'
             />
           </div>
 
-          <div className='form-group'>
-            <button className='btn btn-primary' type='submit'>
-              {t('save', { keyPrefix: 'global.actions' })}
-            </button>
-          </div>
+          <button className='btn btn-primary' type='submit'>
+            {t('save', { keyPrefix: 'global.actions' })}
+          </button>
+          <Link className='ms-3' to={`/tours/${id}`}>
+            {t('abort', { keyPrefix: 'global.actions' })}
+          </Link>
         </form>
       )}
     </Formik>

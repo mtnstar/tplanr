@@ -13,7 +13,7 @@ const fetchTour = async (id: number): Promise<Tour> => {
 export const useTourQuery = (id: number) =>
   useQuery<Tour>(['tours', id], () => fetchTour(id));
 
-export const updateTour = async (id: number, data: Tour) => {
+export const updateTour = async (data: Tour) => {
   const serializedData = transform()
     .withInput(data)
     .withTransformer(new TourTransformer())
@@ -26,7 +26,7 @@ export const updateTour = async (id: number, data: Tour) => {
   });
 
   const { data: response } = await adapter.patch(
-    `/api/tours/${id}`,
+    `/api/tours/${data.id}`,
     serializedData,
   );
   return response.data;
