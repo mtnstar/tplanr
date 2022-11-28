@@ -30,6 +30,11 @@
       "save": "Speichern",
       "edit": "Bearbeiten",
       "abort": "Abbrechen"
+    },
+    "form": {
+      "required": "Muss ausgefüllt werden",
+      "too_short": "Zu kurz",
+      "too_long": "Zu lang"
     }
   },
 

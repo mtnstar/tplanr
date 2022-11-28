@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Tour from '../../model/Tour';
 import { updateTour, useTourQuery } from '../../utils/queries/useTourQuery';
 import { useMutation } from 'react-query';
+import Form from 'react-bootstrap/Form';
+import * as Yup from 'yup';
 
 function TourEdit() {
   return (
@@ -34,6 +36,13 @@ function TourForm() {
 
   if (!data) return null;
 
+  const TourSchema = Yup.object().shape({
+    label: Yup.string()
+      .min(2, t('too_short', { keyPrefix: 'global.form' }))
+      .max(50, t('too_long', { keyPrefix: 'global.form' }))
+      .required(t('required', { keyPrefix: 'global.form' })),
+  });
+
   const toBase64 = (file: Blob) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -53,14 +62,25 @@ function TourForm() {
         };
         onFormSubmit(id!, tour);
       }}
+      validationSchema={TourSchema}
     >
-      {(formik) => (
-        <form onSubmit={formik.handleSubmit}>
+      {({ handleSubmit, setFieldValue, touched, errors }) => (
+        <form onSubmit={handleSubmit}>
           <div className='mb-3'>
             <label htmlFor='label' className='form-label'>
               {t('label', { keyPrefix: 'tour.attrs' })}
             </label>
-            <Field id='label' name='label' className='form-control w-50' />
+            <Field
+              as={Form.Control}
+              id='label'
+              name='label'
+              className='form-control w-50'
+              required
+              isInvalid={!!touched.label && !!errors.label}
+            />
+            {touched.label && errors.label && (
+              <div className='invalid-feedback'>{errors.label}</div>
+            )}
           </div>
 
           <div className='mb-3'>
@@ -93,7 +113,7 @@ function TourForm() {
                 //setImagePreview(reader.result);
                 //};
                 toBase64(file).then((value) => {
-                  formik.setFieldValue('avatar', value);
+                  setFieldValue('avatar', value);
                 });
               }}
               className='form-control w-50'
