@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Tour from '../../model/Tour';
-import { updateTour } from '../../utils/queries/useTourQuery';
+import { updateTour } from '../../utils/api/tours';
 import { toBase64 } from '../../utils/tools/toBase64';
 
 interface FormParams {
