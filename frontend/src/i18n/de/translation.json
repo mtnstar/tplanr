@@ -7,6 +7,9 @@
   },
 
   "tour": {
+    "new": "Neue Tour",
+    "many": "Touren",
+    "details" : "Details",
     "attrs": {
       "label": "Bezeichnung",
       "description": "Beschreibung",
@@ -15,7 +18,7 @@
   },
 
   "item": {
-    "many": "Material",
+    "many": "Materialliste",
     "attrs": { }
   },
 
