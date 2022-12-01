@@ -1,34 +1,38 @@
+import React from 'react';
 import { Field, Formik } from 'formik';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Tour from '../../model/Tour';
-import { updateTour } from '../../utils/api/tours';
+import { createOrUpdateTour } from '../../utils/api/tours';
 import { toBase64 } from '../../utils/tools/toBase64';
+import SportKindContext from '../../utils/providers/SportKindContext';
 
 interface FormParams {
   entry: Tour;
 }
 
 function TourForm(props: FormParams) {
+  const { sportKind } = React.useContext(SportKindContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { entry } = props;
+  const { id } = useParams();
 
-  const mutation = useMutation(updateTour, {
-    onSuccess: () => {
-      navigate(`/tours/${entry.id}`);
+  const mutation = useMutation(createOrUpdateTour, {
+    onSuccess: (data) => {
+      if (data) {
+        navigate(`/tours/${id || data.id}`);
+      }
     },
   });
 
   function onFormSubmit(id: number | undefined, tour: Tour) {
-    if (id) {
-      tour.id = Number(id);
-      mutation.mutate(tour);
-    } else {
-    }
+    tour.id = id;
+    if (!id) tour.sport_kind = sportKind;
+    mutation.mutate(tour);
   }
 
   const TourSchema = Yup.object().shape({

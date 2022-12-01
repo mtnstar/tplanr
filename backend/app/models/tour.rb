@@ -6,4 +6,6 @@ class Tour < ApplicationRecord
 
   mount_base64_uploader :avatar, TourAvatarUploader
 
+  attr_readonly :sport_kind
+
 end

@@ -1,4 +1,4 @@
-import { deserialize, transform } from 'jsonapi-fractal';
+import { deserialize, DocumentObject, transform } from 'jsonapi-fractal';
 import { SportKind } from '../../model/SportKind';
 import Tour from '../../model/Tour';
 import TourTransformer from '../transformers/TourTransformer';
@@ -10,17 +10,31 @@ export const fetchTour = async (id: number): Promise<Tour> => {
   return entry;
 };
 
-export const updateTour = async (entry: Tour) => {
+export const createOrUpdateTour = async (entry: Tour) => {
   const serializedData = transform()
     .withInput(entry)
     .withTransformer(new TourTransformer())
     .serialize();
 
-  const { data: response } = await adapter.patch(
-    `/api/tours/${entry.id}`,
-    serializedData,
-  );
-  return response.data;
+  let response = { data: undefined };
+
+  if (entry.id) {
+    response = await updateTour(entry, serializedData);
+  } else {
+    response = await createTour(entry, serializedData);
+  }
+
+  const data = response.data;
+
+  return data ? (deserialize(data) as Tour) : undefined;
+};
+
+const updateTour = async (entry: Tour, serializedData: DocumentObject) => {
+  return adapter.patch(`/api/tours/${entry.id}`, serializedData);
+};
+
+const createTour = async (entry: Tour, serializedData: DocumentObject) => {
+  return adapter.post('/api/tours', serializedData);
 };
 
 type Tours = ReadonlyArray<Tour>;

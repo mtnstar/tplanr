@@ -11,4 +11,8 @@ class TourResource < JSONAPI::Resource
     super - [:user_id, :create_at, :updated_at]
   end
 
+  before_save do
+    @model.user_id = context[:current_user].id if @model.new_record?
+  end
+
 end

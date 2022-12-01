@@ -10,44 +10,15 @@ export default function TourNav() {
   const location = useLocation();
   const isList = location.pathname === '/tours';
 
-  if (!isList && id) {
-    const entryId = +id;
-    return (
-      <>
-        <EntryNav entryId={entryId} />
-      </>
-    );
-  } else {
+  if (isList) {
     return (
       <>
         <ListNav />
       </>
     );
+  } else {
+    return <>{id ? <EntryNav entryId={+id} /> : <NewEntryNav />}</>;
   }
-}
-
-interface BreadcrumbsProps {
-  tour?: Tour;
-  isList: boolean;
-}
-
-function Breadcrumbs(props: BreadcrumbsProps) {
-  const { t } = useTranslation();
-  const { tour, isList } = props;
-  return (
-    <Breadcrumb>
-      <Breadcrumb.Item>
-        <Link className='nav-link' to={'/tours'}>
-          {t('many', { keyPrefix: 'tour' })}
-        </Link>
-      </Breadcrumb.Item>
-      {!isList && (
-        <li className='breadcrumb-item'>
-          {tour ? tour.label : t('new', { keyPrefix: 'tour' })}
-        </li>
-      )}
-    </Breadcrumb>
-  );
 }
 
 function ListNav() {
@@ -78,25 +49,51 @@ function EntryNav(prop: EntryNavProps) {
   );
 }
 
+function NewEntryNav() {
+  const { t } = useTranslation();
+  const tour: Tour = { label: t('new', { keyPrefix: 'tour' }) };
+  return (
+    <>
+      <Breadcrumbs isList={false} tour={tour} />
+      <NavTabs tour={tour} />
+    </>
+  );
+}
+
 interface NavTabsProps {
   tour?: Tour;
 }
 
+const tabLinkClassName = (active: boolean) => {
+  let classes = ['nav-link'];
+  if (active) classes.push('active');
+  return classes.join(' ');
+};
+
+const isTourShowEditNew = (pathname: string) => {
+  const routeRegex = [/new/, /edit/, /\/tours\/\d+$/];
+  return routeRegex.some((re) => re.test(pathname));
+};
+
+const detailsTabLinkClassName = (pathname: string) => {
+  let classes = ['nav-link'];
+  if (isTourShowEditNew(pathname)) classes.push('active');
+  return classes.join(' ');
+};
+
 function NavTabs(props: NavTabsProps) {
   const { tour } = props;
   const { t } = useTranslation();
-  const linkClassName = (active: boolean) => {
-    let classes = ['nav-link'];
-    if (active) classes.push('active');
-    return classes.join(' ');
-  };
+  const location = useLocation();
+  const pathname = location.pathname;
+
   return (
     <>
       <Nav variant='tabs'>
         {tour && (
           <Nav.Item>
             <NavLink
-              className={({ isActive }) => linkClassName(isActive)}
+              className={detailsTabLinkClassName(pathname)}
               to={tour ? `/tours/${tour.id}` : ''}
               end
             >
@@ -105,16 +102,16 @@ function NavTabs(props: NavTabsProps) {
           </Nav.Item>
         )}
         <Nav.Item>
-          {tour && (
+          {tour?.id && (
             <Link className='nav-link' to={`/tours/${tour.id}/sections`}>
               {t('many', { keyPrefix: 'section' })}
             </Link>
           )}
         </Nav.Item>
         <Nav.Item>
-          {tour && (
+          {tour?.id && (
             <NavLink
-              className={({ isActive }) => linkClassName(isActive)}
+              className={({ isActive }) => tabLinkClassName(isActive)}
               to={`/tours/${tour.id}/items`}
             >
               {t('many', { keyPrefix: 'item' })}
@@ -123,5 +120,29 @@ function NavTabs(props: NavTabsProps) {
         </Nav.Item>
       </Nav>
     </>
+  );
+}
+
+interface BreadcrumbsProps {
+  tour?: Tour;
+  isList: boolean;
+}
+
+function Breadcrumbs(props: BreadcrumbsProps) {
+  const { t } = useTranslation();
+  const { tour, isList } = props;
+  return (
+    <Breadcrumb>
+      <Breadcrumb.Item>
+        <Link className='nav-link' to={'/tours'}>
+          {t('many', { keyPrefix: 'tour' })}
+        </Link>
+      </Breadcrumb.Item>
+      {!isList && (
+        <li className='breadcrumb-item'>
+          {tour ? tour.label : t('new', { keyPrefix: 'tour' })}
+        </li>
+      )}
+    </Breadcrumb>
   );
 }
