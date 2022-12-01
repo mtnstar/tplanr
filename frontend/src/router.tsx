@@ -1,4 +1,4 @@
-import ToursList from './components/ToursList';
+import TourList from './components/Tour/List';
 import Layout from './components/Layout';
 import { createBrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
@@ -17,13 +17,10 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: 'tours',
-        element: <ToursList />,
-      },
-      {
-        path: '/tours/:id',
+        path: '/tours',
         element: <TourContainer />,
         children: [
+          { path: '/tours', element: <TourList /> },
           { path: '/tours/:id', element: <TourShow /> },
           { path: '/tours/:id/edit', element: <TourEdit /> },
           { path: '/tours/:id/items', element: <ItemList /> },
