@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import SportKindContext from '../utils/providers/SportKindContext';
 
 export default function Home() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const sportKindCubes = SportKinds.map((kind) => SportKindCube(kind));
   return (
     <>
@@ -18,23 +18,24 @@ export default function Home() {
 }
 
 function SportKindCube(kind: SportKind) {
-  const { t, i18n } = useTranslation();
-  const { sportKind, setSportKind } = React.useContext(SportKindContext);
+  const { t } = useTranslation();
+  const { setSportKind } = React.useContext(SportKindContext);
   const imgLink = `/icons/${kind.toString()}.svg`;
   return (
-    <div className='col'>
+    <div className='col' key={kind.toString()}>
       <div className='p-3 border bg-light'>
         <Link
           to='tours'
           onClick={() => setSportKind(kind)}
           key={kind.toString()}
         >
-          <img src={imgLink} />
+          <img
+            alt={t(kind.toString(), { keyPrefix: 'sport_kinds' })}
+            src={imgLink}
+          />
           <div>{t(kind.toString(), { keyPrefix: 'sport_kinds' })}</div>
         </Link>
       </div>
     </div>
   );
 }
-
-function t() {}

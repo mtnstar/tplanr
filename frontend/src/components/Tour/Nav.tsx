@@ -125,24 +125,41 @@ function NavTabs(props: NavTabsProps) {
 
 interface BreadcrumbsProps {
   tour?: Tour;
-  isList: boolean;
+  isList?: boolean;
 }
 
 function Breadcrumbs(props: BreadcrumbsProps) {
-  const { t } = useTranslation();
   const { tour, isList } = props;
   return (
     <Breadcrumb>
-      <Breadcrumb.Item>
-        <Link className='nav-link' to={'/tours'}>
-          {t('many', { keyPrefix: 'tour' })}
-        </Link>
-      </Breadcrumb.Item>
-      {!isList && (
-        <li className='breadcrumb-item'>
-          {tour ? tour.label : t('new', { keyPrefix: 'tour' })}
-        </li>
-      )}
+      <ListBreadcrumb tour={tour} />
+      {!isList && <TourBreadcrumb tour={tour} />}
     </Breadcrumb>
+  );
+}
+
+function ListBreadcrumb(props: BreadcrumbsProps) {
+  const { t } = useTranslation();
+  const { tour } = props;
+  const listLabel = t('many', { keyPrefix: 'tour' });
+  return (
+    <li className='breadcrumb-item'>
+      {tour && (
+        <Link className='nav-link' to={'/tours'}>
+          {listLabel}
+        </Link>
+      )}
+      {!tour && <>{listLabel}</>}
+    </li>
+  );
+}
+
+function TourBreadcrumb(props: BreadcrumbsProps) {
+  const { t } = useTranslation();
+  const { tour } = props;
+  return (
+    <li className='breadcrumb-item'>
+      {tour ? tour.label : t('new', { keyPrefix: 'tour' })}
+    </li>
   );
 }
