@@ -31,7 +31,7 @@ function TourEntry() {
 
   return (
     <>
-      <img src={data.avatar.thumb.url} alt='Tour Avatar' />
+      {data.avatar && <img src={data.avatar.thumb.url} alt='Tour Avatar' />}
       <div>{data.label}</div>
       <div>{data.description}</div>
       <Link to={`/tours/${data.id}/edit`}>

@@ -1,11 +1,12 @@
-import TourList from './components/Tour/List';
-import Layout from './components/Layout';
 import { createBrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
-import TourShow from './components/Tour/Show';
+import ItemList from './components/Item/List';
+import Layout from './components/Layout';
 import TourContainer from './components/Tour/Container';
 import TourEdit from './components/Tour/Edit';
-import ItemList from './components/Item/List';
+import TourList from './components/Tour/List';
+import TourShow from './components/Tour/Show';
+import TourNew from './components/Tour/New';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
         element: <TourContainer />,
         children: [
           { path: '/tours', element: <TourList /> },
+          { path: '/tours/new', element: <TourNew /> },
           { path: '/tours/:id', element: <TourShow /> },
           { path: '/tours/:id/edit', element: <TourEdit /> },
           { path: '/tours/:id/items', element: <ItemList /> },

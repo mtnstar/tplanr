@@ -31,7 +31,7 @@ function ToursTable() {
     return (
       <tr onClick={() => showTour(tour)} key={tour.id}>
         <td>
-          <img src={tour.avatar.thumb.url} alt='Tour Avatar' />
+          {tour.avatar && <img src={tour.avatar.thumb.url} alt='Tour Avatar' />}
         </td>
         <td>{tour.label}</td>
         <td>{tour.description}</td>

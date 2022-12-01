@@ -23,9 +23,12 @@ function TourForm(props: FormParams) {
     },
   });
 
-  function onFormSubmit(id: number, tour: Tour) {
-    tour.id = Number(id);
-    mutation.mutate(tour);
+  function onFormSubmit(id: number | undefined, tour: Tour) {
+    if (id) {
+      tour.id = Number(id);
+      mutation.mutate(tour);
+    } else {
+    }
   }
 
   const TourSchema = Yup.object().shape({
