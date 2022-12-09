@@ -42,6 +42,8 @@ function TourForm(props: FormParams) {
       .required(t('required', { keyPrefix: 'global.form' })),
   });
 
+  const abortLink = entry.id ? `/tours/${entry.id}` : '/tours';
+
   return (
     <div className='form-wrapper'>
       <Formik
@@ -52,6 +54,10 @@ function TourForm(props: FormParams) {
           const tour = {
             ...values,
           };
+          // do not update avatar if unchanged
+          if (tour.avatar === entry.avatar) {
+            tour.avatar = undefined;
+          }
           onFormSubmit(tour.id, tour);
         }}
         validationSchema={TourSchema}
@@ -89,7 +95,7 @@ function TourForm(props: FormParams) {
             </div>
 
             <div className='mb-3'>
-              <label htmlFor='avatar'>File upload</label>
+              <label htmlFor='newAavatar'>File upload</label>
               <input
                 id='avatar'
                 name='avatar'
@@ -115,7 +121,7 @@ function TourForm(props: FormParams) {
             <button className='btn btn-primary' type='submit'>
               {t('save', { keyPrefix: 'global.actions' })}
             </button>
-            <Link className='ms-3' to={`/tours/${entry.id}`}>
+            <Link className='ms-3' to={abortLink}>
               {t('abort', { keyPrefix: 'global.actions' })}
             </Link>
           </form>

@@ -31,14 +31,36 @@ function TourEntry() {
 
   return (
     <>
-      {data.avatar && <img src={data.avatar.thumb.url} alt='Tour Avatar' />}
-      <div>{data.label}</div>
-      <div>{data.description}</div>
       <Link to={`/tours/${data.id}/edit`}>
         <button className='btn btn-primary' type='button'>
           {t('edit', { keyPrefix: 'global.actions' })}
         </button>
       </Link>
+      <div className='container mt-4'>
+        <div className='row'>
+          <div className='col-8'>
+            <dl>
+              <dt>{t('label', { keyPrefix: 'tour.attrs' })}</dt>
+              <dd>
+                <div>{data.label}</div>
+              </dd>
+              <dt>{t('description', { keyPrefix: 'tour.attrs' })}</dt>
+              <dd>
+                <div>{data.description}</div>
+              </dd>
+            </dl>
+          </div>
+          <div className='col-4'>
+            {data.avatar && (
+              <img
+                src={data.avatar.url}
+                className='rounded float-end img-fluid'
+                alt='Tour Avatar'
+              />
+            )}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

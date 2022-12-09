@@ -22,13 +22,9 @@ export default function TourNav() {
 }
 
 function ListNav() {
-  const { t } = useTranslation();
   return (
     <>
       <Breadcrumbs isList={true} />
-      <Link className='btn btn-primary' to={'/tours/new'}>
-        {t('new', { keyPrefix: 'tour' })}
-      </Link>
       <NavTabs />
     </>
   );

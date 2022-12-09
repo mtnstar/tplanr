@@ -1,6 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SportKindContext from '../../utils/providers/SportKindContext';
 import { useToursQuery } from '../../utils/queries/useToursQuery';
@@ -10,8 +10,12 @@ import Tour from '../../model/Tour';
 const queryClient = new QueryClient();
 
 export default function ToursList() {
+  const { t } = useTranslation();
   return (
     <QueryClientProvider client={queryClient}>
+      <Link className='btn btn-primary' to={'/tours/new'}>
+        {t('new', { keyPrefix: 'tour' })}
+      </Link>
       <ToursTable />
     </QueryClientProvider>
   );
@@ -31,7 +35,13 @@ function ToursTable() {
     return (
       <tr onClick={() => showTour(tour)} key={tour.id}>
         <td>
-          {tour.avatar && <img src={tour.avatar.thumb.url} alt='Tour Avatar' />}
+          {tour.avatar && (
+            <img
+              src={tour.avatar.thumb.url}
+              className='img-thumbnail'
+              alt='Tour Avatar'
+            />
+          )}
         </td>
         <td>{tour.label}</td>
         <td>{tour.description}</td>
@@ -57,7 +67,7 @@ function ToursTable() {
   const rows = data.map((tour: Tour) => TourRow(tour));
 
   return (
-    <Table striped>
+    <Table striped hover>
       <thead>
         <tr>
           <th></th>
