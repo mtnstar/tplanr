@@ -99,9 +99,12 @@ function NavTabs(props: NavTabsProps) {
         )}
         <Nav.Item>
           {tour?.id && (
-            <Link className='nav-link' to={`/tours/${tour.id}/sections`}>
+            <NavLink
+              className={({ isActive }) => tabLinkClassName(isActive)}
+              to={`/tours/${tour.id}/sections`}
+            >
               {t('many', { keyPrefix: 'section' })}
-            </Link>
+            </NavLink>
           )}
         </Nav.Item>
         <Nav.Item>

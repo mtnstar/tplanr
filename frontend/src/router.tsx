@@ -7,6 +7,7 @@ import TourEdit from './components/Tour/Edit';
 import TourList from './components/Tour/List';
 import TourShow from './components/Tour/Show';
 import TourNew from './components/Tour/New';
+import SectionList from './components/Section/List';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
           { path: '/tours/:id', element: <TourShow /> },
           { path: '/tours/:id/edit', element: <TourEdit /> },
           { path: '/tours/:id/items', element: <ItemList /> },
+          { path: '/tours/:id/sections', element: <SectionList /> },
         ],
       },
     ],
