@@ -1,4 +1,3 @@
-import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import './i18n';
 import router from './router';

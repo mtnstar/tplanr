@@ -36,6 +36,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_022703) do
     t.string "label", null: false
     t.integer "user_id"
     t.integer "sport_kind", default: 0
+    t.date "start_at", null: false
+    t.date "end_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar"

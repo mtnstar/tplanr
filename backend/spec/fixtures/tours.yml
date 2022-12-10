@@ -4,9 +4,13 @@ dom:
   user: guide
   description: Besteigung des höchsten Schweizers
   link: https://touren.example.com/42
+  start_at: <%= 150.days.from_now.to_s(:db) %>
+  end_at: <%= 153.days.from_now.to_s(:db) %>
 
 argentinian:
   label: The Argentinian
   sport_kind: mountain_bike
   user: guide
   description: Ein epic trail über den Col des Becs de Bosson
+  start_at: <%= 160.days.from_now.to_s(:db) %>
+  end_at: <%= 163.days.from_now.to_s(:db) %>

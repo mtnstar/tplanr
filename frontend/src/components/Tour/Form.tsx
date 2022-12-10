@@ -9,6 +9,7 @@ import Tour from '../../model/Tour';
 import { createOrUpdateTour } from '../../utils/api/tours';
 import { toBase64 } from '../../utils/tools/toBase64';
 import SportKindContext from '../../utils/providers/SportKindContext';
+import DateRangePickerField from '../Shared/DateRangePickerField';
 
 interface FormParams {
   entry: Tour;
@@ -92,6 +93,13 @@ function TourForm(props: FormParams) {
                 name='description'
                 className='form-control w-50'
               />
+            </div>
+
+            <div className='mb-3'>
+              <label htmlFor='description' className='form-label'>
+                {t('startAtEndAt', { keyPrefix: 'tour.attrs' })}
+              </label>
+              <DateRangePickerField startName='startAt' endName='endAt' />
             </div>
 
             <div className='mb-3'>
