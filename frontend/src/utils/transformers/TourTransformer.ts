@@ -13,8 +13,8 @@ class TourTransformer extends Transformer<unknown, unknown> {
       'label',
       'description',
       'avatar',
-      'start-at',
-      'end-at',
+      'startAt',
+      'endAt',
     ];
     return whitelist(tour, whiteListAttrs);
   }

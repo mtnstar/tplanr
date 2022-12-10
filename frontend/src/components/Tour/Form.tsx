@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, Formik } from 'formik';
+import { Field, Formik, FormikErrors, FormikTouched } from 'formik';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
@@ -41,9 +41,18 @@ function TourForm(props: FormParams) {
       .min(2, t('too_short', { keyPrefix: 'global.form' }))
       .max(50, t('too_long', { keyPrefix: 'global.form' }))
       .required(t('required', { keyPrefix: 'global.form' })),
+    startAt: Yup.string()
+      .required(t('required', { keyPrefix: 'global.form' }))
+      .nullable(true),
+    endAt: Yup.string().required(t('required', { keyPrefix: 'global.form' })),
   });
 
   const abortLink = entry.id ? `/tours/${entry.id}` : '/tours';
+
+  const isStartAtEndAtInvalid = (
+    touched: FormikTouched<Tour>,
+    errors: FormikErrors<Tour>,
+  ) => (touched.startAt && errors.startAt) || (touched.endAt && errors.endAt);
 
   return (
     <div className='form-wrapper'>
@@ -96,10 +105,19 @@ function TourForm(props: FormParams) {
             </div>
 
             <div className='mb-3'>
-              <label htmlFor='description' className='form-label'>
+              <label htmlFor='startAt' className='form-label'>
                 {t('startAtEndAt', { keyPrefix: 'tour.attrs' })}
               </label>
-              <DateRangePickerField startName='startAt' endName='endAt' />
+              <DateRangePickerField
+                startName='startAt'
+                endName='endAt'
+                isInvalid={!!isStartAtEndAtInvalid(touched, errors)}
+              />
+              {isStartAtEndAtInvalid(touched, errors) && (
+                <div className='invalid-feedback' style={{ display: 'block' }}>
+                  {errors.startAt || errors.endAt}
+                </div>
+              )}
             </div>
 
             <div className='mb-3'>
