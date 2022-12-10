@@ -48,6 +48,17 @@ function TourEntry() {
               <dd>
                 <div>{data.description}</div>
               </dd>
+              <dt>{t('time_period', { keyPrefix: 'tour.attrs' })}</dt>
+              <dd>
+                <div>
+                  {data.startAt &&
+                    t('startAtEndAt', {
+                      startAt: data.startAt,
+                      endAt: data.endAt,
+                      keyPrefix: 'tour.attrs',
+                    })}
+                </div>
+              </dd>
             </dl>
           </div>
           <div className='col-4'>

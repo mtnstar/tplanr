@@ -12,9 +12,11 @@ type Tour = {
   sport_kind?: SportKind;
   description?: string;
   label?: string;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   avatar?: TourAvatar;
+  startAt?: Date;
+  endAt?: Date;
 };
 
 export default Tour;

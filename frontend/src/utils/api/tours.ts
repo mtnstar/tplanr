@@ -1,12 +1,35 @@
-import { deserialize, DocumentObject, transform } from 'jsonapi-fractal';
+import {
+  CaseType,
+  deserialize,
+  DocumentObject,
+  transform,
+} from 'jsonapi-fractal';
 import { SportKind } from '../../model/SportKind';
 import Tour from '../../model/Tour';
 import TourTransformer from '../transformers/TourTransformer';
 import { adapter } from './axios';
 
+const convertDates = (entry: Tour) => {
+  if (entry.startAt) {
+    entry.startAt = new Date(entry.startAt);
+  }
+  if (entry.endAt) {
+    entry.endAt = new Date(entry.endAt);
+  }
+  if (entry.createdAt) {
+    entry.createdAt = new Date(entry.createdAt);
+  }
+  if (entry.updatedAt) {
+    entry.updatedAt = new Date(entry.updatedAt);
+  }
+};
+
 export const fetchTour = async (id: number): Promise<Tour> => {
   const response = await adapter.get(`/api/tours/${id}`);
-  const entry = deserialize(response.data) as Tour;
+  const entry = deserialize(response.data, {
+    changeCase: CaseType.camelCase,
+  }) as Tour;
+  convertDates(entry);
   return entry;
 };
 
@@ -14,6 +37,7 @@ export const createOrUpdateTour = async (entry: Tour) => {
   const serializedData = transform()
     .withInput(entry)
     .withTransformer(new TourTransformer())
+    .withOptions({ changeCase: CaseType.kebabCase })
     .serialize();
 
   let response = { data: undefined };
@@ -43,6 +67,11 @@ export const fetchTours = async (sportKind: SportKind): Promise<Tours> => {
   const response = await adapter.get('/api/tours', {
     params: { filter: { sport_kind: sportKind } },
   });
-  const data = deserialize(response.data) as any;
-  return data.map((entry: any) => entry as Tour);
+  const data = deserialize(response.data, {
+    changeCase: CaseType.camelCase,
+  }) as Tour[];
+  return data.map((entry: Tour) => {
+    convertDates(entry);
+    return entry;
+  });
 };

@@ -8,7 +8,14 @@ class TourTransformer extends Transformer<unknown, unknown> {
   }
 
   transform(tour: Tour) {
-    const whiteListAttrs = ['id', 'label', 'description', 'avatar'];
+    const whiteListAttrs = [
+      'id',
+      'label',
+      'description',
+      'avatar',
+      'start-at',
+      'end-at',
+    ];
     return whitelist(tour, whiteListAttrs);
   }
 }

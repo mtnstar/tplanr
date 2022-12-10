@@ -45,7 +45,14 @@ function ToursTable() {
         </td>
         <td>{tour.label}</td>
         <td>{tour.description}</td>
-        <td>22.11 - 24.11.2022</td>
+        <td>
+          {tour.startAt &&
+            t('startAtEndAt', {
+              startAt: tour.startAt,
+              endAt: tour.endAt,
+              keyPrefix: 'tour.attrs',
+            })}
+        </td>
       </tr>
     );
   }

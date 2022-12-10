@@ -13,7 +13,8 @@
     "attrs": {
       "label": "Bezeichnung",
       "description": "Beschreibung",
-      "time_period": "Zeitraum"
+      "time_period": "Zeitraum",
+      "startAtEndAt" : "{{startAt, datetime}} bis {{endAt, datetime}}"
     }
   },
 
@@ -29,6 +30,7 @@
 
   "global": {
     "no_entries": "Noch keine Einträge vorhanden",
+    "date": "{{date, datetime}}",
     "actions": {
       "save": "Speichern",
       "edit": "Bearbeiten",
