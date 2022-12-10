@@ -50,7 +50,7 @@ function ToursTable() {
             t('startAtEndAt', {
               startAt: tour.startAt,
               endAt: tour.endAt,
-              keyPrefix: 'tour.attrs',
+              keyPrefix: 'tour',
             })}
         </td>
       </tr>

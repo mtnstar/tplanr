@@ -55,7 +55,7 @@ function TourEntry() {
                     t('startAtEndAt', {
                       startAt: data.startAt,
                       endAt: data.endAt,
-                      keyPrefix: 'tour.attrs',
+                      keyPrefix: 'tour',
                     })}
                 </div>
               </dd>
