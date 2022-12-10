@@ -1,5 +1,7 @@
 class TourResource < JSONAPI::Resource
-  attributes :label, :description, :link, :created_at, :updated_at, :avatar
+  attributes :label, :description, :link,
+    :created_at, :updated_at, :avatar,
+    :start_at, :end_at
 
   filter :sport_kind
 

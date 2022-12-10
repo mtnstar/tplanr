@@ -6,6 +6,8 @@ class CreateTours < ActiveRecord::Migration[7.0]
       t.string :label, null: false
       t.references :user
       t.integer :sport_kind, default: 0
+      t.date :start_at, null: false
+      t.date :end_at, null: false
 
       t.timestamps
     end
