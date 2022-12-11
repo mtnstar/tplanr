@@ -3,7 +3,7 @@ dom:
   sport_kind: alpine_summer
   user: guide
   description: Besteigung des höchsten Schweizers
-  link: https://touren.example.com/42
+  external_link: https://touren.example.com/42
   start_at: <%= 150.days.from_now.to_s(:db) %>
   end_at: <%= 153.days.from_now.to_s(:db) %>
 

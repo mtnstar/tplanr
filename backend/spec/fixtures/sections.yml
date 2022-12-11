@@ -1,0 +1,89 @@
+dom_day1_transport:
+  type: Section::Transport
+  tour: dom
+  label: Anreise
+  details: Zug von Thun nach Randa
+  date_at: <%= 150.days.from_now.to_s(:db) %>
+  external_link: 'https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/domhuette-sac-2147000081/berg-und-alpinwandern/von-randa-ueber-die-festifluee-557/'
+  start_at: 8:25
+  end_at: 10:45
+
+dom_day1_stage:
+  type: Section::Stage
+  tour: dom
+  date_at: <%= 150.days.from_now.to_s(:db) %>
+  label: Zustieg Domhütte
+  details: Schwierigkeit T4
+  distance_km: 15
+  climb_up_meters: 1600
+  start_at: 11:00
+  end_at: 17:00
+
+dom_day1_lodging:
+  type: Section::Lodging
+  tour: dom
+  date_at: <%= 150.days.from_now.to_s(:db) %>
+  start_at: 17:00
+  label: Übernachtung Domhütte
+  details: 'Reservations-Nr: Abc42'
+
+dom_day2_meal:
+  type: Section::Meal
+  tour: dom
+  date_at: <%= 151.days.from_now.to_s(:db) %>
+  start_at: 4:00
+  end_at: 4:30
+  label: Frühstück
+
+dom_day2_stage:
+  type: Section::Stage
+  tour: dom
+  date_at: <%= 151.days.from_now.to_s(:db) %>
+  start_at: 5:00
+  label: Dom 4545m und zurück
+  details: Erster Aufstieg im Dunkeln mit Stirnlampe. Dann weiter auf dem Gletscher zum Festijoch. ... 
+  end_at: 16:00
+  climb_up_meters: 1600
+  climb_down_meters: 1600
+
+dom_day2_lodging:
+  type: Section::Lodging
+  tour: dom
+  date_at: <%= 151.days.from_now.to_s(:db) %>
+  start_at: 17:00
+  label: Übernachtung Domhütte
+  details: 'Reservations-Nr: Abc42'
+
+dom_day3_meal:
+  type: Section::Meal
+  tour: dom
+  date_at: <%= 152.days.from_now.to_s(:db) %>
+  start_at: 7:00
+  end_at: 8:00
+  label: Frühstück
+
+dom_day3_stage:
+  type: Section::Stage
+  tour: dom
+  label: Abstieg zurück nach Randa
+  external_link: 'https://www.sac-cas.ch/de/huetten-und-touren/sac-tourenportal/domhuette-sac-2147000081/berg-und-alpinwandern/von-randa-ueber-die-festifluee-557/'
+  date_at: <%= 152.days.from_now.to_s(:db) %>
+  start_at: 9:00
+  end_at: 13:00
+  climb_down_meters: 1600
+  distance_km: 15
+
+dom_day3_lunch:
+  type: Section::Meal
+  tour: dom
+  date_at: <%= 152.days.from_now.to_s(:db) %>
+  start_at: 13:00
+  label: Zmittag und Bier in Randa
+
+dom_day3_transport:
+  type: Section::Transport
+  tour: dom
+  label: Rückreise
+  details: Zug von Randa zurück nach Thun. Abfahrt immer um .42
+  date_at: <%= 152.days.from_now.to_s(:db) %>
+  start_at: 15:00

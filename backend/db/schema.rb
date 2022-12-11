@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_20_022703) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_050924) do
   create_table "item_categories", force: :cascade do |t|
     t.string "label_de"
     t.datetime "created_at", null: false
@@ -30,9 +30,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_022703) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.integer "tour_id"
+    t.string "type", null: false
+    t.string "label"
+    t.string "external_link"
+    t.text "details"
+    t.integer "distance_km"
+    t.integer "climb_up_meters"
+    t.integer "climb_down_meters"
+    t.date "date_at", null: false
+    t.time "start_at"
+    t.time "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date_at"], name: "index_sections_on_date_at"
+    t.index ["end_at"], name: "index_sections_on_end_at"
+    t.index ["start_at"], name: "index_sections_on_start_at"
+    t.index ["tour_id"], name: "index_sections_on_tour_id"
+  end
+
   create_table "tours", force: :cascade do |t|
     t.text "description"
-    t.string "link"
+    t.string "external_link"
     t.string "label", null: false
     t.integer "user_id"
     t.integer "sport_kind", default: 0
