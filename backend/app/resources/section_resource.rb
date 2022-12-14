@@ -19,4 +19,8 @@ class SectionResource < JSONAPI::Resource
     super - [:create_at, :updated_at]
   end
 
+  def self.default_sort
+  [{field: 'start_at', direction: :asc}]
+end
+
 end
