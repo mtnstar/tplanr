@@ -26,7 +26,13 @@
 
   "section": {
     "many": "Etappen",
-    "attrs": { }
+    "attrs": { },
+    "types": {
+      "transport": "Transport",
+      "lodging": "Übernachtung",
+      "meal": "Verpflegung",
+      "stage": "Etappe"
+    }
   },
 
   "global": {
