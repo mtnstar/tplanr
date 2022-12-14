@@ -39,12 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_050924) do
     t.integer "distance_km"
     t.integer "climb_up_meters"
     t.integer "climb_down_meters"
-    t.date "date_at", null: false
-    t.time "start_at"
-    t.time "end_at"
+    t.datetime "start_at", null: false
+    t.datetime "end_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date_at"], name: "index_sections_on_date_at"
     t.index ["end_at"], name: "index_sections_on_end_at"
     t.index ["start_at"], name: "index_sections_on_start_at"
     t.index ["tour_id"], name: "index_sections_on_tour_id"

@@ -8,14 +8,12 @@ class CreateSections < ActiveRecord::Migration[7.0]
       t.integer :distance_km
       t.integer :climb_up_meters
       t.integer :climb_down_meters
-      t.date :date_at, null: false
-      t.time :start_at
-      t.time :end_at
+      t.datetime :start_at, null: false
+      t.datetime :end_at, null: false
 
       t.timestamps
     end
 
     add_index :sections, :start_at
     add_index :sections, :end_at
-    add_index :sections, :date_at
 end
