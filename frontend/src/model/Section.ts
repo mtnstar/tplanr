@@ -6,10 +6,10 @@ type Section = {
   tour: Tour;
   label?: string;
   details?: string;
-  external_link?: string;
-  distance_km?: number;
-  climb_up_meters?: number;
-  climb_down_meters?: number;
+  externalLink?: string;
+  distanceKm?: number;
+  climbUpMeters?: number;
+  climbDownMeters?: number;
   createdAt?: Date;
   updatedAt?: Date;
   startAt?: Date;

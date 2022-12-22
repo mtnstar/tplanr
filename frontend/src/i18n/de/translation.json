@@ -26,7 +26,11 @@
 
   "section": {
     "many": "Etappen",
-    "attrs": { },
+    "attrs": {
+      "distanceKm": "Distanz",
+      "climbUpMeters": "Aufstieg",
+      "climbDownMeters": "Abstieg"
+    },
     "types": {
       "transport": "Transport",
       "lodging": "Übernachtung",

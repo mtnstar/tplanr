@@ -65,18 +65,65 @@ interface SectionCardParams {
   section: Section;
 }
 
+function sectionType(section: Section) {
+  return section.type.split('::')[1].toLowerCase();
+}
+
 function SectionCard(props: SectionCardParams) {
   const { section } = props;
   const { t } = useTranslation();
-  const typeTranslationKey = section.type.split('::')[1].toLowerCase();
+  const typeTranslationKey = sectionType(section);
   return (
     <Card className='mt-4'>
       <Card.Header>
-        {t(typeTranslationKey, { keyPrefix: 'section.types' })}
+        {moment(section.startAt).utc().format('HH:mm')}{' '}
+        {t(typeTranslationKey, { keyPrefix: 'section.types' })} -{' '}
+        {section.label}
       </Card.Header>
-      <Card.Body></Card.Body>
+      <Card.Body>
+        {section.details}
+        <StageSectionDetails section={section} />
+      </Card.Body>
+      <Card.Footer>{moment(section.endAt).utc().format('HH:mm')} </Card.Footer>
     </Card>
   );
+}
+
+function StageSectionDetails(props: SectionCardParams) {
+  const { section } = props;
+  const { t } = useTranslation();
+  if (sectionType(section) === 'stage') {
+    return (
+      <dl>
+        {section.distanceKm && (
+          <>
+            <dt>{t('distanceKm', { keyPrefix: 'section.attrs' })}</dt>
+            <dd>
+              <div>{section.distanceKm} km</div>
+            </dd>
+          </>
+        )}
+        {section.climbUpMeters && (
+          <>
+            <dt>{t('climbUpMeters', { keyPrefix: 'section.attrs' })}</dt>
+            <dd>
+              <div>{section.climbUpMeters}hm</div>
+            </dd>
+          </>
+        )}
+        {section.climbDownMeters && (
+          <>
+            <dt>{t('climbDownMeters', { keyPrefix: 'section.attrs' })}</dt>
+            <dd>
+              <div>{section.climbDownMeters}hm</div>
+            </dd>
+          </>
+        )}
+      </dl>
+    );
+  } else {
+    return null;
+  }
 }
 
 function TourSections() {
