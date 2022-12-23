@@ -7,20 +7,29 @@ import Section from '../../model/Section';
 import { createOrUpdateSection } from '../../utils/api/sections';
 import * as Yup from 'yup';
 import DateRangePickerField from '../Shared/DateRangePickerField';
+import { Dispatch, SetStateAction } from 'react';
 import { useSectionQuery } from '../../utils/queries/useSectionQuery';
 
-function SectionForm() {
+interface FormParams {
+  sectionId: number | undefined;
+  setEdit: Dispatch<SetStateAction<boolean>>;
+}
+
+function SectionForm(props: FormParams) {
   const { t } = useTranslation();
-  const { tourId, id } = useParams();
-  const { data: entry } = useSectionQuery(Number(tourId), Number(id));
+  const { id: tourId } = useParams();
+  const { sectionId, setEdit } = props;
+  const { data: entry } = useSectionQuery(Number(tourId), Number(sectionId));
 
   const mutation = useMutation(createOrUpdateSection, {
     onSuccess: (data) => {
       if (data) {
-        //navigate(`/tours/${id || data.id}`);
+        setEdit(false);
       }
     },
   });
+
+  if (!entry) return null;
 
   function onFormSubmit(id: number | undefined, section: Section) {
     section.id = id;
@@ -83,14 +92,14 @@ function SectionForm() {
             </div>
 
             <div className='mb-3'>
-              <label htmlFor='description' className='form-label'>
-                {t('description', { keyPrefix: 'section.attrs' })}
+              <label htmlFor='details' className='form-label'>
+                {t('details', { keyPrefix: 'section.attrs' })}
               </label>
               <Field
                 component='textarea'
                 rows='4'
-                id='description'
-                name='description'
+                id='details'
+                name='details'
                 className='form-control w-50'
               />
             </div>
@@ -114,7 +123,7 @@ function SectionForm() {
             <button className='btn btn-primary' type='submit'>
               {t('save', { keyPrefix: 'global.actions' })}
             </button>
-            <button className='ms-3'>
+            <button className='ms-3' onClick={() => setEdit(false)}>
               {t('abort', { keyPrefix: 'global.actions' })}
             </button>
           </form>

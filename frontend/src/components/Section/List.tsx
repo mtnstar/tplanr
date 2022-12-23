@@ -9,7 +9,7 @@ import { useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
 import { Card } from 'react-bootstrap';
 import SectionForm from './Form';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 const queryClient = new QueryClient();
 
 const moment = extendMoment(Moment);
@@ -91,7 +91,11 @@ function SectionCard(props: SectionCardParams) {
         )}
       </Card.Header>
       <Card.Body>
-        <SectionBody section={section} isEditing={isEditing} />
+        <SectionBody
+          section={section}
+          isEditing={isEditing}
+          setEdit={setEdit}
+        />
       </Card.Body>
       <Card.Footer>{moment(section.endAt).utc().format('HH:mm')} </Card.Footer>
     </Card>
@@ -101,14 +105,15 @@ function SectionCard(props: SectionCardParams) {
 interface SectionBodyParams {
   section: Section;
   isEditing: boolean;
+  setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
 function SectionBody(props: SectionBodyParams) {
-  const { section, isEditing } = props;
+  const { section, isEditing, setEdit } = props;
   if (isEditing) {
     return (
       <>
-        <SectionForm />
+        <SectionForm sectionId={section.id} setEdit={setEdit} />
       </>
     );
   } else {

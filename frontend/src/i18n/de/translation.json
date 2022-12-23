@@ -29,7 +29,9 @@
     "attrs": {
       "distanceKm": "Distanz",
       "climbUpMeters": "Aufstieg",
-      "climbDownMeters": "Abstieg"
+      "climbDownMeters": "Abstieg",
+      "details": "Details",
+      "label": "Bezeichnung"
     },
     "types": {
       "transport": "Transport",
