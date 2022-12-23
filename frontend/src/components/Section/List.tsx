@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import { useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
 import { Card } from 'react-bootstrap';
+import SectionForm from './Form';
+import { useState } from 'react';
 const queryClient = new QueryClient();
 
 const moment = extendMoment(Moment);
@@ -73,19 +75,58 @@ function SectionCard(props: SectionCardParams) {
   const { section } = props;
   const { t } = useTranslation();
   const typeTranslationKey = sectionType(section);
+  const [isEditing, setEdit] = useState(false);
   return (
     <Card className='mt-4'>
-      <Card.Header>
-        {moment(section.startAt).utc().format('HH:mm')}{' '}
-        {t(typeTranslationKey, { keyPrefix: 'section.types' })} -{' '}
-        {section.label}
+      <Card.Header className='d-flex justify-content-between'>
+        <div>
+          {moment(section.startAt).utc().format('HH:mm')}{' '}
+          {t(typeTranslationKey, { keyPrefix: 'section.types' })} -{' '}
+          {section.label}
+        </div>
+        {!isEditing && (
+          <a href='#' onClick={() => setEdit(true)}>
+            {t('edit', { keyPrefix: 'global.actions' })}
+          </a>
+        )}
       </Card.Header>
       <Card.Body>
-        {section.details}
-        <StageSectionDetails section={section} />
+        <SectionBody section={section} isEditing={isEditing} />
       </Card.Body>
       <Card.Footer>{moment(section.endAt).utc().format('HH:mm')} </Card.Footer>
     </Card>
+  );
+}
+
+interface SectionBodyParams {
+  section: Section;
+  isEditing: boolean;
+}
+
+function SectionBody(props: SectionBodyParams) {
+  const { section, isEditing } = props;
+  if (isEditing) {
+    return (
+      <>
+        <SectionForm />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <SectionDetails section={section} />
+      </>
+    );
+  }
+}
+
+function SectionDetails(props: SectionCardParams) {
+  const { section } = props;
+  return (
+    <>
+      {section.details}
+      <StageSectionDetails section={section} />
+    </>
   );
 }
 
