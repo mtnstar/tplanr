@@ -1,6 +1,12 @@
-import { CaseType, deserialize } from 'jsonapi-fractal';
 import Section from '../../model/Section';
 import { adapter } from './axios';
+import {
+  CaseType,
+  deserialize,
+  DocumentObject,
+  transform,
+} from 'jsonapi-fractal';
+import SectionTransformer from '../transformers/SectionTransformer';
 
 const convertDates = (entry: Section) => {
   if (entry.startAt) {
@@ -17,6 +23,19 @@ const convertDates = (entry: Section) => {
   }
 };
 
+export const fetchSection = async (
+  tourId: number,
+  id: number,
+): Promise<Section> => {
+  const response = await adapter.get(`/api/tours/${tourId}/sections/${id}`);
+  const entry = deserialize(response.data, {
+    changeCase: CaseType.camelCase,
+  }) as Section;
+  convertDates(entry);
+  entry.tourId = tourId;
+  return entry;
+};
+
 type Sections = ReadonlyArray<Section>;
 
 export const fetchSections = async (tourId: number): Promise<Sections> => {
@@ -28,4 +47,41 @@ export const fetchSections = async (tourId: number): Promise<Sections> => {
     convertDates(entry);
     return entry;
   });
+};
+
+export const createOrUpdateSection = async (entry: Section) => {
+  const serializedData = transform()
+    .withInput(entry)
+    .withTransformer(new SectionTransformer())
+    .withOptions({ changeCase: CaseType.kebabCase })
+    .serialize();
+
+  let response = { data: undefined };
+
+  if (entry.id) {
+    response = await updateSection(entry, serializedData);
+  } else {
+    response = await createSection(entry, serializedData);
+  }
+
+  const data = response.data;
+
+  return data ? (deserialize(data) as Section) : undefined;
+};
+
+const updateSection = async (
+  entry: Section,
+  serializedData: DocumentObject,
+) => {
+  return adapter.patch(
+    `/api/tours/${entry.tourId}/sections/${entry.id}`,
+    serializedData,
+  );
+};
+
+const createSection = async (
+  entry: Section,
+  serializedData: DocumentObject,
+) => {
+  return adapter.post(`/api/tours/${entry.tourId}/sections`, serializedData);
 };

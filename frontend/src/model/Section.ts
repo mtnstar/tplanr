@@ -2,8 +2,8 @@ import Tour from './Tour';
 
 type Section = {
   id?: number;
-  type: string;
-  tour: Tour;
+  type?: string;
+  tour?: Tour;
   label?: string;
   details?: string;
   externalLink?: string;
@@ -14,6 +14,7 @@ type Section = {
   updatedAt?: Date;
   startAt?: Date;
   endAt?: Date;
+  tourId?: number;
 };
 
 export default Section;

@@ -68,7 +68,7 @@ interface SectionCardParams {
 }
 
 function sectionType(section: Section) {
-  return section.type.split('::')[1].toLowerCase();
+  return section.type!.split('::')[1].toLowerCase();
 }
 
 function SectionCard(props: SectionCardParams) {
