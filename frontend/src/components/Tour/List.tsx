@@ -1,5 +1,4 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SportKindContext from '../../utils/providers/SportKindContext';
@@ -7,17 +6,15 @@ import { useToursQuery } from '../../utils/queries/useToursQuery';
 import Table from 'react-bootstrap/Table';
 import Tour from '../../model/Tour';
 
-const queryClient = new QueryClient();
-
 export default function ToursList() {
   const { t } = useTranslation();
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Link className='btn btn-primary' to={'/tours/new'}>
         {t('new', { keyPrefix: 'tour' })}
       </Link>
       <ToursTable />
-    </QueryClientProvider>
+    </>
   );
 }
 

@@ -1,30 +1,32 @@
 import { Field, Formik, FormikErrors, FormikTouched } from 'formik';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from 'react-i18next';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Section from '../../model/Section';
 import { createOrUpdateSection } from '../../utils/api/sections';
 import * as Yup from 'yup';
 import DateRangePickerField from '../Shared/DateRangePickerField';
 import { Dispatch, SetStateAction } from 'react';
-import { useSectionQuery } from '../../utils/queries/useSectionQuery';
+import { queryClient } from '../../index';
 
 interface FormParams {
-  sectionId: number | undefined;
+  entry: Section;
   setEdit: Dispatch<SetStateAction<boolean>>;
 }
 
 function SectionForm(props: FormParams) {
   const { t } = useTranslation();
   const { id: tourId } = useParams();
-  const { sectionId, setEdit } = props;
-  const { data: entry } = useSectionQuery(Number(tourId), Number(sectionId));
+  const { entry, setEdit } = props;
 
   const mutation = useMutation(createOrUpdateSection, {
     onSuccess: (data) => {
       if (data) {
         setEdit(false);
+        queryClient.invalidateQueries({
+          queryKey: ['sections', Number(tourId)],
+        });
       }
     },
   });

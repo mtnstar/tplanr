@@ -2,7 +2,6 @@ import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import Section from '../../model/Section';
 import { useSectionsQuery } from '../../utils/queries/useSectionsQuery';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useTourQuery } from '../../utils/queries/useTourQuery';
@@ -10,15 +9,14 @@ import Tour from '../../model/Tour';
 import { Card } from 'react-bootstrap';
 import SectionForm from './Form';
 import { Dispatch, SetStateAction, useState } from 'react';
-const queryClient = new QueryClient();
 
 const moment = extendMoment(Moment);
 
 export default function SectionList() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <TourSections />
-    </QueryClientProvider>
+    </>
   );
 }
 
@@ -113,7 +111,7 @@ function SectionBody(props: SectionBodyParams) {
   if (isEditing) {
     return (
       <>
-        <SectionForm sectionId={section.id} setEdit={setEdit} />
+        <SectionForm entry={section} setEdit={setEdit} />
       </>
     );
   } else {
