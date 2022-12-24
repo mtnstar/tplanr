@@ -6,9 +6,10 @@ import { useParams } from 'react-router-dom';
 import Section from '../../model/Section';
 import { createOrUpdateSection } from '../../utils/api/sections';
 import * as Yup from 'yup';
-import DateRangePickerField from '../Shared/DateRangePickerField';
+import DateTimeRangePickerField from '../Shared/DateTimePickerField';
 import { Dispatch, SetStateAction } from 'react';
 import { queryClient } from '../../index';
+import { useTourQuery } from '../../utils/queries/useTourQuery';
 
 interface FormParams {
   entry: Section;
@@ -19,6 +20,7 @@ function SectionForm(props: FormParams) {
   const { t } = useTranslation();
   const { id: tourId } = useParams();
   const { entry, setEdit } = props;
+  const { data: tour } = useTourQuery(+tourId!);
 
   const mutation = useMutation(createOrUpdateSection, {
     onSuccess: (data) => {
@@ -108,17 +110,31 @@ function SectionForm(props: FormParams) {
 
             <div className='mb-3'>
               <label htmlFor='startAt' className='form-label'>
-                {t('startAtEndAt', { keyPrefix: 'section.attrs' })}
+                {t('startAt', { keyPrefix: 'section.attrs' })}
               </label>
-              <DateRangePickerField
-                startName='startAt'
-                endName='endAt'
-                isInvalid={!!isStartAtEndAtInvalid(touched, errors)}
+              <DateTimeRangePickerField
+                name='startAt'
+                minDate={tour && tour.startAt}
+                maxDate={tour && tour.endAt}
+                isInvalid={!!touched.startAt && !!errors.startAt}
               />
-              {isStartAtEndAtInvalid(touched, errors) && (
-                <div className='invalid-feedback' style={{ display: 'block' }}>
-                  {errors.startAt || errors.endAt}
-                </div>
+              {touched.startAt && errors.startAt && (
+                <div className='invalid-feedback'>{errors.startAt}</div>
+              )}
+            </div>
+
+            <div className='mb-3'>
+              <label htmlFor='endAt' className='form-label'>
+                {t('endAt', { keyPrefix: 'section.attrs' })}
+              </label>
+              <DateTimeRangePickerField
+                name='endAt'
+                minDate={tour && tour.startAt}
+                maxDate={tour && tour.endAt}
+                isInvalid={!!touched.endAt && !!errors.endAt}
+              />
+              {touched.endAt && errors.endAt && (
+                <div className='invalid-feedback'>{errors.endAt}</div>
               )}
             </div>
 

@@ -31,7 +31,9 @@
       "climbUpMeters": "Aufstieg",
       "climbDownMeters": "Abstieg",
       "details": "Details",
-      "label": "Bezeichnung"
+      "label": "Bezeichnung",
+      "startAt": "von",
+      "endAt": "bis"
     },
     "types": {
       "transport": "Transport",
