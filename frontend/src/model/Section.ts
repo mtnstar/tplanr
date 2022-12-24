@@ -1,8 +1,16 @@
 import Tour from './Tour';
 
+export const SectionTypes = [
+  'Section::Transport',
+  'Section::Lodging',
+  'Section::Meal',
+  'Section::stage',
+] as const;
+export type SectionType = typeof SectionTypes[number];
+
 type Section = {
   id?: number;
-  type?: string;
+  type?: SectionType;
   tour?: Tour;
   label?: string;
   details?: string;

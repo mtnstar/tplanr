@@ -1,6 +1,6 @@
 import * as Moment from 'moment';
 import { extendMoment } from 'moment-range';
-import Section from '../../model/Section';
+import Section, { SectionType, SectionTypes } from '../../model/Section';
 import { useSectionsQuery } from '../../utils/queries/useSectionsQuery';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -9,6 +9,7 @@ import Tour from '../../model/Tour';
 import { Card } from 'react-bootstrap';
 import SectionForm from './Form';
 import { Dispatch, SetStateAction, useState } from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const moment = extendMoment(Moment);
 
@@ -36,6 +37,38 @@ function sectionsByDate(sections: readonly Section[], dateAt: Date) {
   });
 }
 
+interface NewSectionDropDownParams {
+  setNewSection: Dispatch<SetStateAction<SectionType | undefined>>;
+}
+
+function NewSectionDropDown(props: NewSectionDropDownParams) {
+  const { setNewSection } = props;
+  const { t } = useTranslation();
+  const items = SectionTypes.map((type) => (
+    <Dropdown.Item onClick={() => setNewSection(type)} key={type}>
+      {t(type.split('::')[1].toLowerCase(), { keyPrefix: 'section.types' })}
+    </Dropdown.Item>
+  ));
+  return (
+    <Dropdown>
+      <Dropdown.Toggle id='dropdown-basic'>
+        {t('new', { keyPrefix: 'section' })}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>{items}</Dropdown.Menu>
+    </Dropdown>
+  );
+}
+
+function newSectionCard(date: Date, type: SectionType) {
+  const newSectionEntry = {
+    type: type,
+    startAt: date,
+    endAt: date,
+  } as Section;
+  return <SectionCard section={newSectionEntry} isNewSection={true} />;
+}
+
 interface SectionsDayParams {
   date: Date;
   sections: readonly Section[];
@@ -44,6 +77,9 @@ interface SectionsDayParams {
 function SectionsDayCard(props: SectionsDayParams) {
   const { date, sections } = props;
   const { t } = useTranslation();
+  const [newSection, setNewSection] = useState<SectionType | undefined>(
+    undefined,
+  );
   const sections1 = sectionsByDate(sections, date);
   const sectionCards = sections1.map((section) => {
     return (
@@ -53,15 +89,23 @@ function SectionsDayCard(props: SectionsDayParams) {
     );
   });
 
+  if (newSection) {
+    sectionCards.unshift(newSectionCard(date, newSection));
+  }
+
   return (
     <Card className='mt-4'>
-      <Card.Header>{t('global.date', { date: date })}</Card.Header>
+      <Card.Header className='d-flex justify-content-between'>
+        <b>{t('global.date', { date: date })}</b>
+        <NewSectionDropDown setNewSection={setNewSection} />
+      </Card.Header>
       <Card.Body>{sectionCards}</Card.Body>
     </Card>
   );
 }
 
 interface SectionCardParams {
+  isNewSection?: boolean;
   section: Section;
 }
 
@@ -70,10 +114,10 @@ function sectionType(section: Section) {
 }
 
 function SectionCard(props: SectionCardParams) {
-  const { section } = props;
+  const { section, isNewSection } = props;
   const { t } = useTranslation();
   const typeTranslationKey = sectionType(section);
-  const [isEditing, setEdit] = useState(false);
+  const [isEditing, setEdit] = useState(!!isNewSection);
   return (
     <Card className='mt-4'>
       <Card.Header className='d-flex justify-content-between'>

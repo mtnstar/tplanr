@@ -25,6 +25,7 @@
   },
 
   "section": {
+    "new": "Hinzufügen",
     "many": "Etappen",
     "attrs": {
       "distanceKm": "Distanz",

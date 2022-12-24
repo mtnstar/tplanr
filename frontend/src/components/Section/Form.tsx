@@ -1,7 +1,7 @@
 import { Field, Formik, FormikErrors, FormikTouched } from 'formik';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from 'react-i18next';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { useParams } from 'react-router-dom';
 import Section from '../../model/Section';
 import { createOrUpdateSection } from '../../utils/api/sections';
