@@ -52,7 +52,7 @@ function NewSectionDropDown(props: NewSectionDropDownParams) {
   return (
     <Dropdown>
       <Dropdown.Toggle id='dropdown-basic'>
-        {t('new', { keyPrefix: 'section' })}
+        {t('add', { keyPrefix: 'global.actions' })}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>{items}</Dropdown.Menu>
@@ -60,13 +60,25 @@ function NewSectionDropDown(props: NewSectionDropDownParams) {
   );
 }
 
-function newSectionCard(date: Date, type: SectionType) {
+function newSectionCard(
+  date: Date,
+  type: SectionType,
+  closeNewSection: () => void,
+) {
   const newSectionEntry = {
     type: type,
     startAt: date,
     endAt: date,
   } as Section;
-  return <SectionCard section={newSectionEntry} isNewSection={true} />;
+  return (
+    <div key={'newSection'}>
+      <SectionCard
+        section={newSectionEntry}
+        isNewSection={true}
+        closeNewSection={closeNewSection}
+      />
+    </div>
+  );
 }
 
 interface SectionsDayParams {
@@ -81,22 +93,29 @@ function SectionsDayCard(props: SectionsDayParams) {
     undefined,
   );
   const sections1 = sectionsByDate(sections, date);
+
+  const closeNewSection = () => {
+    setNewSection(undefined);
+  };
+
   const sectionCards = sections1.map((section) => {
     return (
       <div key={section.id}>
-        <SectionCard section={section} />
+        <SectionCard section={section} closeNewSection={closeNewSection} />
       </div>
     );
   });
 
   if (newSection) {
-    sectionCards.unshift(newSectionCard(date, newSection));
+    sectionCards.unshift(newSectionCard(date, newSection, closeNewSection));
   }
 
   return (
     <Card className='mt-4'>
       <Card.Header className='d-flex justify-content-between'>
-        <b>{t('global.date', { date: date })}</b>
+        <div className='section-day-date'>
+          {t('global.date', { date: date })}
+        </div>
         <NewSectionDropDown setNewSection={setNewSection} />
       </Card.Header>
       <Card.Body>{sectionCards}</Card.Body>
@@ -106,6 +125,7 @@ function SectionsDayCard(props: SectionsDayParams) {
 
 interface SectionCardParams {
   isNewSection?: boolean;
+  closeNewSection: () => void;
   section: Section;
 }
 
@@ -114,29 +134,37 @@ function sectionType(section: Section) {
 }
 
 function SectionCard(props: SectionCardParams) {
-  const { section, isNewSection } = props;
+  const { section, isNewSection, closeNewSection } = props;
   const { t } = useTranslation();
   const typeTranslationKey = sectionType(section);
   const [isEditing, setEdit] = useState(!!isNewSection);
+  const closeEdit = () => {
+    setEdit(false);
+    closeNewSection();
+  };
+  const editSection = () => {
+    setEdit(true);
+    closeNewSection();
+  };
   return (
     <Card className='mt-4'>
       <Card.Header className='d-flex justify-content-between'>
         <div>
           {moment(section.startAt).utc().format('HH:mm')}{' '}
-          {t(typeTranslationKey, { keyPrefix: 'section.types' })} -{' '}
-          {section.label}
+          {t(typeTranslationKey, { keyPrefix: 'section.types' })}
+          {section.label && '-' + section.label}
         </div>
         {!isEditing && (
-          <a href='#' onClick={() => setEdit(true)}>
+          <button className='btn btn-link' onClick={() => editSection()}>
             {t('edit', { keyPrefix: 'global.actions' })}
-          </a>
+          </button>
         )}
       </Card.Header>
       <Card.Body>
         <SectionBody
           section={section}
           isEditing={isEditing}
-          setEdit={setEdit}
+          closeEdit={closeEdit}
         />
       </Card.Body>
       <Card.Footer>{moment(section.endAt).utc().format('HH:mm')} </Card.Footer>
@@ -147,15 +175,15 @@ function SectionCard(props: SectionCardParams) {
 interface SectionBodyParams {
   section: Section;
   isEditing: boolean;
-  setEdit: Dispatch<SetStateAction<boolean>>;
+  closeEdit: () => void;
 }
 
 function SectionBody(props: SectionBodyParams) {
-  const { section, isEditing, setEdit } = props;
+  const { section, isEditing, closeEdit } = props;
   if (isEditing) {
     return (
       <>
-        <SectionForm entry={section} setEdit={setEdit} />
+        <SectionForm entry={section} closeForm={closeEdit} />
       </>
     );
   } else {
@@ -167,7 +195,11 @@ function SectionBody(props: SectionBodyParams) {
   }
 }
 
-function SectionDetails(props: SectionCardParams) {
+interface SectionDetailParams {
+  section: Section;
+}
+
+function SectionDetails(props: SectionDetailParams) {
   const { section } = props;
   return (
     <>
@@ -177,7 +209,7 @@ function SectionDetails(props: SectionCardParams) {
   );
 }
 
-function StageSectionDetails(props: SectionCardParams) {
+function StageSectionDetails(props: SectionDetailParams) {
   const { section } = props;
   const { t } = useTranslation();
   if (sectionType(section) === 'stage') {

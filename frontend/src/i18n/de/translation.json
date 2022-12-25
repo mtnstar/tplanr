@@ -25,7 +25,6 @@
   },
 
   "section": {
-    "new": "Hinzufügen",
     "many": "Etappen",
     "attrs": {
       "distanceKm": "Distanz",
@@ -48,9 +47,11 @@
     "no_entries": "Noch keine Einträge vorhanden",
     "date": "{{date, datetime}}",
     "actions": {
+      "add": "Hinzufügen",
       "save": "Speichern",
       "edit": "Bearbeiten",
-      "abort": "Abbrechen"
+      "abort": "Abbrechen",
+      "create": "Erstellen"
     },
     "form": {
       "required": "Muss ausgefüllt werden",

@@ -13,19 +13,19 @@ import { useTourQuery } from '../../utils/queries/useTourQuery';
 
 interface FormParams {
   entry: Section;
-  setEdit: Dispatch<SetStateAction<boolean>>;
+  closeForm: () => void;
 }
 
 function SectionForm(props: FormParams) {
   const { t } = useTranslation();
   const { id: tourId } = useParams();
-  const { entry, setEdit } = props;
+  const { entry, closeForm } = props;
   const { data: tour } = useTourQuery(+tourId!);
 
   const mutation = useMutation(createOrUpdateSection, {
     onSuccess: (data) => {
       if (data) {
-        setEdit(false);
+        closeForm();
         queryClient.invalidateQueries({
           queryKey: ['sections', Number(tourId)],
         });
@@ -139,9 +139,11 @@ function SectionForm(props: FormParams) {
             </div>
 
             <button className='btn btn-primary' type='submit'>
-              {t('save', { keyPrefix: 'global.actions' })}
+              {entry.id
+                ? t('save', { keyPrefix: 'global.actions' })
+                : t('add', { keyPrefix: 'global.actions' })}
             </button>
-            <button className='ms-3' onClick={() => setEdit(false)}>
+            <button className='btn btn-link' onClick={() => closeForm()}>
               {t('abort', { keyPrefix: 'global.actions' })}
             </button>
           </form>

@@ -161,7 +161,9 @@ function TourForm(props: FormParams) {
             </div>
 
             <button className='btn btn-primary' type='submit'>
-              {t('save', { keyPrefix: 'global.actions' })}
+              {entry.id
+                ? t('save', { keyPrefix: 'global.actions' })
+                : t('create', { keyPrefix: 'global.actions' })}
             </button>
             <Link className='ms-3' to={abortLink}>
               {t('abort', { keyPrefix: 'global.actions' })}
