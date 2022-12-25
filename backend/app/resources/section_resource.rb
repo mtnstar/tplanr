@@ -1,6 +1,7 @@
 class SectionResource < JSONAPI::Resource
   attributes :type, :label, :external_link,
     :details, :distance_km,
+    :tour_id,
     :created_at, :updated_at, :climb_up_meters,
     :climb_down_meters, :start_at, :end_at
 
@@ -12,15 +13,15 @@ class SectionResource < JSONAPI::Resource
   filters :tour_id
 
   def self.updatable_fields(context)
-    super - [:tour_id, :create_at, :updated_at]
+    super - [:tour_id, :created_at, :updated_at]
   end
 
   def self.creatable_fields(context)
-    super - [:create_at, :updated_at]
+    super - [:created_at, :updated_at]
   end
 
   def self.default_sort
-  [{field: 'start_at', direction: :asc}]
-end
+    [{field: 'start_at', direction: :asc}]
+  end
 
 end
