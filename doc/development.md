@@ -40,7 +40,6 @@ Create and seed development db:
 
 ```bash
 docker-compose run rails rails db:setup
-docker-compose run rails rails db:seed
 ```
 
 ## Run development environment
