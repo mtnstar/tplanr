@@ -4,7 +4,7 @@ export const SectionTypes = [
   'Section::Transport',
   'Section::Lodging',
   'Section::Meal',
-  'Section::stage',
+  'Section::Stage',
 ] as const;
 export type SectionType = typeof SectionTypes[number];
 

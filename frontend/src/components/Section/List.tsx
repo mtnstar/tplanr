@@ -152,7 +152,7 @@ function SectionCard(props: SectionCardParams) {
         <div>
           {moment(section.startAt).utc().format('HH:mm')}{' '}
           {t(typeTranslationKey, { keyPrefix: 'section.types' })}
-          {section.label && '-' + section.label}
+          {section.label && ' - ' + section.label}
         </div>
         {!isEditing && (
           <button className='btn btn-link' onClick={() => editSection()}>

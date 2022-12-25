@@ -1,6 +1,10 @@
 import { useField, useFormikContext } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+  convertLocalToUTCDate,
+  convertUTCToLocalDate,
+} from '../../utils/tools/dateHelpers';
 
 interface DateRangePickerParams {
   startName: string;
@@ -27,15 +31,16 @@ export default function DateRangePickerField(props: DateRangePickerParams) {
       selectsRange={true}
       id={startField.name}
       name={startField.name}
-      startDate={startField.value}
-      endDate={endField.value}
+      startDate={convertUTCToLocalDate(startField.value)}
+      endDate={convertUTCToLocalDate(endField.value)}
       className={className(isInvalid)}
       onChange={(update) => {
         const [startValue, endValue] = update;
-        setFieldValue(startName, startValue);
-        setFieldValue(endName, endValue);
+        setFieldValue(startName, convertLocalToUTCDate(startValue!));
+        setFieldValue(endName, convertLocalToUTCDate(endValue!));
       }}
       isClearable={false}
+      dateFormat='d.M.YYY'
     />
   );
 }

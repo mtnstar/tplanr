@@ -1,6 +1,10 @@
 import { useField, useFormikContext } from 'formik';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {
+  convertLocalToUTCDate,
+  convertUTCToLocalDate,
+} from '../../utils/tools/dateHelpers';
 
 interface DateTimePickerParams {
   name: string;
@@ -25,11 +29,12 @@ export default function DateTimePickerField(props: DateTimePickerParams) {
     <DatePicker
       {...field}
       {...props}
-      selected={(field.value && new Date(field.value)) || null}
+      selected={convertUTCToLocalDate(field.value)}
       className={className(isInvalid)}
       showTimeSelect
+      timeFormat='HH:mm'
       onChange={(val) => {
-        setFieldValue(field.name, val);
+        setFieldValue(field.name, convertLocalToUTCDate(val!));
       }}
       isClearable={false}
       dateFormat='d. MMMM, hh:mm'

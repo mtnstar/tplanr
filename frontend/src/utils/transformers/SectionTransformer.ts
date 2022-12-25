@@ -8,7 +8,14 @@ class SectionTransformer extends Transformer<unknown, unknown> {
   }
 
   transform(section: Section) {
-    const whiteListAttrs = ['id', 'label', 'details', 'startAt', 'endAt'];
+    const whiteListAttrs = [
+      'id',
+      'label',
+      'details',
+      'startAt',
+      'endAt',
+      'type',
+    ];
     return whitelist(section, whiteListAttrs);
   }
 }

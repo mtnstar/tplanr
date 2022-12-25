@@ -11,16 +11,16 @@ import { toBase64 } from '../../utils/tools/toBase64';
 import SportKindContext from '../../utils/providers/SportKindContext';
 import DateRangePickerField from '../Shared/DateRangePickerField';
 
-function convertLocalToUTCDate(date: Date) {
-  if (!date) {
-    return date;
-  }
-  date = new Date(date);
-  date = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
-  );
-  return date;
-}
+//function convertLocalToUTCDate(date: Date) {
+//if (!date) {
+//return date;
+//}
+//date = new Date(date);
+//date = new Date(
+//Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+//);
+//return date;
+//}
 
 interface FormParams {
   entry: Tour;
@@ -46,8 +46,8 @@ function TourForm(props: FormParams) {
     if (!id) tour.sport_kind = sportKind;
     // we only care about the date here, not the time.
     // so always use UTC date
-    tour.startAt = convertLocalToUTCDate(tour.startAt!);
-    tour.endAt = convertLocalToUTCDate(tour.endAt!);
+    //tour.startAt = convertLocalToUTCDate(tour.startAt!);
+    //tour.endAt = convertLocalToUTCDate(tour.endAt!);
 
     mutation.mutate(tour);
   }

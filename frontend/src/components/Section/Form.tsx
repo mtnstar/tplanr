@@ -7,7 +7,6 @@ import Section from '../../model/Section';
 import { createOrUpdateSection } from '../../utils/api/sections';
 import * as Yup from 'yup';
 import DateTimeRangePickerField from '../Shared/DateTimePickerField';
-import { Dispatch, SetStateAction } from 'react';
 import { queryClient } from '../../index';
 import { useTourQuery } from '../../utils/queries/useTourQuery';
 
@@ -37,11 +36,7 @@ function SectionForm(props: FormParams) {
 
   function onFormSubmit(id: number | undefined, section: Section) {
     section.id = id;
-    //if (!id) tour.sport_kind = sportKind;
-    // we only care about the date here, not the time.
-    // so always use UTC date
-    //tour.startAt = convertLocalToUTCDate(tour.startAt!);
-    //tour.endAt = convertLocalToUTCDate(tour.endAt!);
+    if (!id && tourId) section.tourId = Number(tourId);
 
     mutation.mutate(section);
   }
