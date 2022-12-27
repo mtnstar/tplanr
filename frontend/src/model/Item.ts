@@ -7,11 +7,13 @@ export const ItemCategories = [
 ] as const;
 export type ItemCategory = typeof ItemCategories[number];
 
-type Item = {
+type TourItem = {
   id?: number;
   labelDe?: string;
   descriptionDe?: string;
   itemCategory?: ItemCategory;
+  count?: number;
+  optional?: boolean;
 };
 
-export default Item;
+export default TourItem;

@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Item, { ItemCategories, ItemCategory } from '../../../model/Item';
 import { useTourItemsQuery } from '../../../utils/queries/useTourItemsQuery';
+import * as Icon from 'react-bootstrap-icons';
 
 export default function TourItemList() {
   const { id: tourId } = useParams();
@@ -17,7 +18,7 @@ export default function TourItemList() {
     const categoryItems = itemsByCategory(itemCategory);
     return (
       <div key={itemCategory}>
-        <ItemsCategoryCard itemCategory={itemCategory} items={categoryItems} />
+        <ItemsCard itemCategory={itemCategory} items={categoryItems} />
       </div>
     );
   });
@@ -30,24 +31,32 @@ interface ItemsCatgegoryCardParams {
   items: Item[];
 }
 
-function ItemsCategoryCard(props: ItemsCatgegoryCardParams) {
+function ItemsCard(props: ItemsCatgegoryCardParams) {
   const { itemCategory, items } = props;
   const { t } = useTranslation();
   const itemCards = items.map((item: Item) => {
-    return (
-      <>
-        <ItemCard item={item} />
-      </>
-    );
+    return <ItemCard item={item} />;
   });
 
+  let cardBody = <p>{t('global.no_entries')}</p>;
+
+  if (items.length > 0) {
+    cardBody = (
+      <div className='container'>
+        <div className='row row-cols-3'>{itemCards}</div>
+      </div>
+    );
+  }
+
   return (
-    <Card className='mt-4'>
-      <Card.Header>
-        <b>{t(itemCategory, { keyPrefix: 'item_categories' })}</b>
-      </Card.Header>
-      <Card.Body>{itemCards}</Card.Body>
-    </Card>
+    <div className='mb-4'>
+      <Card>
+        <Card.Header>
+          <b>{t(itemCategory, { keyPrefix: 'item_categories' })}</b>
+        </Card.Header>
+        <Card.Body>{cardBody}</Card.Body>
+      </Card>
+    </div>
   );
 }
 
@@ -58,9 +67,19 @@ interface ItemCardParams {
 function ItemCard(props: ItemCardParams) {
   const { item } = props;
   return (
-    <Card className='mt-4'>
+    <Card className='me-4 col'>
       <Card.Body className='d-flex justify-content-between'>
-        {item.labelDe}
+        <span className='item-label'>
+          {item.count}x {item.labelDe}
+        </span>
+        <span>
+          <Button className='me-1' variant='outline-primary' size='sm'>
+            <Icon.Pencil />
+          </Button>
+          <Button variant='outline-danger' size='sm'>
+            <Icon.Trash />
+          </Button>
+        </span>
       </Card.Body>
     </Card>
   );
