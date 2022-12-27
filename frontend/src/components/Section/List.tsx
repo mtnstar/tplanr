@@ -14,11 +14,30 @@ import Dropdown from 'react-bootstrap/Dropdown';
 const moment = extendMoment(Moment);
 
 export default function SectionList() {
-  return (
-    <>
-      <TourSections />
-    </>
-  );
+  const { id: tourId } = useParams();
+  const { data: tour } = useTourQuery(+tourId!);
+  const { data: sections } = useSectionsQuery(+tourId!);
+  const { t } = useTranslation();
+
+  if (!tour) return null;
+
+  if (!sections || sections.length === 0) {
+    return <p>{t('global.no_entries')}</p>;
+  }
+
+  const sectionsDayCards = tourDates(tour).map((tourDate: Date) => {
+    return (
+      <div key={tourDate.toString()}>
+        <SectionsDayCard
+          date={tourDate!}
+          sections={sections}
+          key={tourDate.toString()}
+        />
+      </div>
+    );
+  });
+
+  return <div>{sectionsDayCards}</div>;
 }
 
 function tourDates(tour: Tour) {
@@ -244,31 +263,4 @@ function StageSectionDetails(props: SectionDetailParams) {
   } else {
     return null;
   }
-}
-
-function TourSections() {
-  const { id: tourId } = useParams();
-  const { data: tour } = useTourQuery(+tourId!);
-  const { data: sections } = useSectionsQuery(+tourId!);
-  const { t } = useTranslation();
-
-  if (!tour) return null;
-
-  if (!sections || sections.length === 0) {
-    return <p>{t('global.no_entries')}</p>;
-  }
-
-  const sectionsDayCards = tourDates(tour).map((tourDate: Date) => {
-    return (
-      <div key={tourDate.toString()}>
-        <SectionsDayCard
-          date={tourDate!}
-          sections={sections}
-          key={tourDate.toString()}
-        />
-      </div>
-    );
-  });
-
-  return <div>{sectionsDayCards}</div>;
 }

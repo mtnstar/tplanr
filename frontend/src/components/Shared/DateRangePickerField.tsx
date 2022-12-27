@@ -20,6 +20,7 @@ function className(isInvalid: boolean) {
   return className;
 }
 
+// https://github.com/Hacker0x01/react-datepicker/issues/1787
 export default function DateRangePickerField(props: DateRangePickerParams) {
   const { startName, endName, isInvalid } = props;
   const { setFieldValue } = useFormikContext();

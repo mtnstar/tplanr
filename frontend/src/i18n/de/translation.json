@@ -19,6 +19,14 @@
     }
   },
 
+  "item_categories": {
+    "gear": "Ausrüstung",
+    "food": "Verpflegung",
+    "electronics": "Elektronik",
+    "wearables": "Bekleidung",
+    "other": "Sonstiges"
+  },
+
   "item": {
     "many": "Materialliste",
     "attrs": { }

@@ -10,6 +10,7 @@ class CreateItemLists < ActiveRecord::Migration[7.0]
       t.references :item
       t.references :item_list
       t.boolean :optional, default: false
+      t.integer :count, default: 1
     end
   end
 end

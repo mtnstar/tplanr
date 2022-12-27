@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_214227) do
     t.integer "item_id"
     t.integer "item_list_id"
     t.boolean "optional", default: false
+    t.integer "count", default: 1
     t.index ["item_id"], name: "index_item_list_items_on_item_id"
     t.index ["item_list_id"], name: "index_item_list_items_on_item_list_id"
   end

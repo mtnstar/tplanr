@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from './components/Home';
-import ItemList from './components/Item/List';
 import Layout from './components/Layout';
 import TourContainer from './components/Tour/Container';
 import TourEdit from './components/Tour/Edit';
@@ -8,6 +7,7 @@ import TourList from './components/Tour/List';
 import TourShow from './components/Tour/Show';
 import TourNew from './components/Tour/New';
 import SectionList from './components/Section/List';
+import TourItemList from './components/Tour/Item/List';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
           { path: '/tours/new', element: <TourNew /> },
           { path: '/tours/:id', element: <TourShow /> },
           { path: '/tours/:id/edit', element: <TourEdit /> },
-          { path: '/tours/:id/items', element: <ItemList /> },
+          { path: '/tours/:id/items', element: <TourItemList /> },
           { path: '/tours/:id/sections', element: <SectionList /> },
         ],
       },

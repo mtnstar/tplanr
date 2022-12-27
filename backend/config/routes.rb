@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
     resources :tours do
       resources :sections, controller: 'tours/sections'
+      resources :items, controller: 'tours/items'
     end
   end
 

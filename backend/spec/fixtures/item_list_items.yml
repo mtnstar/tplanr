@@ -1,19 +1,24 @@
 tour_dom_jacket:
   item_list: tour_dom
   item: goretex_jacket
+  count: 1
 
 tour_dom_cap:
   item_list: tour_dom
   item: cap
+  count: 1
 
 tour_dom_snacks:
   item_list: tour_dom
   item: snacks
+  count: 3
 
 tour_dom_headlight:
   item_list: tour_dom
   item: headlight
+  count: 1
 
 tour_dom_emergencykit:
   item_list: tour_dom
   item: emergencykit
+  count: 1

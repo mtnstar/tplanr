@@ -46,10 +46,10 @@ function SectionForm(props: FormParams) {
       .min(2, t('too_short', { keyPrefix: 'global.form' }))
       .max(50, t('too_long', { keyPrefix: 'global.form' }))
       .required(t('required', { keyPrefix: 'global.form' })),
-    startAt: Yup.string()
+    startAt: Yup.date()
       .required(t('required', { keyPrefix: 'global.form' }))
       .nullable(true),
-    endAt: Yup.string().required(t('required', { keyPrefix: 'global.form' })),
+    endAt: Yup.date().required(t('required', { keyPrefix: 'global.form' })),
   });
 
   const isStartAtEndAtInvalid = (
