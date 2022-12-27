@@ -1,4 +1,4 @@
-class SectionsController < ApplicationController
+class Tours::SectionsController < ApplicationController
 
   def context
     super.merge(tour_id: params[:tour_id])

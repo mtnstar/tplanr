@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     }
 
     resources :tours do
-      resources :sections
+      resources :sections, controller: 'tours/sections'
     end
   end
 

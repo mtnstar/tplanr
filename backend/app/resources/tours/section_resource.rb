@@ -1,4 +1,4 @@
-class SectionResource < JSONAPI::Resource
+class Tours::SectionResource < JSONAPI::Resource
   before_create :assign_tour_id
 
   attributes :type, :label, :external_link,

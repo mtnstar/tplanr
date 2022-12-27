@@ -4,7 +4,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.string :label_de, null: false
       t.text :description_de
       t.references :user
-      t.references :tour
+      t.integer :item_category, default: 0, null: false
 
       t.timestamps
     end

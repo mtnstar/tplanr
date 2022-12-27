@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_12_050924) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_27_214227) do
   create_table "item_categories", force: :cascade do |t|
     t.string "label_de"
     t.datetime "created_at", null: false
@@ -18,15 +18,30 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_050924) do
     t.index ["label_de"], name: "index_item_categories_on_label_de"
   end
 
+  create_table "item_list_items", force: :cascade do |t|
+    t.integer "item_id"
+    t.integer "item_list_id"
+    t.boolean "optional", default: false
+    t.index ["item_id"], name: "index_item_list_items_on_item_id"
+    t.index ["item_list_id"], name: "index_item_list_items_on_item_list_id"
+  end
+
+  create_table "item_lists", force: :cascade do |t|
+    t.integer "tour_id"
+    t.integer "sport_kind", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tour_id"], name: "index_item_lists_on_tour_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "label_de", null: false
     t.text "description_de"
     t.integer "user_id"
-    t.integer "tour_id"
+    t.integer "item_category", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["label_de"], name: "index_items_on_label_de"
-    t.index ["tour_id"], name: "index_items_on_tour_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 

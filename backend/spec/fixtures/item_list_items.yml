@@ -1,0 +1,19 @@
+tour_dom_jacket:
+  item_list: tour_dom
+  item: goretex_jacket
+
+tour_dom_cap:
+  item_list: tour_dom
+  item: cap
+
+tour_dom_snacks:
+  item_list: tour_dom
+  item: snacks
+
+tour_dom_headlight:
+  item_list: tour_dom
+  item: headlight
+
+tour_dom_emergencykit:
+  item_list: tour_dom
+  item: emergencykit

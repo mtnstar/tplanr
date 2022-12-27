@@ -1,11 +1,22 @@
 goretex_jacket:
   label_de: Goretex Jacke
   description_de: Jacke mit Regen- und Windschutz
+  item_category: wearables
 
 cap:
   label_de: Kappe
   description_de: Dünne Kappe
+  item_category: wearables
 
-mountain_bike:
-  label_de: Mountainbike
-  description_de: Mountainbike in top Zustand
+snacks:
+  label_de: Zwischenverpflegung
+  description_de: Riegel, Nüsse, usw.
+  item_category: food
+
+headlight:
+  label_de: Stirnlampe
+  item_category: electronics
+
+emergencykit:
+  label_de: Notfallapotheke
+  item_category: other
