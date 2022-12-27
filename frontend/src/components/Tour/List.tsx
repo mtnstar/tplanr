@@ -71,7 +71,7 @@ function ToursTable() {
   const rows = data.map((tour: Tour) => TourRow(tour));
 
   return (
-    <Table striped hover>
+    <Table striped hover className='tours'>
       <thead>
         <tr>
           <th></th>
