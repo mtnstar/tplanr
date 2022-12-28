@@ -35,7 +35,7 @@ function ItemsCard(props: ItemsCatgegoryCardParams) {
   const { itemCategory, items } = props;
   const { t } = useTranslation();
   const itemCards = items.map((item: Item) => {
-    return <ItemCard item={item} />;
+    return <ItemCard key={item.id} item={item} />;
   });
 
   let cardBody = <p>{t('global.no_entries')}</p>;

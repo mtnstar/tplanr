@@ -85,3 +85,10 @@ const createSection = async (
 ) => {
   return adapter.post(`/api/tours/${entry.tourId}/sections`, serializedData);
 };
+
+export const deleteSection = async (entry: Section): Promise<Section> => {
+  const response = await adapter.delete(
+    `/api/tours/${entry.tourId}/sections/${entry.id}`,
+  );
+  return response.data;
+};

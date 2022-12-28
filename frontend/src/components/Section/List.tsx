@@ -6,10 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useTourQuery } from '../../utils/queries/useTourQuery';
 import Tour from '../../model/Tour';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import SectionForm from './Form';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
+import * as Icon from 'react-bootstrap-icons';
+import { deleteSection } from '../../utils/api/sections';
+import { useMutation } from 'react-query';
+import { queryClient } from '../../index';
+import {
+  convertLocalToUTCDate,
+  convertUTCToLocalDate,
+} from '../../utils/tools/dateHelpers';
 
 const moment = extendMoment(Moment);
 
@@ -69,7 +77,7 @@ function NewSectionDropDown(props: NewSectionDropDownParams) {
     </Dropdown.Item>
   ));
   return (
-    <Dropdown>
+    <Dropdown align='end'>
       <Dropdown.Toggle id='dropdown-basic'>
         {t('add', { keyPrefix: 'global.actions' })}
       </Dropdown.Toggle>
@@ -84,10 +92,11 @@ function newSectionCard(
   type: SectionType,
   closeNewSection: () => void,
 ) {
+  const startAtDate = convertLocalToUTCDate(date);
   const newSectionEntry = {
     type: type,
-    startAt: date,
-    endAt: date,
+    startAt: startAtDate,
+    endAt: moment(startAtDate).add(1, 'hours').toDate(),
   } as Section;
   return (
     <div key={'newSection'}>
@@ -157,6 +166,7 @@ function SectionCard(props: SectionCardParams) {
   const { t } = useTranslation();
   const typeTranslationKey = sectionType(section);
   const [isEditing, setEdit] = useState(!!isNewSection);
+  const { id: tourId } = useParams();
   const closeEdit = () => {
     setEdit(false);
     closeNewSection();
@@ -165,18 +175,44 @@ function SectionCard(props: SectionCardParams) {
     setEdit(true);
     closeNewSection();
   };
+
+  const deleteSectionMutation = useMutation(deleteSection, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['sections', Number(tourId)],
+      });
+    },
+  });
+  const deleteSectionEntry = () => {
+    deleteSectionMutation.mutate(section);
+  };
+
   return (
-    <Card className='mt-4'>
-      <Card.Header className='d-flex justify-content-between'>
+    <Card className='mt-4' border={isEditing ? 'primary' : 'secondary'}>
+      <Card.Header className='d-flex justify-content-between align-items-center'>
         <div>
           {moment(section.startAt).utc().format('HH:mm')}{' '}
           {t(typeTranslationKey, { keyPrefix: 'section.types' })}
           {section.label && ' - ' + section.label}
         </div>
         {!isEditing && (
-          <button className='btn btn-link' onClick={() => editSection()}>
-            {t('edit', { keyPrefix: 'global.actions' })}
-          </button>
+          <div className='btn-group'>
+            <Button
+              size='sm'
+              variant='outline-primary'
+              className='me-1'
+              onClick={() => editSection()}
+            >
+              {t('edit', { keyPrefix: 'global.actions' })}
+            </Button>
+            <Button
+              variant='outline-danger'
+              size='sm'
+              onClick={() => deleteSectionEntry()}
+            >
+              <Icon.Trash />
+            </Button>
+          </div>
         )}
       </Card.Header>
       <Card.Body>
@@ -186,7 +222,9 @@ function SectionCard(props: SectionCardParams) {
           closeEdit={closeEdit}
         />
       </Card.Body>
-      <Card.Footer>{moment(section.endAt).utc().format('HH:mm')} </Card.Footer>
+      <Card.Footer className='d-flex justify-content-between'>
+        <div>{moment(section.endAt).utc().format('HH:mm')}</div>
+      </Card.Footer>
     </Card>
   );
 }

@@ -21,7 +21,7 @@ function SectionForm(props: FormParams) {
   const { entry, closeForm } = props;
   const { data: tour } = useTourQuery(+tourId!);
 
-  const mutation = useMutation(createOrUpdateSection, {
+  const createOrUpdate = useMutation(createOrUpdateSection, {
     onSuccess: (data) => {
       if (data) {
         closeForm();
@@ -38,7 +38,7 @@ function SectionForm(props: FormParams) {
     section.id = id;
     if (!id && tourId) section.tourId = Number(tourId);
 
-    mutation.mutate(section);
+    createOrUpdate.mutate(section);
   }
 
   const SectionSchema = Yup.object().shape({

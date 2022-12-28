@@ -37,7 +37,7 @@ export default function DateTimePickerField(props: DateTimePickerParams) {
         setFieldValue(field.name, convertLocalToUTCDate(val!));
       }}
       isClearable={false}
-      dateFormat='d. MMMM, hh:mm'
+      dateFormat='d. MMMM, HH:mm'
     />
   );
 }
