@@ -4,7 +4,7 @@ import TourItem from '../../model/TourItem';
 class TourItemTransformer extends Transformer<unknown, unknown> {
   constructor() {
     super();
-    this.type = 'item_list_items';
+    this.type = 'items';
   }
 
   transform(section: TourItem) {

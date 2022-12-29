@@ -3,11 +3,13 @@ import { Button, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useTourItemsQuery } from '../../../utils/queries/useTourItemsQuery';
 import * as Icon from 'react-bootstrap-icons';
-import { useState } from 'react';
 import TourItem, {
   ItemCategories,
   ItemCategory,
 } from '../../../model/TourItem';
+import { useMutation } from 'react-query';
+import { queryClient } from '../../../index';
+import { createOrUpdateTourItem } from '../../../utils/api/tour_items';
 
 export default function TourItemList() {
   const { id: tourId } = useParams();
@@ -27,7 +29,7 @@ export default function TourItemList() {
     );
   });
 
-  return <div>{itemCategoryCards}</div>;
+  return <div className='tour-items'>{itemCategoryCards}</div>;
 }
 
 interface ItemsCatgegoryCardParams {
@@ -70,24 +72,61 @@ interface ItemCardParams {
 
 function ItemCard(props: ItemCardParams) {
   const { item } = props;
-  const [isEditing, setEdit] = useState(false);
+  const createOrUpdate = useMutation(createOrUpdateTourItem, {
+    onSuccess: (data) => {
+      if (data) {
+        queryClient.invalidateQueries({
+          queryKey: ['tour-items', Number(item.id)],
+        });
+      }
+    },
+  });
+
+  function increaseCount() {
+    if (!item.count) return;
+    item.count++;
+    createOrUpdate.mutate(item);
+  }
+
+  function decreaseCount() {
+    if (!item.count) return;
+    item.count--;
+    createOrUpdate.mutate(item);
+  }
+
   return (
     <Card className='me-4 col'>
       <Card.Body className='d-flex justify-content-between'>
-        <span className='item-label'>
-          {item.count}x {item.labelDe}
-        </span>
+        <div>
+          <div className='btn-group me-2'>
+            <Button
+              disabled={item.count === 1}
+              variant='outline-dark'
+              size='sm'
+              onClick={() => decreaseCount()}
+            >
+              <Icon.Dash />
+            </Button>
+            <Button
+              variant='outline-dark'
+              disabled={item.count === 20}
+              size='sm'
+              onClick={() => increaseCount()}
+            >
+              <Icon.Plus />
+            </Button>
+          </div>
+          <span className='item-label'>
+            {item.count}x {item.labelDe}
+          </span>
+        </div>
         <div className='btn-group'>
-          {!isEditing && (
-            <>
-              <Button className='me-1' variant='outline-primary' size='sm'>
-                <Icon.Pencil onClick={() => setEdit(true)} />
-              </Button>
-              <Button variant='outline-danger' size='sm'>
-                <Icon.Trash />
-              </Button>
-            </>
-          )}
+          <Button className='me-1' variant='outline-primary' size='sm'>
+            <Icon.Pencil />
+          </Button>
+          <Button variant='outline-danger' size='sm'>
+            <Icon.Trash />
+          </Button>
         </div>
       </Card.Body>
     </Card>

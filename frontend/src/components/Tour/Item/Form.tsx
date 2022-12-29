@@ -23,7 +23,7 @@ function TourItemForm(props: FormParams) {
       if (data) {
         closeForm();
         queryClient.invalidateQueries({
-          queryKey: ['sections', Number(tourId)],
+          queryKey: ['tour-items', Number(tourId)],
         });
       }
     },
@@ -58,35 +58,20 @@ function TourItemForm(props: FormParams) {
       >
         {({ handleSubmit, setFieldValue, touched, errors }) => (
           <form onSubmit={handleSubmit}>
-            <div className='mb-3'>
-              <label htmlFor='count' className='form-label'>
-                {t('count', { keyPrefix: 'item.attrs' })}
-              </label>
-              <Field
-                as={Form.Control}
-                id='count'
-                name='count'
-                className='form-control w-50'
-                required
-                isInvalid={!!touched.count && !!errors.count}
-              />
-              {touched.count && errors.count && (
-                <div className='invalid-feedback'>{errors.count}</div>
-              )}
-            </div>
-
-            <div className='mb-3'>
-              <label htmlFor='details' className='form-label'>
-                {t('details', { keyPrefix: 'section.attrs' })}
-              </label>
-              <Field
-                component='textarea'
-                rows='4'
-                id='details'
-                name='details'
-                className='form-control w-50'
-              />
-            </div>
+            <label htmlFor='count' className='form-label'>
+              {t('count', { keyPrefix: 'item.attrs' })}
+            </label>
+            <Field
+              as={Form.Control}
+              id='count'
+              name='count'
+              className='form-control w-50'
+              required
+              isInvalid={!!touched.count && !!errors.count}
+            />
+            {touched.count && errors.count && (
+              <div className='invalid-feedback'>{errors.count}</div>
+            )}
 
             <button className='btn btn-primary' type='submit'>
               {entry.id
