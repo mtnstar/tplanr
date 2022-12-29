@@ -1,7 +1,7 @@
 class Tours::ItemResource < JSONAPI::Resource
   model_name 'ItemListItem'
 
-  attributes :label_de, :description_de, :optional, :item_category, :count
+  attributes :label_de, :description_de, :optional, :item_category, :count, :tour_id
 
   filters :tour_id
 
@@ -16,7 +16,7 @@ class Tours::ItemResource < JSONAPI::Resource
   end
 
   def tour_id
-    item_list.tour_id
+    @model.item_list.tour_id
   end
 
 end

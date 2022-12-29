@@ -14,10 +14,7 @@ import * as Icon from 'react-bootstrap-icons';
 import { deleteSection } from '../../utils/api/sections';
 import { useMutation } from 'react-query';
 import { queryClient } from '../../index';
-import {
-  convertLocalToUTCDate,
-  convertUTCToLocalDate,
-} from '../../utils/tools/dateHelpers';
+import { convertLocalToUTCDate } from '../../utils/tools/dateHelpers';
 
 const moment = extendMoment(Moment);
 

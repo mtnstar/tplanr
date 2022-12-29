@@ -29,7 +29,9 @@
 
   "item": {
     "many": "Materialliste",
-    "attrs": { }
+    "attrs": {
+      "count": "Anzahl"
+    }
   },
 
   "section": {
