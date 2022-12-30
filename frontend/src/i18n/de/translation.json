@@ -29,6 +29,7 @@
 
   "item": {
     "many": "Materialliste",
+    "addHint": "Tippen um Material hinzuzufügen",
     "attrs": {
       "count": "Anzahl"
     }

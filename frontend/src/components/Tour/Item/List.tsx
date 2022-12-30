@@ -3,13 +3,12 @@ import { Button, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useTourItemsQuery } from '../../../utils/queries/useTourItemsQuery';
 import * as Icon from 'react-bootstrap-icons';
-import TourItem, {
-  ItemCategories,
-  ItemCategory,
-} from '../../../model/TourItem';
 import { useMutation } from 'react-query';
 import { queryClient } from '../../../index';
 import { createOrUpdateTourItem } from '../../../utils/api/tour_items';
+import TourItem from '../../../model/TourItem';
+import { Item, ItemCategories, ItemCategory } from '../../../model/Item';
+import ItemTypeAhead from './TypeAhead';
 
 export default function TourItemList() {
   const { id: tourId } = useParams();
@@ -32,23 +31,33 @@ export default function TourItemList() {
   return <div className='tour-items'>{itemCategoryCards}</div>;
 }
 
-interface ItemsCatgegoryCardParams {
+interface ItemsCardParams {
   itemCategory: ItemCategory;
   items: TourItem[];
 }
 
-function ItemsCard(props: ItemsCatgegoryCardParams) {
+function ItemsCard(props: ItemsCardParams) {
   const { itemCategory, items } = props;
   const { t } = useTranslation();
   const itemCards = items.map((item: TourItem) => {
     return <ItemCard key={item.id} item={item} />;
   });
 
+  const addItem = (item: Item) => {
+    return undefined;
+  };
+
   let cardBody = <p>{t('global.no_entries')}</p>;
 
   if (items.length > 0) {
     cardBody = (
       <div className='container'>
+        <div className='row mb-4'>
+          <ItemTypeAhead
+            itemCategory={itemCategory}
+            addItem={(item) => addItem(item)}
+          />
+        </div>
         <div className='row row-cols-3'>{itemCards}</div>
       </div>
     );
@@ -120,14 +129,9 @@ function ItemCard(props: ItemCardParams) {
             {item.count}x {item.labelDe}
           </span>
         </div>
-        <div className='btn-group'>
-          <Button className='me-1' variant='outline-primary' size='sm'>
-            <Icon.Pencil />
-          </Button>
-          <Button variant='outline-danger' size='sm'>
-            <Icon.Trash />
-          </Button>
-        </div>
+        <Button variant='outline-danger' size='sm'>
+          <Icon.Trash />
+        </Button>
       </Card.Body>
     </Card>
   );

@@ -1,11 +1,4 @@
-export const ItemCategories = [
-  'wearables',
-  'gear',
-  'food',
-  'electronics',
-  'other',
-] as const;
-export type ItemCategory = typeof ItemCategories[number];
+import { ItemCategory } from './Item';
 
 type TourItem = {
   id?: number;
