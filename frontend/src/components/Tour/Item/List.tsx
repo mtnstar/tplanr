@@ -5,9 +5,12 @@ import { useTourItemsQuery } from '../../../utils/queries/useTourItemsQuery';
 import * as Icon from 'react-bootstrap-icons';
 import { useMutation } from 'react-query';
 import { queryClient } from '../../../index';
-import { createOrUpdateTourItem } from '../../../utils/api/tour_items';
+import {
+  createOrUpdateTourItem,
+  deleteTourItem,
+} from '../../../utils/api/tour_items';
 import TourItem from '../../../model/TourItem';
-import { Item, ItemCategories, ItemCategory } from '../../../model/Item';
+import { ItemCategories, ItemCategory } from '../../../model/Item';
 import ItemTypeAhead from './TypeAhead';
 
 export default function TourItemList() {
@@ -39,29 +42,35 @@ interface ItemsCardParams {
 function ItemsCard(props: ItemsCardParams) {
   const { itemCategory, items } = props;
   const { t } = useTranslation();
+  const { id: tourId } = useParams();
   const itemCards = items.map((item: TourItem) => {
     return <ItemCard key={item.id} item={item} />;
   });
 
-  const addItem = (item: Item) => {
-    return undefined;
+  const createOrUpdate = useMutation(createOrUpdateTourItem, {
+    onSuccess: (data) => {
+      if (data) {
+        queryClient.invalidateQueries({
+          queryKey: ['tour-items', Number(tourId)],
+        });
+      }
+    },
+  });
+
+  const addItem = (itemId: number) => {
+    const newItem: TourItem = { itemId: itemId };
+    createOrUpdate.mutate({ tourId: Number(tourId), entry: newItem });
   };
 
-  let cardBody = <p>{t('global.no_entries')}</p>;
-
-  if (items.length > 0) {
-    cardBody = (
-      <div className='container'>
-        <div className='row mb-4'>
-          <ItemTypeAhead
-            itemCategory={itemCategory}
-            addItem={(item) => addItem(item)}
-          />
-        </div>
-        <div className='row row-cols-3'>{itemCards}</div>
+  const cardBody = (
+    <div className='container'>
+      <div className='row mb-4'>
+        <ItemTypeAhead itemCategory={itemCategory} addItem={addItem} />
       </div>
-    );
-  }
+      {items.length > 0 && <div className='row row-cols-3'>{itemCards}</div>}
+      {items.length === 0 && <p>{t('global.no_entries')}</p>}
+    </div>
+  );
 
   return (
     <div className='mb-4'>
@@ -81,11 +90,12 @@ interface ItemCardParams {
 
 function ItemCard(props: ItemCardParams) {
   const { item } = props;
+  const { id: tourId } = useParams();
   const createOrUpdate = useMutation(createOrUpdateTourItem, {
     onSuccess: (data) => {
       if (data) {
         queryClient.invalidateQueries({
-          queryKey: ['tour-items', Number(item.id)],
+          queryKey: ['tour-items', Number(tourId)],
         });
       }
     },
@@ -94,14 +104,26 @@ function ItemCard(props: ItemCardParams) {
   function increaseCount() {
     if (!item.count) return;
     item.count++;
-    createOrUpdate.mutate(item);
+    createOrUpdate.mutate({ tourId: Number(tourId), entry: item });
   }
 
   function decreaseCount() {
     if (!item.count) return;
     item.count--;
-    createOrUpdate.mutate(item);
+    createOrUpdate.mutate({ tourId: Number(tourId), entry: item });
   }
+
+  const deleteItemMutation = useMutation(deleteTourItem, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['tour-items', Number(tourId)],
+      });
+    },
+  });
+
+  const deleteItem = () => {
+    deleteItemMutation.mutate({ tourId: Number(tourId), entry: item });
+  };
 
   return (
     <Card className='me-4 col'>
@@ -129,7 +151,7 @@ function ItemCard(props: ItemCardParams) {
             {item.count}x {item.labelDe}
           </span>
         </div>
-        <Button variant='outline-danger' size='sm'>
+        <Button variant='outline-danger' size='sm' onClick={() => deleteItem()}>
           <Icon.Trash />
         </Button>
       </Card.Body>

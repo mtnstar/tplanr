@@ -8,6 +8,11 @@ import {
 import TourItem from '../../model/TourItem';
 import TourItemTransformer from '../transformers/TourItemTransformer';
 
+interface tourItemParams {
+  tourId: number;
+  entry: TourItem;
+}
+
 export const fetchTourItem = async (
   tourId: number,
   id: number,
@@ -31,7 +36,8 @@ export const fetchTourItems = async (tourId: number): Promise<TourItems> => {
   });
 };
 
-export const createOrUpdateTourItem = async (entry: TourItem) => {
+export const createOrUpdateTourItem = async (params: tourItemParams) => {
+  const { tourId, entry } = params;
   const serializedData = transform()
     .withInput(entry)
     .withTransformer(new TourItemTransformer())
@@ -41,13 +47,9 @@ export const createOrUpdateTourItem = async (entry: TourItem) => {
   let response = { data: undefined };
 
   if (entry.id) {
-    response = await updateTourItem(
-      Number(entry.tourId),
-      entry,
-      serializedData,
-    );
+    response = await updateTourItem(tourId, entry, serializedData);
   } else {
-    response = await createTourItem(Number(entry.tourId), serializedData);
+    response = await createTourItem(tourId, serializedData);
   }
 
   const data = response.data;
@@ -70,13 +72,13 @@ const createTourItem = async (
   tourId: number,
   serializedData: DocumentObject,
 ) => {
-  return adapter.post(`/api/tours/${tourId}/sections`, serializedData);
+  return adapter.post(`/api/tours/${tourId}/items`, serializedData);
 };
 
-export const deleteSection = async (
-  tourId: number,
-  entry: TourItem,
+export const deleteTourItem = async (
+  params: tourItemParams,
 ): Promise<TourItem> => {
+  const { tourId, entry } = params;
   const response = await adapter.delete(
     `/api/tours/${tourId}/items/${entry.id}`,
   );

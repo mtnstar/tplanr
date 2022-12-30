@@ -29,7 +29,7 @@ table.tours tr:hover {
   cursor: pointer
 }
 
-.tour-items .card .card-body .card {
+.tour-items .row > * {
   padding-left: 0;
   padding-right: 0;
 }

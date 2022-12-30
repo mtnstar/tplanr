@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { createRef, useRef, useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import Typeahead from 'react-bootstrap-typeahead/types/core/Typeahead';
 import { useTranslation } from 'react-i18next';
 import { Item, ItemCategory } from '../../../model/Item';
+import TourItem from '../../../model/TourItem';
 import { searchItems } from '../../../utils/api/items';
 
 interface TypeAheadProps {
   itemCategory: ItemCategory;
-  addItem: (item: Item) => void;
+  addItem: (itemId: number) => void;
 }
 
 function ItemTypeAhead(props: TypeAheadProps) {
@@ -20,7 +22,10 @@ function ItemTypeAhead(props: TypeAheadProps) {
     searchItems(query, itemCategory).then((items) => {
       setOptions(items);
     });
+    setIsLoading(false);
   };
+
+  const typeahead = createRef<Typeahead>();
 
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.
@@ -28,11 +33,18 @@ function ItemTypeAhead(props: TypeAheadProps) {
 
   return (
     <AsyncTypeahead
+      ref={typeahead}
       filterBy={filterBy}
       id='async-example'
       isLoading={isLoading}
       labelKey='labelDe'
+      className='w-50'
       minLength={3}
+      onChange={(selected) => {
+        if (!selected[0]) return;
+        addItem((selected[0] as Item).id!);
+        typeahead.current!.clear();
+      }}
       onSearch={handleSearch}
       options={options}
       placeholder={t('addHint', { keyPrefix: 'item' })}
