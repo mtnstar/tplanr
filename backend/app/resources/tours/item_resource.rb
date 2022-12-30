@@ -15,14 +15,22 @@ class Tours::ItemResource < JSONAPI::Resource
     [:optional, :count, :item_id]
   end
 
+  def self.records(options = {})
+    item_list_id = tour_item_list_id(options[:context][:tour_id])
+    ItemListItem.where(item_list_id: item_list_id)
+  end
+
   def tour_id
     @model.item_list.tour_id
   end
 
+  def self.tour_item_list_id(tour_id)
+    ItemList.find_by(tour_id: tour_id).id
+  end
+
   before_save do
     if @model.new_record?
-      item_list_id = Tour.find(context[:tour_id]).item_list.id
-      @model.item_list_id = item_list_id 
+      @model.item_list_id = self.class.tour_item_list_id(context[:tour_id])
     end
   end
 
