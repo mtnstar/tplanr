@@ -30,6 +30,7 @@
   "item": {
     "many": "Materialliste",
     "addHint": "Tippen um Material hinzuzufügen",
+    "addActionHint": "In {{itemCategory}} neu erstellen: ",
     "attrs": {
       "count": "Anzahl"
     }

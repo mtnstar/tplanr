@@ -10,8 +10,9 @@ import {
   deleteTourItem,
 } from '../../../utils/api/tour_items';
 import TourItem from '../../../model/TourItem';
-import { ItemCategories, ItemCategory } from '../../../model/Item';
+import { Item, ItemCategories, ItemCategory } from '../../../model/Item';
 import ItemTypeAhead from './TypeAhead';
+import { createOrUpdateItem } from '../../../utils/api/items';
 
 export default function TourItemList() {
   const { id: tourId } = useParams();
@@ -47,7 +48,7 @@ function ItemsCard(props: ItemsCardParams) {
     return <ItemCard key={item.id} item={item} />;
   });
 
-  const createOrUpdate = useMutation(createOrUpdateTourItem, {
+  const createUpdateTourItem = useMutation(createOrUpdateTourItem, {
     onSuccess: (data) => {
       if (data) {
         queryClient.invalidateQueries({
@@ -57,9 +58,27 @@ function ItemsCard(props: ItemsCardParams) {
     },
   });
 
-  const addItem = (itemId: number) => {
-    const newItem: TourItem = { itemId: itemId };
-    createOrUpdate.mutate({ tourId: Number(tourId), entry: newItem });
+  const createAndAddNewItem = useMutation(createOrUpdateItem, {
+    onSuccess: (data) => {
+      if (data) {
+        const newTourItem: TourItem = { itemId: data.id };
+        createUpdateTourItem.mutate({
+          tourId: Number(tourId),
+          entry: newTourItem,
+        });
+      }
+    },
+  });
+
+  const addItem = (item: Item) => {
+    if (isNaN(Number(item.id))) {
+      item.itemCategory = itemCategory;
+      item.id = undefined;
+      createAndAddNewItem.mutate(item);
+    } else {
+      const newItem: TourItem = { itemId: item.id };
+      createUpdateTourItem.mutate({ tourId: Number(tourId), entry: newItem });
+    }
   };
 
   const cardBody = (
@@ -126,7 +145,7 @@ function ItemCard(props: ItemCardParams) {
   };
 
   return (
-    <Card className='me-4 col'>
+    <Card className='mb-2 col'>
       <Card.Body className='d-flex justify-content-between'>
         <div>
           <div className='btn-group me-2'>

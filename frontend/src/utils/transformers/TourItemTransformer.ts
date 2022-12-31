@@ -7,9 +7,9 @@ class TourItemTransformer extends Transformer<unknown, unknown> {
     this.type = 'items';
   }
 
-  transform(section: TourItem) {
+  transform(entry: TourItem) {
     const whiteListAttrs = ['id', 'itemId', 'optional', 'count'];
-    return whitelist(section, whiteListAttrs);
+    return whitelist(entry, whiteListAttrs);
   }
 }
 

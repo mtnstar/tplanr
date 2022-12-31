@@ -8,7 +8,7 @@ import { searchItems } from '../../../utils/api/items';
 
 interface TypeAheadProps {
   itemCategory: ItemCategory;
-  addItem: (itemId: number) => void;
+  addItem: (item: Item) => void;
 }
 
 function ItemTypeAhead(props: TypeAheadProps) {
@@ -25,24 +25,38 @@ function ItemTypeAhead(props: TypeAheadProps) {
     setIsLoading(false);
   };
 
+  const handleItemChange = (item: Item) => {
+    addItem(item);
+  };
+
   const typeahead = createRef<Typeahead>();
 
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.
   const filterBy = () => true;
 
+  const translatedCategory = t(itemCategory, { keyPrefix: 'item_categories' });
+
   return (
     <AsyncTypeahead
       ref={typeahead}
       filterBy={filterBy}
-      id='async-example'
+      id={itemCategory}
+      newSelectionPrefix={t('addActionHint', {
+        keyPrefix: 'item',
+        itemCategory: translatedCategory,
+      })}
+      allowNew
       isLoading={isLoading}
       labelKey='labelDe'
       className='w-50'
       minLength={3}
       onChange={(selected) => {
         if (!selected[0]) return;
-        addItem((selected[0] as Item).id!);
+
+        const item = selected[0] as Item;
+        handleItemChange(item);
+
         typeahead.current!.clear();
       }}
       onSearch={handleSearch}
