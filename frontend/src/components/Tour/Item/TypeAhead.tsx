@@ -1,9 +1,8 @@
-import { createRef, useRef, useState } from 'react';
+import { createRef, useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import Typeahead from 'react-bootstrap-typeahead/types/core/Typeahead';
 import { useTranslation } from 'react-i18next';
 import { Item, ItemCategory } from '../../../model/Item';
-import TourItem from '../../../model/TourItem';
 import { searchItems } from '../../../utils/api/items';
 
 interface TypeAheadProps {
