@@ -2,12 +2,12 @@ admin:
   first_name: John
   last_name: Manager
   email: admin@example.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'p') %>
+  password_digest: <%= BCrypt::Password.create('p') %>
   admin: true
 
 guide:
   first_name: Gabe
   last_name: Walker
   email: leiter@example.com
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'p') %>
+  password_digest: <%= BCrypt::Password.create('p') %>
   admin: false

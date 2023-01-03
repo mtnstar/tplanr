@@ -3,18 +3,9 @@ Rails.application.routes.draw do
     resources :item_categories
     resources :items
 
-    devise_for :users, controllers: {
-      sessions: 'users/sessions'
-    }
-
     resources :tours do
       resources :sections, controller: 'tours/sections'
       resources :items, controller: 'tours/items'
     end
   end
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end

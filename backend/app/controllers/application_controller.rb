@@ -1,20 +1,12 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
+
+  attr_reader :current_user
 
   include JSONAPI::ActsAsResourceController
-
-  # before_action :authenticate_user!
-
-  # CSRF tokens are not required with api only
-  skip_before_action :verify_authenticity_token
+  include Authentication
 
   def context
     { current_user: current_user }
-  end
-
-  private
-
-  def current_user
-    User.first
   end
 
 end
