@@ -6,7 +6,7 @@ import {
 } from 'jsonapi-fractal';
 import { Item, ItemCategory } from '../../model/Item';
 import ItemTransformer from '../transformers/ItemTransformer';
-import { adapter } from './axios';
+import adapter from './axios';
 
 type Items = Item[];
 

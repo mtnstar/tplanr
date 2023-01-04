@@ -36,6 +36,12 @@
     }
   },
 
+  "login": {
+    "login": "Anmelden",
+    "email": "E-Mail",
+    "password": "Password"
+  },
+
   "section": {
     "many": "Etappen",
     "attrs": {

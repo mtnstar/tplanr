@@ -1,4 +1,4 @@
-import { adapter } from './axios';
+import adapter from './axios';
 import {
   CaseType,
   deserialize,

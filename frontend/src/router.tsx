@@ -8,6 +8,7 @@ import TourShow from './components/Tour/Show';
 import TourNew from './components/Tour/New';
 import SectionList from './components/Section/List';
 import TourItemList from './components/Tour/Item/List';
+import Login from './components/Login';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
       },
       {
         path: '/tours',

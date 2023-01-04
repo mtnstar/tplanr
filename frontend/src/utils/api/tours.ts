@@ -7,7 +7,7 @@ import {
 import { SportKind } from '../../model/SportKind';
 import Tour from '../../model/Tour';
 import TourTransformer from '../transformers/TourTransformer';
-import { adapter } from './axios';
+import adapter from './axios';
 
 const convertDates = (entry: Tour) => {
   if (entry.startAt) {
