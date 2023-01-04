@@ -24,12 +24,16 @@ RSpec.describe "/tours", type: :request do
     skip("Add a hash of attributes invalid for your model")
   }
 
+  let(:jwt_token) do
+    JsonWebToken.encode(user_id: users(:guide).id)
+  end
+
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # ToursController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
-    {}
+    { 'Authorization': "Bearer #{jwt_token}" }
   }
 
   describe "GET /index" do
@@ -41,7 +45,7 @@ RSpec.describe "/tours", type: :request do
 
     it "filters tours by sport kind" do
       tours_url = tours_url(filter: {sport_kind: 'alpine_summer'})
-      get tours_url
+      get tours_url, headers: valid_headers
       expect(response).to be_successful
       expect(json_data.size).to eq(1)
       tour_label = json_data.first['attributes']['label']

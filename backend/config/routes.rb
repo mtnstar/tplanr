@@ -7,5 +7,7 @@ Rails.application.routes.draw do
       resources :sections, controller: 'tours/sections'
       resources :items, controller: 'tours/items'
     end
+
+    post '/auth/login', to: 'auth/login#create'
   end
 end
