@@ -14,7 +14,7 @@ export const searchItems = async (
   labelDe: string,
   itemCategory: ItemCategory,
 ): Promise<Items> => {
-  const response = await adapter.get(`/api/items`, {
+  const response = await adapter().get(`/api/items`, {
     params: { filter: { item_category: itemCategory, label_de: labelDe } },
   });
   const data = deserialize(response.data, {
@@ -46,9 +46,9 @@ export const createOrUpdateItem = async (entry: Item) => {
 };
 
 const updateItem = async (entry: Item, serializedData: DocumentObject) => {
-  return adapter.patch(`/api/items/${entry.id}`, serializedData);
+  return adapter().patch(`/api/items/${entry.id}`, serializedData);
 };
 
 const createItem = async (serializedData: DocumentObject) => {
-  return adapter.post('/api/items', serializedData);
+  return adapter().post('/api/items', serializedData);
 };

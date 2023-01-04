@@ -27,7 +27,7 @@ export const fetchSection = async (
   tourId: number,
   id: number,
 ): Promise<Section> => {
-  const response = await adapter.get(`/api/tours/${tourId}/sections/${id}`);
+  const response = await adapter().get(`/api/tours/${tourId}/sections/${id}`);
   const entry = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as Section;
@@ -39,7 +39,7 @@ export const fetchSection = async (
 type Sections = ReadonlyArray<Section>;
 
 export const fetchSections = async (tourId: number): Promise<Sections> => {
-  const response = await adapter.get(`/api/tours/${tourId}/sections`);
+  const response = await adapter().get(`/api/tours/${tourId}/sections`);
   const data = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as Section[];
@@ -73,7 +73,7 @@ const updateSection = async (
   entry: Section,
   serializedData: DocumentObject,
 ) => {
-  return adapter.patch(
+  return adapter().patch(
     `/api/tours/${entry.tourId}/sections/${entry.id}`,
     serializedData,
   );
@@ -83,11 +83,11 @@ const createSection = async (
   entry: Section,
   serializedData: DocumentObject,
 ) => {
-  return adapter.post(`/api/tours/${entry.tourId}/sections`, serializedData);
+  return adapter().post(`/api/tours/${entry.tourId}/sections`, serializedData);
 };
 
 export const deleteSection = async (entry: Section): Promise<Section> => {
-  const response = await adapter.delete(
+  const response = await adapter().delete(
     `/api/tours/${entry.tourId}/sections/${entry.id}`,
   );
   return response.data;

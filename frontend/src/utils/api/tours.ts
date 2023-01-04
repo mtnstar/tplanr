@@ -25,7 +25,7 @@ const convertDates = (entry: Tour) => {
 };
 
 export const fetchTour = async (id: number): Promise<Tour> => {
-  const response = await adapter.get(`/api/tours/${id}`);
+  const response = await adapter().get(`/api/tours/${id}`);
   const entry = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as Tour;
@@ -54,17 +54,17 @@ export const createOrUpdateTour = async (entry: Tour) => {
 };
 
 const updateTour = async (entry: Tour, serializedData: DocumentObject) => {
-  return adapter.patch(`/api/tours/${entry.id}`, serializedData);
+  return adapter().patch(`/api/tours/${entry.id}`, serializedData);
 };
 
 const createTour = async (entry: Tour, serializedData: DocumentObject) => {
-  return adapter.post('/api/tours', serializedData);
+  return adapter().post('/api/tours', serializedData);
 };
 
 type Tours = ReadonlyArray<Tour>;
 
 export const fetchTours = async (sportKind: SportKind): Promise<Tours> => {
-  const response = await adapter.get('/api/tours', {
+  const response = await adapter().get('/api/tours', {
     params: { filter: { sport_kind: sportKind } },
   });
   const data = deserialize(response.data, {

@@ -1,24 +1,31 @@
 import axios from 'axios';
+import User from '../../model/User';
 
-export function login(email?: string, password?: string) {
+export const login = (email?: string, password?: string) => {
   return axios
     .post('/api/auth/login', {
       email,
       password,
     })
     .then((response) => {
-      if (response.data.data.token) {
-        localStorage.setItem('user', JSON.stringify(response.data.data));
+      const attrs = response.data.data.attributes;
+      if (attrs.token) {
+        const user = { token: attrs.token, firstName: attrs.first_name };
+        localStorage.setItem('user', JSON.stringify(user));
+        return user;
       }
 
-      return response.data;
+      return undefined;
     });
-}
+};
 
 export function logout() {
   localStorage.removeItem('user');
 }
 
 export function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('user') || '');
+  const currentUser = localStorage.getItem('user');
+  if (!currentUser) return undefined;
+
+  return JSON.parse(currentUser) as User;
 }

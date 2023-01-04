@@ -39,7 +39,9 @@
   "login": {
     "login": "Anmelden",
     "email": "E-Mail",
-    "password": "Password"
+    "password": "Password",
+    "logout": "Abmelden",
+    "emailInvalid": "Ungültige E-Mail"
   },
 
   "section": {

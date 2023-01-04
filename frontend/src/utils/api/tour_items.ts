@@ -17,7 +17,7 @@ export const fetchTourItem = async (
   tourId: number,
   id: number,
 ): Promise<TourItem> => {
-  const response = await adapter.get(`/api/tours/${tourId}/items/${id}`);
+  const response = await adapter().get(`/api/tours/${tourId}/items/${id}`);
   const entry = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as TourItem;
@@ -27,7 +27,7 @@ export const fetchTourItem = async (
 type TourItems = ReadonlyArray<TourItem>;
 
 export const fetchTourItems = async (tourId: number): Promise<TourItems> => {
-  const response = await adapter.get(`/api/tours/${tourId}/items`);
+  const response = await adapter().get(`/api/tours/${tourId}/items`);
   const data = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as TourItem[];
@@ -62,7 +62,7 @@ const updateTourItem = async (
   entry: TourItem,
   serializedData: DocumentObject,
 ) => {
-  return adapter.patch(
+  return adapter().patch(
     `/api/tours/${tourId}/items/${entry.id}`,
     serializedData,
   );
@@ -72,14 +72,14 @@ const createTourItem = async (
   tourId: number,
   serializedData: DocumentObject,
 ) => {
-  return adapter.post(`/api/tours/${tourId}/items`, serializedData);
+  return adapter().post(`/api/tours/${tourId}/items`, serializedData);
 };
 
 export const deleteTourItem = async (
   params: tourItemParams,
 ): Promise<TourItem> => {
   const { tourId, entry } = params;
-  const response = await adapter.delete(
+  const response = await adapter().delete(
     `/api/tours/${tourId}/items/${entry.id}`,
   );
   return response.data;

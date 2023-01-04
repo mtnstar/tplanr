@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { SportKind, SportKinds } from '../../model/SportKind';
 import SportKindContext from '../../utils/providers/SportKindContext';
 
 function SportKindSelector() {
-  const { sportKind, setSportKind } = React.useContext(SportKindContext);
+  const { sportKind, setSportKind } = useContext(SportKindContext);
   const { t } = useTranslation();
   const navigate = useNavigate();
 

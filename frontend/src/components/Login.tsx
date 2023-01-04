@@ -1,34 +1,48 @@
 import { Field, Formik } from 'formik';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { Card } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import User from '../model/User';
+import CurrentUserContext from '../utils/providers/CurrentUserContext';
 import { login } from '../utils/services/authentication';
 
 function Login() {
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   return (
     <div className='row d-flex justify-content-center pt-5'>
       <Card className='col-6'>
         <Card.Body>
-          <LoginForm />
+          <LoginForm setCurrentUser={setCurrentUser} />
         </Card.Body>
       </Card>
     </div>
   );
 }
 
-function LoginForm() {
+type FormParams = {
+  setCurrentUser: Dispatch<SetStateAction<User>>;
+};
+
+function LoginForm(props: FormParams) {
   const { t } = useTranslation();
+  const { setCurrentUser } = props;
+  const navigate = useNavigate();
 
   function onFormSubmit(user: User) {
-    login(user.email, user.password);
+    login(user.email, user.password).then((user) => {
+      if (user) {
+        setCurrentUser(user);
+        navigate('/');
+      }
+    });
   }
 
   const UserLoginSchema = Yup.object().shape({
     email: Yup.string()
-      .min(2, t('too_short', { keyPrefix: 'global.form' }))
-      .max(50, t('too_long', { keyPrefix: 'global.form' }))
+      .email(t('emailInvalid', { keyPrefix: 'login' }))
       .required(t('required', { keyPrefix: 'global.form' })),
     password: Yup.string().required(
       t('required', { keyPrefix: 'global.form' }),
@@ -80,6 +94,7 @@ function LoginForm() {
                 id='password'
                 name='password'
                 className='form-control'
+                type='password'
                 required
                 isInvalid={!!touched.password && !!errors.password}
               />
