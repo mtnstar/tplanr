@@ -6,8 +6,9 @@ RSpec.describe "/auth/login", type: :request do
       post auth_login_url, params: { email: 'leiter@example.com', password: 'p' }
       expect(response).to be_successful
 
-      expect(json_data['token']).to be_present
-      expect(json_data['full_name']).to eq('Gabe Walker')
+      user_attrs = json_data['attributes']
+      expect(user_attrs['token']).to be_present
+      expect(user_attrs['first_name']).to eq('Gabe')
     end
 
     it "returns unauthorized for invalid email/password" do
