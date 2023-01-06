@@ -16,6 +16,13 @@ export const login = (email?: string, password?: string) => {
       }
 
       return undefined;
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        return undefined;
+      }
+
+      throw error;
     });
 };
 

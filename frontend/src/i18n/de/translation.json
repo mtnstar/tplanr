@@ -41,7 +41,8 @@
     "email": "E-Mail",
     "password": "Password",
     "logout": "Abmelden",
-    "emailInvalid": "Ungültige E-Mail"
+    "emailInvalid": "Ungültige E-Mail",
+    "error": "Unbekannte E-Mail oder ungültiges Passwort."
   },
 
   "section": {

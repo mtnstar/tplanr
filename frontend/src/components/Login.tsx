@@ -1,6 +1,6 @@
 import { Field, Formik } from 'formik';
-import { Dispatch, SetStateAction, useContext } from 'react';
-import { Card } from 'react-bootstrap';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { Alert, Card } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -10,25 +10,42 @@ import CurrentUserContext from '../utils/providers/CurrentUserContext';
 import { login } from '../utils/services/authentication';
 
 function Login() {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { setCurrentUser } = useContext(CurrentUserContext);
+  const [showLoginError, setShowLoginError] = useState(false);
+  const { t } = useTranslation();
+
   return (
-    <div className='row d-flex justify-content-center pt-5'>
-      <Card className='col-6'>
-        <Card.Body>
-          <LoginForm setCurrentUser={setCurrentUser} />
-        </Card.Body>
-      </Card>
-    </div>
+    <>
+      <div
+        className='row d-flex justify-content-center pt-5'
+        style={{ visibility: showLoginError ? 'visible' : 'hidden' }}
+      >
+        <Alert className='col-6' key='warning' variant='warning'>
+          {t('error', { keyPrefix: 'login' })}
+        </Alert>
+      </div>
+      <div className='row d-flex justify-content-center pt-2'>
+        <Card className='col-6'>
+          <Card.Body>
+            <LoginForm
+              setCurrentUser={setCurrentUser}
+              setShowLoginError={setShowLoginError}
+            />
+          </Card.Body>
+        </Card>
+      </div>
+    </>
   );
 }
 
 type FormParams = {
   setCurrentUser: Dispatch<SetStateAction<User>>;
+  setShowLoginError: Dispatch<SetStateAction<boolean>>;
 };
 
 function LoginForm(props: FormParams) {
   const { t } = useTranslation();
-  const { setCurrentUser } = props;
+  const { setCurrentUser, setShowLoginError } = props;
   const navigate = useNavigate();
 
   function onFormSubmit(user: User) {
@@ -36,6 +53,8 @@ function LoginForm(props: FormParams) {
       if (user) {
         setCurrentUser(user);
         navigate('/');
+      } else {
+        setShowLoginError(true);
       }
     });
   }
