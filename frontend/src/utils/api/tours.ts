@@ -67,6 +67,8 @@ export const fetchTours = async (sportKind: SportKind): Promise<Tours> => {
   const response = await adapter().get('/api/tours', {
     params: { filter: { sport_kind: sportKind } },
   });
+  if (!response) return [];
+
   const data = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as Tour[];

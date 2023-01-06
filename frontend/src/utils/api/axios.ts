@@ -14,8 +14,9 @@ const adapter = () => {
     (error) => {
       if (error.response.status === 401) {
         logout();
+        return;
       }
-      return error;
+      throw error;
     },
   );
 
