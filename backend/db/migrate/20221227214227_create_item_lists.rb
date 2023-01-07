@@ -3,6 +3,8 @@ class CreateItemLists < ActiveRecord::Migration[7.0]
     create_table :item_lists do |t|
       t.references :tour
       t.integer :sport_kind, default: 0
+      t.references :user
+      t.string :template_label
       t.timestamps
     end
 

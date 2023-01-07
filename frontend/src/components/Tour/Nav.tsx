@@ -24,7 +24,10 @@ export default function TourNav() {
 function ListNav() {
   return (
     <>
-      <Breadcrumbs isList={true} />
+      <div className='d-flex justify-content-between'>
+        <Breadcrumbs isList={true} />
+        <ItemListsLink />
+      </div>
       <NavTabs />
     </>
   );
@@ -134,6 +137,15 @@ function Breadcrumbs(props: BreadcrumbsProps) {
       <ListBreadcrumb tour={tour} />
       {!isList && <TourBreadcrumb tour={tour} />}
     </Breadcrumb>
+  );
+}
+
+function ItemListsLink() {
+  const { t } = useTranslation();
+  return (
+    <Link className='nav-link' to={'/item_lists'}>
+      {t('many', { keyPrefix: 'itemList' })}
+    </Link>
   );
 }
 

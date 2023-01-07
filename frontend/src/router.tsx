@@ -9,6 +9,8 @@ import TourNew from './components/Tour/New';
 import SectionList from './components/Section/List';
 import TourItemList from './components/Tour/Item/List';
 import Login from './components/Login';
+import ItemListContainer from './components/ItemList/Container';
+import ItemListsList from './components/ItemList/List';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
           { path: '/tours/:id/edit', element: <TourEdit /> },
           { path: '/tours/:id/items', element: <TourItemList /> },
           { path: '/tours/:id/sections', element: <SectionList /> },
+        ],
+      },
+      {
+        path: '/item_lists',
+        element: <ItemListContainer />,
+        children: [
+          { path: '/item_lists', element: <ItemListsList /> },
+          //{ path: '/tours/:id', element: <TourShow /> },
         ],
       },
     ],

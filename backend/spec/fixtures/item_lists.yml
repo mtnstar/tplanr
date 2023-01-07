@@ -1,2 +1,7 @@
 tour_dom:
   tour: dom
+
+template_alpine_summer:
+  template_label: Vorlage 1
+  sport_kind: alpine_summer
+  user: guide

@@ -22,3 +22,8 @@ tour_dom_emergencykit:
   item_list: tour_dom
   item: emergencykit
   count: 1
+
+template_alpine_summer_jacket:
+  item_list: template_alpine_summer
+  item: goretex_jacket
+  count: 1

@@ -36,6 +36,13 @@
     }
   },
 
+  "itemList": {
+    "many": "Materiallisten",
+    "attrs": {
+      "templateLabel": "Vorlagenname"
+    }
+  },
+
   "login": {
     "login": "Anmelden",
     "email": "E-Mail",

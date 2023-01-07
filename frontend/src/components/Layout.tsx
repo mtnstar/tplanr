@@ -15,6 +15,7 @@ import UserDropDown from './Nav/UserDropDown';
 import { useEffect, useState } from 'react';
 import User from '../model/User';
 import { getCurrentUser } from '../utils/services/authentication';
+import SportKindSelector from './Nav/SportKindSelector';
 
 function redirectUnlessLoggedIn(
   location: Location,
@@ -44,7 +45,7 @@ function Layout() {
     <CurrentUserContext.Provider value={currentUserValue}>
       <SportKindContext.Provider value={sportKindValue}>
         <Navbar expand='md' bg='dark' className='mb-3' variant='dark'>
-          <Container>
+          <Container className='d-flex justify-content-between'>
             <Link to='/' className='navbar-brand'>
               <img
                 alt=''
@@ -55,7 +56,10 @@ function Layout() {
               />{' '}
               tplanr
             </Link>
-            <UserDropDown />
+            <div className='btn-group'>
+              <SportKindSelector />
+              <UserDropDown />
+            </div>
           </Container>
         </Navbar>
 

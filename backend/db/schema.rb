@@ -30,9 +30,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_214227) do
   create_table "item_lists", force: :cascade do |t|
     t.integer "tour_id"
     t.integer "sport_kind", default: 0
+    t.integer "user_id"
+    t.string "template_label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tour_id"], name: "index_item_lists_on_tour_id"
+    t.index ["user_id"], name: "index_item_lists_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|

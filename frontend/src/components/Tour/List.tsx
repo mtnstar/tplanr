@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SportKindContext from '../../utils/providers/SportKindContext';
@@ -19,7 +19,7 @@ export default function ToursList() {
 }
 
 function ToursTable() {
-  const { sportKind } = React.useContext(SportKindContext);
+  const { sportKind } = useContext(SportKindContext);
   const { data } = useToursQuery(sportKind);
   const { t } = useTranslation();
   const navigate = useNavigate();

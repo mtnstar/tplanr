@@ -26,8 +26,8 @@ function SportKindSelector() {
   ));
 
   return (
-    <Dropdown>
-      <Dropdown.Toggle id='dropdown-basic'>
+    <Dropdown className='me-2'>
+      <Dropdown.Toggle variant='outline-light' id='dropdown-basic'>
         {t(sportKind.toString(), { keyPrefix: 'sport_kinds' })}
       </Dropdown.Toggle>
 
