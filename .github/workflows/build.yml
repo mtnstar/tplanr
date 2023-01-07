@@ -45,35 +45,35 @@ jobs:
           bundler-cache: true
 
       # Setup Node
-      # - name: Use Node.js
-        # uses: actions/setup-node@v1
-        # with:
-          # node-version: '14.18.0'
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.12.1'
 
       # Npm global packages caching
-      # - name: Cache global npm modules
-        # id: global-node-modules-cache
-        # uses: actions/cache@v2
-        # env:
-          # cache-name: cache-global-node-modules
-        # with:
-          # # npm cache files are stored in `~/.npm` on Linux
-          # path: ~/.npm
-          # key: ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
-          # restore-keys: |
-            # ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache global npm modules
+        id: global-node-modules-cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-global-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux
+          path: ~/.npm
+          key: ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-global-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
       # Node modules caching
-      # - name: Cache node modules
-        # id: node-modules-cache
-        # uses: actions/cache@v2
-        # env:
-          # cache-name: cache-node-modules
-        # with:
-          # # npm modules cache files are stored in `./node_modules`
-          # path: ./node_modules
-          # key: ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
-          # restore-keys: |
-            # ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache node modules
+        id: node-modules-cache
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm modules cache files are stored in `./node_modules`
+          path: ./frontend/node_modules
+          key: ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-cache-v1-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install bundler
         run: gem install bundler
@@ -104,9 +104,9 @@ jobs:
         # run: bundle exec rake ci:frontend_prepare --trace
 
       # Frontend specs
-      # - name: Run frontend specs
-        # if: github.event_name == 'push' || github.event_name == 'pull_request'
-        # run: bundle exec rake ci:frontend_specs --trace
+      - name: Run frontend specs
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: cd frontend && npm install && npm test
 
       - name: Run backend specs
         run: bundle exec rails spec
