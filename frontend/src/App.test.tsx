@@ -1,9 +1,14 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import mockAxios from 'jest-mock-axios';
 import App from './App';
 
-test('renders learn react link', () => {
+afterEach(() => {
+  // cleaning up the mess left behind the previous test
+  mockAxios.reset();
+});
+
+test('renders login form', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const emailInput = screen.getByLabelText('E-Mail');
+  expect(emailInput).toBeInTheDocument();
 });

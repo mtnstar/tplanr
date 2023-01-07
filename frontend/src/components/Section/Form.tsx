@@ -7,8 +7,8 @@ import Section from '../../model/Section';
 import { createOrUpdateSection } from '../../utils/api/sections';
 import * as Yup from 'yup';
 import DateTimeRangePickerField from '../Shared/DateTimePickerField';
-import { queryClient } from '../../index';
 import { useTourQuery } from '../../utils/queries/useTourQuery';
+import { queryClient } from '../../App';
 
 interface FormParams {
   entry: Section;

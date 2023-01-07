@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { useTourItemsQuery } from '../../../utils/queries/useTourItemsQuery';
 import * as Icon from 'react-bootstrap-icons';
 import { useMutation } from 'react-query';
-import { queryClient } from '../../../index';
 import {
   createOrUpdateTourItem,
   deleteTourItem,
@@ -13,6 +12,7 @@ import TourItem from '../../../model/TourItem';
 import { Item, ItemCategories, ItemCategory } from '../../../model/Item';
 import ItemTypeAhead from './TypeAhead';
 import { createOrUpdateItem } from '../../../utils/api/items';
+import { queryClient } from '../../../App';
 
 export default function TourItemList() {
   const { id: tourId } = useParams();

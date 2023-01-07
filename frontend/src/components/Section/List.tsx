@@ -13,8 +13,8 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import * as Icon from 'react-bootstrap-icons';
 import { deleteSection } from '../../utils/api/sections';
 import { useMutation } from 'react-query';
-import { queryClient } from '../../index';
 import { convertLocalToUTCDate } from '../../utils/tools/dateHelpers';
+import { queryClient } from '../../App';
 
 const moment = extendMoment(Moment);
 
