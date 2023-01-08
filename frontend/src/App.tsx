@@ -10,7 +10,7 @@ function App() {
   axios.defaults.headers.common['Content-Type'] = 'application/vnd.api+json';
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </QueryClientProvider>
   );
 }

@@ -1,22 +1,39 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import { useTourItemsQuery } from '../../../utils/queries/useTourItemsQuery';
+import { useTourItemsQuery } from '../../utils/queries/useTourItemsQuery';
 import * as Icon from 'react-bootstrap-icons';
 import { useMutation } from 'react-query';
 import {
   createOrUpdateTourItem,
   deleteTourItem,
-} from '../../../utils/api/tour_items';
-import TourItem from '../../../model/TourItem';
-import { Item, ItemCategories, ItemCategory } from '../../../model/Item';
+} from '../../utils/api/tour_items';
+import TourItem from '../../model/TourItem';
+import { Item, ItemCategories, ItemCategory } from '../../model/Item';
+import { createOrUpdateItem } from '../../utils/api/items';
+import { queryClient } from '../../App';
 import ItemTypeAhead from './TypeAhead';
-import { createOrUpdateItem } from '../../../utils/api/items';
-import { queryClient } from '../../../App';
 
-export default function TourItemList() {
+export default function ItemList() {
   const { id: tourId } = useParams();
   const { data: items } = useTourItemsQuery(+tourId!);
+  return (
+    <>
+      <ItemsByCategory items={items} />
+    </>
+  );
+}
+
+function TourItemList() {}
+
+function TemplateItemList() {}
+
+interface ItemsListParams {
+  items: readonly TourItem[] | undefined;
+}
+
+function ItemsByCategory(props: ItemsListParams) {
+  const { items } = props;
   function itemsByCategory(category: ItemCategory) {
     if (!items) return [];
 
