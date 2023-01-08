@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import TourItem from '../../model/TourItem';
+import ItemListItem from '../../model/ItemListItem';
 import { fetchTourItem } from '../api/tour_items';
 
 export const useTourItemQuery = (tourId: number, id: number) =>
-  useQuery<TourItem>(['tour-items', id], () => fetchTourItem(tourId, id));
+  useQuery<ItemListItem>(['tour-items', id], () => fetchTourItem(tourId, id));

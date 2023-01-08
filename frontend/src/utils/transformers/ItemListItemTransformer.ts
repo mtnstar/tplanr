@@ -1,16 +1,16 @@
 import { Transformer, whitelist } from 'jsonapi-fractal';
-import TourItem from '../../model/TourItem';
+import ItemListItem from '../../model/ItemListItem';
 
-class TourItemTransformer extends Transformer<unknown, unknown> {
+class ItemListItemTransformer extends Transformer<unknown, unknown> {
   constructor() {
     super();
     this.type = 'items';
   }
 
-  transform(entry: TourItem) {
+  transform(entry: ItemListItem) {
     const whiteListAttrs = ['id', 'itemId', 'optional', 'count'];
     return whitelist(entry, whiteListAttrs);
   }
 }
 
-export default TourItemTransformer;
+export default ItemListItemTransformer;

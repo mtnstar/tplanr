@@ -9,8 +9,9 @@ import TourNew from './components/Tour/New';
 import SectionList from './components/Section/List';
 import Login from './components/Login';
 import ItemListContainer from './components/ItemList/Container';
-import ItemListsList from './components/ItemList/List';
+import ItemListList from './components/ItemList/List';
 import ItemList from './components/Item/List';
+import ItemListShow from './components/ItemList/Show';
 
 const router = createBrowserRouter([
   {
@@ -41,8 +42,8 @@ const router = createBrowserRouter([
         path: '/item_lists',
         element: <ItemListContainer />,
         children: [
-          { path: '/item_lists', element: <ItemListsList /> },
-          //{ path: '/tours/:id', element: <TourShow /> },
+          { path: '/item_lists', element: <ItemListList /> },
+          { path: '/item_lists/:id', element: <ItemListShow /> },
         ],
       },
     ],

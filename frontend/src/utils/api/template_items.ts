@@ -8,28 +8,30 @@ import {
 import ItemListItem from '../../model/ItemListItem';
 import ItemListItemTransformer from '../transformers/ItemListItemTransformer';
 
-interface tourItemParams {
-  tourId: number;
+interface templateItemParams {
+  itemListId: number;
   entry: ItemListItem;
 }
 
-export const fetchTourItem = async (
-  tourId: number,
+export const fetchTemplateItem = async (
+  itemListId: number,
   id: number,
 ): Promise<ItemListItem> => {
-  const response = await adapter().get(`/api/tours/${tourId}/items/${id}`);
+  const response = await adapter().get(
+    `/api/item_lists/${itemListId}/items/${id}`,
+  );
   const entry = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as ItemListItem;
   return entry;
 };
 
-type ItemListItems = ReadonlyArray<ItemListItem>;
+type TemplateItems = ReadonlyArray<ItemListItem>;
 
-export const fetchTourItems = async (
-  tourId: number,
-): Promise<ItemListItems> => {
-  const response = await adapter().get(`/api/tours/${tourId}/items`);
+export const fetchTemplateItems = async (
+  itemListId: number,
+): Promise<TemplateItems> => {
+  const response = await adapter().get(`/api/item_lists/${itemListId}/items`);
   const data = deserialize(response.data, {
     changeCase: CaseType.camelCase,
   }) as ItemListItem[];
@@ -38,8 +40,10 @@ export const fetchTourItems = async (
   });
 };
 
-export const createOrUpdateTourItem = async (params: tourItemParams) => {
-  const { tourId, entry } = params;
+export const createOrUpdateTemplateItem = async (
+  params: templateItemParams,
+) => {
+  const { itemListId, entry } = params;
   const serializedData = transform()
     .withInput(entry)
     .withTransformer(new ItemListItemTransformer())
@@ -49,9 +53,9 @@ export const createOrUpdateTourItem = async (params: tourItemParams) => {
   let response = { data: undefined };
 
   if (entry.id) {
-    response = await updateTourItem(tourId, entry, serializedData);
+    response = await updateTemplateItem(itemListId, entry, serializedData);
   } else {
-    response = await createTourItem(tourId, serializedData);
+    response = await createTemplateItem(itemListId, serializedData);
   }
 
   const data = response.data;
@@ -59,30 +63,30 @@ export const createOrUpdateTourItem = async (params: tourItemParams) => {
   return data ? (deserialize(data) as ItemListItem) : undefined;
 };
 
-const updateTourItem = async (
-  tourId: number,
+const updateTemplateItem = async (
+  itemListId: number,
   entry: ItemListItem,
   serializedData: DocumentObject,
 ) => {
   return adapter().patch(
-    `/api/tours/${tourId}/items/${entry.id}`,
+    `/api/item_lists/${itemListId}/items/${entry.id}`,
     serializedData,
   );
 };
 
-const createTourItem = async (
-  tourId: number,
+const createTemplateItem = async (
+  itemListId: number,
   serializedData: DocumentObject,
 ) => {
-  return adapter().post(`/api/tours/${tourId}/items`, serializedData);
+  return adapter().post(`/api/item_lists/${itemListId}/items`, serializedData);
 };
 
-export const deleteTourItem = async (
-  params: tourItemParams,
+export const deleteTemplateItem = async (
+  params: templateItemParams,
 ): Promise<ItemListItem> => {
-  const { tourId, entry } = params;
+  const { itemListId, entry } = params;
   const response = await adapter().delete(
-    `/api/tours/${tourId}/items/${entry.id}`,
+    `/api/item_lists/${itemListId}/items/${entry.id}`,
   );
   return response.data;
 };

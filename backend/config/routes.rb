@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   scope :api do
     resources :item_categories
     resources :items
-    resources :item_lists
+    resources :item_lists do
+      resources :items, controller: 'item_lists/items'
+    end
 
     resources :tours do
       resources :sections, controller: 'tours/sections'

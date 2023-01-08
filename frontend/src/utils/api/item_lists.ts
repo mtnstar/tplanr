@@ -8,6 +8,14 @@ import { ItemList } from '../../model/ItemList';
 import { SportKind } from '../../model/SportKind';
 import adapter from './axios';
 
+export const fetchItemList = async (id: number): Promise<ItemList> => {
+  const response = await adapter().get(`/api/item_lists/${id}`);
+  const entry = deserialize(response.data, {
+    changeCase: CaseType.camelCase,
+  }) as ItemList;
+  return entry;
+};
+
 export const createOrUpdateItemList = async (entry: ItemList) => {
   const serializedData = transform()
     .withInput(entry)

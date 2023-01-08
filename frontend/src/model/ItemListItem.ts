@@ -1,6 +1,6 @@
 import { ItemCategory } from './Item';
 
-type TourItem = {
+type ItemListItem = {
   id?: number;
   itemId?: number;
   labelDe?: string;
@@ -10,4 +10,4 @@ type TourItem = {
   optional?: boolean;
 };
 
-export default TourItem;
+export default ItemListItem;

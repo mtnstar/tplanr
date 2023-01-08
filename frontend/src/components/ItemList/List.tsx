@@ -6,7 +6,7 @@ import { ItemList } from '../../model/ItemList';
 import SportKindContext from '../../utils/providers/SportKindContext';
 import { useItemListsQuery } from '../../utils/queries/useItemListsQuery';
 
-export default function ItemListsList() {
+export default function ItemListList() {
   return (
     <>
       <ItemListTable />

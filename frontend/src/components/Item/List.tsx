@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Card } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useTourItemsQuery } from '../../utils/queries/useTourItemsQuery';
 import * as Icon from 'react-bootstrap-icons';
 import { useMutation } from 'react-query';
@@ -8,43 +8,70 @@ import {
   createOrUpdateTourItem,
   deleteTourItem,
 } from '../../utils/api/tour_items';
-import TourItem from '../../model/TourItem';
 import { Item, ItemCategories, ItemCategory } from '../../model/Item';
 import { createOrUpdateItem } from '../../utils/api/items';
 import { queryClient } from '../../App';
 import ItemTypeAhead from './TypeAhead';
+import ItemListItem from '../../model/ItemListItem';
+import { useTemplateItemsQuery } from '../../utils/queries/useTemplateItemsQuery';
+import {
+  createOrUpdateTemplateItem,
+  deleteTemplateItem,
+} from '../../utils/api/template_items';
 
 export default function ItemList() {
+  const location = useLocation();
+  if (/^\/tours/.test(location.pathname)) {
+    return <TourItemList />;
+  } else {
+    return <TemplateItemList />;
+  }
+}
+
+function TourItemList() {
   const { id: tourId } = useParams();
   const { data: items } = useTourItemsQuery(+tourId!);
   return (
     <>
-      <ItemsByCategory items={items} />
+      <ItemsByCategory items={items} tourId={tourId} />
     </>
   );
 }
 
-function TourItemList() {}
-
-function TemplateItemList() {}
-
-interface ItemsListParams {
-  items: readonly TourItem[] | undefined;
+function TemplateItemList() {
+  const { id: itemListId } = useParams();
+  const { data: items } = useTemplateItemsQuery(+itemListId!);
+  return (
+    <>
+      <ItemsByCategory items={items} itemListId={itemListId} />
+    </>
+  );
 }
 
-function ItemsByCategory(props: ItemsListParams) {
-  const { items } = props;
+interface ItemsByCategoryParams {
+  items?: readonly ItemListItem[];
+  tourId?: string;
+  itemListId?: string;
+}
+
+function ItemsByCategory(props: ItemsByCategoryParams) {
+  const { items, tourId, itemListId } = props;
   function itemsByCategory(category: ItemCategory) {
     if (!items) return [];
 
-    return items.filter((item: TourItem) => item.itemCategory === category);
+    return items.filter((item: ItemListItem) => item.itemCategory === category);
   }
 
   const itemCategoryCards = ItemCategories.map((itemCategory: ItemCategory) => {
     const categoryItems = itemsByCategory(itemCategory);
     return (
       <div key={itemCategory}>
-        <ItemsCard itemCategory={itemCategory} items={categoryItems} />
+        <ItemsCard
+          itemCategory={itemCategory}
+          items={categoryItems}
+          tourId={tourId}
+          itemListId={itemListId}
+        />
       </div>
     );
   });
@@ -54,33 +81,63 @@ function ItemsByCategory(props: ItemsListParams) {
 
 interface ItemsCardParams {
   itemCategory: ItemCategory;
-  items: TourItem[];
+  items: ItemListItem[];
+  tourId?: string;
+  itemListId?: string;
 }
 
 function ItemsCard(props: ItemsCardParams) {
-  const { itemCategory, items } = props;
+  const { itemCategory, items, tourId, itemListId } = props;
   const { t } = useTranslation();
-  const { id: tourId } = useParams();
-  const itemCards = items.map((item: TourItem) => {
-    return <ItemCard key={item.id} item={item} />;
+  const itemCards = items.map((item: ItemListItem) => {
+    return (
+      <ItemCard
+        key={item.id}
+        item={item}
+        tourId={tourId}
+        itemListId={itemListId}
+      />
+    );
   });
 
   const createUpdateTourItem = useMutation(createOrUpdateTourItem, {
     onSuccess: (data) => {
       if (data) {
         queryClient.invalidateQueries({
-          queryKey: ['tour-items', Number(tourId)],
+          queryKey: ['tourItems', Number(tourId)],
         });
       }
     },
   });
 
-  const createAndAddNewItem = useMutation(createOrUpdateItem, {
+  const createUpdateTemplateItem = useMutation(createOrUpdateTemplateItem, {
     onSuccess: (data) => {
       if (data) {
-        const newTourItem: TourItem = { itemId: data.id };
+        queryClient.invalidateQueries({
+          queryKey: ['itemListItems', Number(itemListId)],
+        });
+      }
+    },
+  });
+
+  const createAndAddNewTourItem = useMutation(createOrUpdateItem, {
+    onSuccess: (data) => {
+      if (data) {
+        const newTourItem: ItemListItem = { itemId: data.id };
         createUpdateTourItem.mutate({
           tourId: Number(tourId),
+          entry: newTourItem,
+        });
+      }
+    },
+  });
+
+  const createAndAddNewTemplateItem = useMutation(createOrUpdateItem, {
+    onSuccess: (data) => {
+      if (data) {
+        const newTourItem: ItemListItem = { itemId: data.id };
+        createUpdateTemplateItem.mutate({
+          itemListId: Number(itemListId),
           entry: newTourItem,
         });
       }
@@ -91,10 +148,23 @@ function ItemsCard(props: ItemsCardParams) {
     if (isNaN(Number(item.id))) {
       item.itemCategory = itemCategory;
       item.id = undefined;
-      createAndAddNewItem.mutate(item);
+      if (tourId) {
+        createAndAddNewTourItem.mutate(item);
+      }
+      if (itemListId) {
+        createAndAddNewTemplateItem.mutate(item);
+      }
     } else {
-      const newItem: TourItem = { itemId: item.id };
-      createUpdateTourItem.mutate({ tourId: Number(tourId), entry: newItem });
+      const newItem: ItemListItem = { itemId: item.id };
+      if (tourId) {
+        createUpdateTourItem.mutate({ tourId: Number(tourId), entry: newItem });
+      }
+      if (itemListId) {
+        createUpdateTemplateItem.mutate({
+          itemListId: Number(itemListId),
+          entry: newItem,
+        });
+      }
     }
   };
 
@@ -121,44 +191,89 @@ function ItemsCard(props: ItemsCardParams) {
 }
 
 interface ItemCardParams {
-  item: TourItem;
+  item: ItemListItem;
+  tourId?: string;
+  itemListId?: string;
 }
 
 function ItemCard(props: ItemCardParams) {
-  const { item } = props;
-  const { id: tourId } = useParams();
-  const createOrUpdate = useMutation(createOrUpdateTourItem, {
+  const { item, tourId, itemListId } = props;
+  const createOrUpdateTourItemMutation = useMutation(createOrUpdateTourItem, {
     onSuccess: (data) => {
       if (data) {
         queryClient.invalidateQueries({
-          queryKey: ['tour-items', Number(tourId)],
+          queryKey: ['tourItems', Number(tourId)],
         });
       }
     },
   });
 
+  const createOrUpdateTemplateItemMutation = useMutation(
+    createOrUpdateTemplateItem,
+    {
+      onSuccess: (data) => {
+        if (data) {
+          queryClient.invalidateQueries({
+            queryKey: ['itemListItems', Number(itemListId)],
+          });
+        }
+      },
+    },
+  );
+
+  function updateItem(item: ItemListItem) {
+    if (tourId) {
+      createOrUpdateTourItemMutation.mutate({
+        tourId: Number(tourId),
+        entry: item,
+      });
+    }
+    if (itemListId) {
+      createOrUpdateTemplateItemMutation.mutate({
+        itemListId: Number(itemListId),
+        entry: item,
+      });
+    }
+  }
+
   function increaseCount() {
     if (!item.count) return;
     item.count++;
-    createOrUpdate.mutate({ tourId: Number(tourId), entry: item });
+    updateItem(item);
   }
 
   function decreaseCount() {
     if (!item.count) return;
     item.count--;
-    createOrUpdate.mutate({ tourId: Number(tourId), entry: item });
+    updateItem(item);
   }
 
-  const deleteItemMutation = useMutation(deleteTourItem, {
+  const deleteTourItemMutation = useMutation(deleteTourItem, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: ['tour-items', Number(tourId)],
+        queryKey: ['tourItems', Number(tourId)],
+      });
+    },
+  });
+
+  const deleteTemplateItemMutation = useMutation(deleteTemplateItem, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['itemListItems', Number(itemListId)],
       });
     },
   });
 
   const deleteItem = () => {
-    deleteItemMutation.mutate({ tourId: Number(tourId), entry: item });
+    if (tourId) {
+      deleteTourItemMutation.mutate({ tourId: Number(tourId), entry: item });
+    }
+    if (itemListId) {
+      deleteTemplateItemMutation.mutate({
+        itemListId: Number(itemListId),
+        entry: item,
+      });
+    }
   };
 
   return (
