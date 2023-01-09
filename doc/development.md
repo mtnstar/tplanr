@@ -49,3 +49,5 @@ docker-compose up -d
 ```
 
 access running app with your favourite browser: http://localhost:4200
+
+login with: leiter@example.com and password: p
