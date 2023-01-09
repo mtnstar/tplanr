@@ -17,6 +17,7 @@ type Tour = {
   avatar?: TourAvatar;
   startAt?: Date;
   endAt?: Date;
+  itemListId?: number;
 };
 
 export default Tour;

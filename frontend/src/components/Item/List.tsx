@@ -18,11 +18,20 @@ import {
   createOrUpdateTemplateItem,
   deleteTemplateItem,
 } from '../../utils/api/template_items';
+import { useTourQuery } from '../../utils/queries/useTourQuery';
+import TourItemListNew from '../Tour/ItemList/New';
 
 export default function ItemList() {
   const location = useLocation();
+  const { id: tourId } = useParams();
+  const { data: tour } = useTourQuery(Number(tourId));
+
   if (/^\/tours/.test(location.pathname)) {
-    return <TourItemList />;
+    if (tour && tour.itemListId === null) {
+      return <TourItemListNew />;
+    } else {
+      return <TourItemList />;
+    }
   } else {
     return <TemplateItemList />;
   }
@@ -31,6 +40,7 @@ export default function ItemList() {
 function TourItemList() {
   const { id: tourId } = useParams();
   const { data: items } = useTourItemsQuery(+tourId!);
+
   return (
     <>
       <ItemsByCategory items={items} tourId={tourId} />

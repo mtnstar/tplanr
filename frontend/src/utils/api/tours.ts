@@ -77,3 +77,22 @@ export const fetchTours = async (sportKind: SportKind): Promise<Tours> => {
     return entry;
   });
 };
+
+type CreateTourItemListParams = {
+  template_item_list_id?: number;
+};
+
+export const createTourItemList = async (
+  templateItemListId: number | undefined,
+  entryId: number,
+): Promise<null> => {
+  const params: CreateTourItemListParams = {};
+  if (templateItemListId) {
+    params.template_item_list_id = templateItemListId;
+  }
+  await adapter().post(`/api/tours/${entryId}/item_list`, {
+    params: params,
+  });
+
+  return null;
+};

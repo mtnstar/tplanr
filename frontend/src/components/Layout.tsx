@@ -57,8 +57,8 @@ function Layout() {
               tplanr
             </Link>
             <div className='btn-group'>
-              <SportKindSelector />
-              <UserDropDown />
+              {currentUser.token && <SportKindSelector />}
+              {currentUser.token && <UserDropDown />}
             </div>
           </Container>
         </Navbar>
