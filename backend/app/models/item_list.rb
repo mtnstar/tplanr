@@ -5,4 +5,10 @@ class ItemList < ApplicationRecord
   belongs_to :user, optional: true
 
   enum :sport_kind, { alpine_summer: 0, climbing: 1, ski_tour: 2, mountain_bike: 3 }
+
+  def clone
+    clone = self.dup
+    clone.item_list_items = item_list_items.collect(&:dup)
+    clone
+  end
 end

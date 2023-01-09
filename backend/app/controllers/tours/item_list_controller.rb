@@ -12,6 +12,10 @@ class Tours::ItemListController < ApplicationController
   def create_tour_item_list
     if params[:template_item_list_id]
       list = template_item_list.clone
+      list.tour_id = tour.id
+      list.sport_kind = nil
+      list.user_id = nil
+      list.save!
     else
       ItemList.create!(tour_id: tour.id)
     end

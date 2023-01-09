@@ -38,6 +38,9 @@
 
   "itemList": {
     "many": "Materiallisten",
+    "create": "Materialliste erstellen",
+    "template": "Vorlage",
+    "noTemplate": "Leere Liste",
     "attrs": {
       "templateLabel": "Vorlagenname"
     }

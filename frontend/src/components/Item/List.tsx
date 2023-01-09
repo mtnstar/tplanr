@@ -29,9 +29,11 @@ export default function ItemList() {
   if (/^\/tours/.test(location.pathname)) {
     if (tour && tour.itemListId === null) {
       return <TourItemListNew />;
-    } else {
+    }
+    if (tour) {
       return <TourItemList />;
     }
+    return null;
   } else {
     return <TemplateItemList />;
   }

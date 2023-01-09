@@ -90,7 +90,7 @@ export const createTourItemList = async (
   if (templateItemListId) {
     params.template_item_list_id = templateItemListId;
   }
-  await adapter().post(`/api/tours/${entryId}/item_list`, {
+  await adapter().post(`/api/tours/${entryId}/item_list`, null, {
     params: params,
   });
 
