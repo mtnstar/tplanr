@@ -25,7 +25,7 @@ $theme-colors: map-merge($custom-theme-colors, $theme-colors);
   padding: 0.25rem 0.5rem 0.25rem 0;
 }
 
-table.tours tr:hover {
+table.tours td:hover {
   cursor: pointer
 }
 

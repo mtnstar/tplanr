@@ -80,3 +80,8 @@ export const fetchItemLists = async (
     return entry;
   });
 };
+
+export const deleteItemList = async (entryId: number): Promise<ItemList> => {
+  const response = await adapter().delete(`/api/item_lists/${entryId}`);
+  return response.data;
+};

@@ -96,3 +96,8 @@ export const createTourItemList = async (
 
   return null;
 };
+
+export const deleteTour = async (entryId: number): Promise<Tour> => {
+  const response = await adapter().delete(`/api/tours/${entryId}`);
+  return response.data;
+};
