@@ -42,6 +42,7 @@ export default function DateRangePickerField(props: DateRangePickerParams) {
       }}
       isClearable={false}
       dateFormat='d.M.YYY'
+      required
     />
   );
 }

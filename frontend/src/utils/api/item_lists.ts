@@ -6,6 +6,7 @@ import {
 } from 'jsonapi-fractal';
 import { ItemList } from '../../model/ItemList';
 import { SportKind } from '../../model/SportKind';
+import ItemListTransformer from '../transformers/ItemListTransformer';
 import adapter from './axios';
 
 export const fetchItemList = async (id: number): Promise<ItemList> => {
@@ -19,6 +20,7 @@ export const fetchItemList = async (id: number): Promise<ItemList> => {
 export const createOrUpdateItemList = async (entry: ItemList) => {
   const serializedData = transform()
     .withInput(entry)
+    .withTransformer(new ItemListTransformer())
     .withOptions({ changeCase: CaseType.kebabCase })
     .serialize();
 
@@ -44,6 +46,21 @@ const updateItemList = async (
 
 const createItemList = async (serializedData: DocumentObject) => {
   return adapter().post('/api/item_lists', serializedData);
+};
+
+export const createTemplateListFromTourList = async (
+  tourItemListId: number,
+  templateLabel: string,
+) => {
+  const entry: ItemList = { templateLabel: templateLabel };
+  const serializedData = transform()
+    .withInput(entry)
+    .withOptions({ changeCase: CaseType.kebabCase })
+    .withTransformer(new ItemListTransformer())
+    .serialize();
+  return adapter().post('/api/item_lists', serializedData, {
+    params: { tour_item_list_id: tourItemListId },
+  });
 };
 
 type ItemLists = ReadonlyArray<ItemList>;

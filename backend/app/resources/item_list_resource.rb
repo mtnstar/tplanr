@@ -9,6 +9,26 @@ class ItemListResource < JSONAPI::Resource
   end
 
   before_save do
-    @model.user_id = context[:current_user].id if @model.new_record?
+    if @model.new_record?
+      @model = init_model
+      @model.user_id = context[:current_user].id 
+    end
   end
+
+  private
+
+  def init_model
+    return @model unless tour_item_list_id
+
+    list = ItemList.find(tour_item_list_id).clone
+    list.sport_kind = list.tour.sport_kind
+    list.tour_id = nil
+    list.template_label = @model.template_label
+    list
+  end
+
+  def tour_item_list_id
+    context[:tour_item_list_id]
+  end
+
 end

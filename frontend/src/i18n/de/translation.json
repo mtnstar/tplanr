@@ -37,10 +37,13 @@
   },
 
   "itemList": {
-    "many": "Materiallisten",
+    "many": "Materiallisten Vorlagen",
     "create": "Materialliste erstellen",
     "template": "Vorlage",
+    "templates": "Vorlagen",
     "noTemplate": "Leere Liste",
+    "saveAsTemplate": "Als Vorlage speichern",
+    "templateSavedSuccess": "Vorlage gespeichert in: ",
     "attrs": {
       "templateLabel": "Vorlagenname"
     }

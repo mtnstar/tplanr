@@ -37,7 +37,7 @@ export default function ItemListList() {
     const rows = data.map((entry: ItemList) => EntryRow(entry));
 
     return (
-      <Table striped hover>
+      <Table striped hover className='item-lists'>
         <thead>
           <tr>
             <th>{t('templateLabel', { keyPrefix: 'itemList.attrs' })}</th>
