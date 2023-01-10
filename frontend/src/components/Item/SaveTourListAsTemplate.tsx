@@ -9,8 +9,7 @@ export default function SaveTourListAsTemplate() {
   const [showForm, setShowForm] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   return (
-    <div className='d-flex justify-content-between mb-3'>
-      <div></div>
+    <>
       {!showForm && !showSuccessMessage && (
         <SaveAsButton setShowForm={setShowForm} />
       )}
@@ -21,7 +20,7 @@ export default function SaveTourListAsTemplate() {
         />
       )}
       {showSuccessMessage && <TemplateSavedMessage />}
-    </div>
+    </>
   );
 }
 

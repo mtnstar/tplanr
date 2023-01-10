@@ -43,6 +43,7 @@
     "templates": "Vorlagen",
     "noTemplate": "Leere Liste",
     "saveAsTemplate": "Als Vorlage speichern",
+    "pdfExport": "PDF Export",
     "templateSavedSuccess": "Vorlage gespeichert in: ",
     "attrs": {
       "templateLabel": "Vorlagenname"

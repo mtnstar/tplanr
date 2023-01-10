@@ -20,7 +20,7 @@ import {
 } from '../../utils/api/template_items';
 import { useTourQuery } from '../../utils/queries/useTourQuery';
 import TourItemListNew from '../Tour/ItemList/New';
-import SaveTourListAsTemplate from './SaveTourListAsTemplate';
+import ItemTourListActions from './TourListActions';
 
 export default function ItemList() {
   const location = useLocation();
@@ -41,7 +41,7 @@ function TourItemList() {
 
   return (
     <>
-      <SaveTourListAsTemplate />
+      <ItemTourListActions />
       <ItemsByCategory items={items} tourId={tourId} />
     </>
   );
