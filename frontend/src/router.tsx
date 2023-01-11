@@ -12,38 +12,55 @@ import ItemListContainer from './components/ItemList/Container';
 import ItemListList from './components/ItemList/List';
 import ItemList from './components/Item/List';
 import ItemListShow from './components/ItemList/Show';
+import ParticipationLayout from './components/Participation/Layout';
+import ParticipationTourItemList from './components/Participation/Tour/Item/List';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
     children: [
       {
         path: '/',
-        element: <Home />,
-      },
-      {
-        path: '/login',
-        element: <Login />,
-      },
-      {
-        path: '/tours',
-        element: <TourContainer />,
+        element: <Layout />,
         children: [
-          { path: '/tours', element: <TourList /> },
-          { path: '/tours/new', element: <TourNew /> },
-          { path: '/tours/:id', element: <TourShow /> },
-          { path: '/tours/:id/edit', element: <TourEdit /> },
-          { path: '/tours/:id/items', element: <ItemList /> },
-          { path: '/tours/:id/sections', element: <SectionList /> },
+          {
+            path: '/',
+            element: <Home />,
+          },
+          {
+            path: '/login',
+            element: <Login />,
+          },
+          {
+            path: '/tours',
+            element: <TourContainer />,
+            children: [
+              { path: '/tours', element: <TourList /> },
+              { path: '/tours/new', element: <TourNew /> },
+              { path: '/tours/:id', element: <TourShow /> },
+              { path: '/tours/:id/edit', element: <TourEdit /> },
+              { path: '/tours/:id/items', element: <ItemList /> },
+              { path: '/tours/:id/sections', element: <SectionList /> },
+            ],
+          },
+          {
+            path: '/item_lists',
+            element: <ItemListContainer />,
+            children: [
+              { path: '/item_lists', element: <ItemListList /> },
+              { path: '/item_lists/:id', element: <ItemListShow /> },
+            ],
+          },
         ],
       },
       {
-        path: '/item_lists',
-        element: <ItemListContainer />,
+        path: '/participation/:uid',
+        element: <ParticipationLayout />,
         children: [
-          { path: '/item_lists', element: <ItemListList /> },
-          { path: '/item_lists/:id', element: <ItemListShow /> },
+          {
+            path: '/participation/:uid',
+            element: <ParticipationTourItemList />,
+          },
         ],
       },
     ],

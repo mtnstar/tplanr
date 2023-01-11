@@ -59,6 +59,16 @@ function TourEntry() {
                     })}
                 </div>
               </dd>
+              <dd>
+                <div>
+                  <a
+                    target='blank'
+                    href={`/participation/${data.participationUid}`}
+                  >
+                    {t('participationUid', { keyPrefix: 'tour.attrs' })}
+                  </a>
+                </div>
+              </dd>
             </dl>
           </div>
           <div className='col-4'>

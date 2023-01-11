@@ -10,5 +10,15 @@ class Tour < ApplicationRecord
   mount_base64_uploader :avatar, TourAvatarUploader
 
   attr_readonly :sport_kind
+  attr_readonly :participation_uid
+
+  before_create :generate_participation_uid
+
+
+  private
+
+  def generate_participation_uid
+    participation_uid = SecureRandom.hex[0..8]
+  end
 
 end

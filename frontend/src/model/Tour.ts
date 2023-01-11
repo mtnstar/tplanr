@@ -12,6 +12,7 @@ type Tour = {
   sport_kind?: SportKind;
   description?: string;
   label?: string;
+  participationUid?: string;
   createdAt?: Date;
   updatedAt?: Date;
   avatar?: TourAvatar;

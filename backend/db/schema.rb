@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_214227) do
     t.text "description"
     t.string "external_link"
     t.string "label", null: false
+    t.string "participation_uid", null: false
     t.integer "user_id"
     t.integer "sport_kind", default: 0
     t.date "start_at", null: false
@@ -78,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_214227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar"
+    t.index ["participation_uid"], name: "index_tours_on_participation_uid"
     t.index ["user_id"], name: "index_tours_on_user_id"
   end
 

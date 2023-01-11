@@ -2,16 +2,16 @@ class TourResource < JSONAPI::Resource
   attributes :label, :description, :external_link,
     :created_at, :updated_at, :avatar,
     :start_at, :end_at, :sport_kind,
-    :item_list_id
+    :item_list_id, :participation_uid
 
   filter :sport_kind
 
   def self.updatable_fields(context)
-    super - [:user_id, :create_at, :updated_at, :item_list_id]
+    super - [:user_id, :create_at, :updated_at, :item_list_id, :participation_uid]
   end
 
   def self.creatable_fields(context)
-    super - [:user_id, :create_at, :updated_at, :item_list_id]
+    super - [:user_id, :create_at, :updated_at, :item_list_id, :participation_uid]
   end
 
   before_save do

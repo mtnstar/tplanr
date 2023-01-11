@@ -13,6 +13,7 @@
     "startAtEndAt" : "{{startAt, datetime}} bis {{endAt, datetime}}",
     "attrs": {
       "label": "Bezeichnung",
+      "participationUid" : "Teilnehmerlink",
       "description": "Beschreibung",
       "time_period": "Zeitraum",
       "startAtEndAt": "Zeitraum"

@@ -95,7 +95,7 @@ function ToursTable() {
     return <p>{t('global.no_entries')}</p>;
   }
 
-  const rows = data.map((tour: Tour) => <TourRow tour={tour} />);
+  const rows = data.map((tour: Tour) => <TourRow key={tour.id} tour={tour} />);
 
   return (
     <Table striped hover className='tours align-middle'>
