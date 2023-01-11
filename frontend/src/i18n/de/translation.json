@@ -19,7 +19,7 @@
     }
   },
 
-  "item_categories": {
+  "itemCategories": {
     "gear": "Ausrüstung",
     "food": "Verpflegung",
     "electronics": "Elektronik",

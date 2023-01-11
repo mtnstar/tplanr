@@ -191,7 +191,7 @@ function ItemsCard(props: ItemsCardParams) {
     <div className='mb-4'>
       <Card>
         <Card.Header>
-          <b>{t(itemCategory, { keyPrefix: 'item_categories' })}</b>
+          <b>{t(itemCategory, { keyPrefix: 'itemCategories' })}</b>
         </Card.Header>
         <Card.Body>{cardBody}</Card.Body>
       </Card>

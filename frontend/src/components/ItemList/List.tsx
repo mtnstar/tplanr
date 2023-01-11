@@ -16,65 +16,65 @@ export default function ItemListList() {
       <ItemListTable />
     </>
   );
+}
 
-  function ItemListTable() {
-    const { sportKind } = useContext(SportKindContext);
-    const { data } = useItemListsQuery(sportKind);
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+function ItemListTable() {
+  const { sportKind } = useContext(SportKindContext);
+  const { data } = useItemListsQuery(sportKind);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-    const deleteItemListMutation = useMutation(deleteItemList, {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries({
-          queryKey: ['itemLists', sportKind],
-        });
-      },
-    });
+  const deleteItemListMutation = useMutation(deleteItemList, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ['itemLists', sportKind],
+      });
+    },
+  });
 
-    const deleteItemListEntry = (entryId: number) => {
-      deleteItemListMutation.mutate(entryId);
-    };
+  const deleteItemListEntry = (entryId: number) => {
+    deleteItemListMutation.mutate(entryId);
+  };
 
-    function EntryRow(entry: ItemList) {
-      function showEntry(entry: ItemList) {
-        navigate(`/item_lists/${entry.id}`);
-      }
-
-      return (
-        <tr onClick={() => showEntry(entry)} key={entry.id}>
-          <td>{entry.templateLabel}</td>
-          <td
-            className='d-flex justify-content-between'
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div></div>
-            <Button
-              variant='outline-danger'
-              size='sm'
-              onClick={() => deleteItemListEntry(Number(entry.id))}
-            >
-              <Icon.Trash />
-            </Button>
-          </td>
-        </tr>
-      );
+  function EntryRow(entry: ItemList) {
+    function showEntry(entry: ItemList) {
+      navigate(`/item_lists/${entry.id}`);
     }
-
-    if (!data || data.length === 0) {
-      return <p>{t('global.no_entries')}</p>;
-    }
-    const rows = data.map((entry: ItemList) => EntryRow(entry));
 
     return (
-      <Table striped hover className='item-lists align-middle'>
-        <thead>
-          <tr>
-            <th>{t('templateLabel', { keyPrefix: 'itemList.attrs' })}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <tr onClick={() => showEntry(entry)} key={entry.id}>
+        <td>{entry.templateLabel}</td>
+        <td
+          className='d-flex justify-content-between'
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div></div>
+          <Button
+            variant='outline-danger'
+            size='sm'
+            onClick={() => deleteItemListEntry(Number(entry.id))}
+          >
+            <Icon.Trash />
+          </Button>
+        </td>
+      </tr>
     );
   }
+
+  if (!data || data.length === 0) {
+    return <p>{t('global.no_entries')}</p>;
+  }
+  const rows = data.map((entry: ItemList) => EntryRow(entry));
+
+  return (
+    <Table striped hover className='item-lists align-middle'>
+      <thead>
+        <tr>
+          <th>{t('templateLabel', { keyPrefix: 'itemList.attrs' })}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </Table>
+  );
 }
