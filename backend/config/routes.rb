@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   scope :api do
+    post '/auth/login', to: 'auth/login#create'
+
     resources :item_categories
     resources :items
     resources :item_lists do
@@ -14,6 +16,8 @@ Rails.application.routes.draw do
       end
     end
 
-    post '/auth/login', to: 'auth/login#create'
+    scope :participation do
+      get '/tours/:participation_uid/items', to: 'participation/tours/items#index'
+    end
   end
 end

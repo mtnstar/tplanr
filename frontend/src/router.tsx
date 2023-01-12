@@ -12,8 +12,8 @@ import ItemListContainer from './components/ItemList/Container';
 import ItemListList from './components/ItemList/List';
 import ItemList from './components/Item/List';
 import ItemListShow from './components/ItemList/Show';
-import ParticipationLayout from './components/Participation/Layout';
-import ParticipationTourItemList from './components/Participation/Tour/Item/List';
+import ParticipationTourItemList from './participation/components/Tour/Item/List';
+import ParticipationLayout from './participation/components/Layout';
 
 const router = createBrowserRouter([
   {
