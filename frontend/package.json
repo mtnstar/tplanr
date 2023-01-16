@@ -64,12 +64,16 @@
   "proxy": "http://rails:3000",
   "devDependencies": {
     "@types/react-datepicker": "^4.8.0",
-    "jest-mock-axios": "^4.7.0-beta2",
     "sass": "^1.55.0"
   },
   "overrides": {
     "@react-pdf/renderer": {
       "react": "^18.0.0"
     }
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ]
   }
 }
