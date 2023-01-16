@@ -14,11 +14,10 @@ class Tour < ApplicationRecord
 
   before_create :generate_participation_uid
 
-
   private
 
   def generate_participation_uid
-    participation_uid = SecureRandom.hex[0..8]
+    self.participation_uid = SecureRandom.hex[0..8]
   end
 
 end
